@@ -14,3 +14,9 @@ export interface IOrder {
 	user: IUser
 	total: number
 }
+
+export interface IPaymentResponse {
+	id: string,
+	status: string
+	created_at: Date
+}
