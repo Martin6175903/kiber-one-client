@@ -28,6 +28,7 @@ const AuthFields = ({ form, isReg = false, isPending }: AuthFieldsProps) => {
 					control={form.control}
 					rules={{
 						required: 'Имя обязательно',
+						pattern: /[А-Я][а-яА-Я]+/,
 						maxLength: {
 							value: 15,
 							message: 'Максимум 15 символов'
@@ -50,6 +51,7 @@ const AuthFields = ({ form, isReg = false, isPending }: AuthFieldsProps) => {
 					control={form.control}
 					rules={{
 						required: 'Фамилия обязательна',
+						pattern: /[А-Я][а-яА-Я]+/,
 						maxLength: {
 							value: 15,
 							message: 'Максимум 15 символов'

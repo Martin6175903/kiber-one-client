@@ -4,7 +4,7 @@ import { IAuthForm } from '@/src/shared/types/auth.types'
 import { useMutation } from '@tanstack/react-query'
 import { authService } from '@/src/services/auth/auth.service'
 import toast from 'react-hot-toast'
-import { PUBLIC_URL } from '@/src/config/url.config'
+import { DASHBOARD_URL, PUBLIC_URL } from '@/src/config/url.config'
 
 export const useAuthForm = (isReg: boolean) => {
 	const router = useRouter()
