@@ -10,7 +10,7 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle
-} from '@/src/components/ui/form-elements/Card'
+} from '@/src/components/ui/Card'
 import { Form } from '@/src/components/ui/form-elements/Form'
 import { Button } from '@/src/components/ui/Button'
 import AuthFields from '@/src/app/auth/AuthFields'

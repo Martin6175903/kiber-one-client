@@ -1,7 +1,9 @@
+import Logo from '@/src/components/layouts/main-layout/header/logo/Logo'
+
 const Home = () => {
 	return (
 		<div>
-			Home
+			<Logo/>
 		</div>
 	)
 }
