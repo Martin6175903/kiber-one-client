@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Roboto } from "next/font/google";
+import "./global.css";
 import { SITE_DESCRIPTION, SITE_NAME } from '@/src/constants/seo.constants'
 import React from 'react'
 import Providers from '@/src/app/providers'
@@ -13,13 +13,8 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION
 }
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
 });
 
@@ -31,10 +26,12 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${roboto.variable} antialiased`}
       >
         <Providers>
-          {children}
+          <div className="wrapper">
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

@@ -1,5 +1,11 @@
+import Header from '@/src/components/layouts/main-layout/header/Header'
+import Review from '@/src/components/layouts/main-layout/review/Review'
+
 export default function Home() {
   return (
-    <h1>Hello world!</h1>
+    <div className={'wrapper'}>
+      <Header/>
+      <Review/>
+    </div>
   );
 }
