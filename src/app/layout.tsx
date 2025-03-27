@@ -29,9 +29,7 @@ export default function RootLayout({
         className={`${roboto.variable} antialiased`}
       >
         <Providers>
-          <div className="wrapper">
             {children}
-          </div>
         </Providers>
       </body>
     </html>

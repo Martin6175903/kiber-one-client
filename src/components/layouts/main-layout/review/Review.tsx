@@ -18,10 +18,6 @@ const Review = () => {
 	const { selectedIndex, scrollSnaps, onDotButtonClick } =
 		useDotButton(api)
 
-	useEffect(() => {
-		console.log(api?.scrollSnapList())
-	}, [])
-
 	return (
 		<div className={'h-[900px]'}>
 			<Carousel setApi={setApi} plugins={[Autoplay({ delay: 3500 })]}>

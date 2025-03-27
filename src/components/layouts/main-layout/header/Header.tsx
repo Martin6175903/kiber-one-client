@@ -1,6 +1,7 @@
 import Logo from '@/src/components/layouts/main-layout/header/logo/Logo'
 import { PhoneCall, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import HeaderCart from '@/src/components/layouts/main-layout/header/header-cart/HeaderCart'
 
 const Header = () => {
 	return (
@@ -14,10 +15,12 @@ const Header = () => {
 							Кибертовары
 						</Link>
 						<Link href={'#'} className={'relative hover:scale-110 duration-300'}>
-							<ShoppingCart size={40}/>
-							<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-darkblue rounded-full font-bold'}>
+							<HeaderCart>
+								<ShoppingCart size={40}/>
+								<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-darkblue rounded-full font-bold'}>
 								{0}
 							</span>
+							</HeaderCart>
 						</Link>
 					</div>
 				</div>
