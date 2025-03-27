@@ -4,7 +4,7 @@ import Footer from '@/src/components/layouts/main-layout/footer/Footer'
 
 const MainLayout = ({children} :PropsWithChildren ) => {
 	return (
-		<div className="wrapper flex flex-col justify-between items-stretch h-[100vh]">
+		<div className="wrapper">
 			<Header/>
 			<main className={'h-full'}>{children}</main>
 			<Footer/>

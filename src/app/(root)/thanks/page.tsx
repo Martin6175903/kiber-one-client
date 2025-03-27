@@ -19,12 +19,14 @@ const ThanksPage = () => {
 					<p className={'text-xl'}>
 						Мы ценим ваше доверие и приложим все усилия, чтобы доставить ваш заказ как можно скорее.
 					</p>
-					<Link className={'*:cursor-pointer'} href={PUBLIC_URL.home()}>
-						<Button variant={'secondary'}>
-							На главную
-							<ArrowRight/>
-						</Button>
-					</Link>
+					<div>
+						<Link className={'*:cursor-pointer'} href={PUBLIC_URL.home()}>
+							<Button variant={'secondary'}>
+								На главную
+								<ArrowRight/>
+							</Button>
+						</Link>
+					</div>
 				</div>
 			</div>
 		</div>
