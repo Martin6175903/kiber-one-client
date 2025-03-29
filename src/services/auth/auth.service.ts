@@ -1,5 +1,4 @@
 import { IAuthForm, IAuthResponse } from '@/src/shared/types/auth.types'
-import axios from 'axios'
 import { axiosClassic } from '@/src/api/api.interceptors'
 import { API_URL } from '@/src/config/api.config'
 import { removeFromStorage, saveTokenStorage } from '@/src/services/auth/auth-token.service'

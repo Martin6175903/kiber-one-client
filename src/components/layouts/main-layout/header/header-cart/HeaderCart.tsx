@@ -12,6 +12,8 @@ import { PropsWithChildren } from 'react'
 import { Label } from '@radix-ui/react-label'
 import { Input } from "@/src/components/ui/form-elements/Input"
 import { Button } from '@/src/components/ui/Button'
+import { MoveRight } from 'lucide-react'
+import Link from 'next/link'
 
 
 const HeaderCart = ({children}: PropsWithChildren) => {
@@ -27,9 +29,12 @@ const HeaderCart = ({children}: PropsWithChildren) => {
 
 				</div>
 				<SheetFooter>
-					<SheetClose asChild>
-						<Button type="submit">Save changes</Button>
-					</SheetClose>
+					<Link href={'/basket'} className={'mx-auto'}>
+						<Button className={'cursor-pointer duration-400 bg-white text-black border-solid border border-transparent group/edit hover:border-white hover:text-white hover:bg-black'}>
+							<span>Перейти в корзину</span>
+							<MoveRight className={'group-hover/edit:ml-3 duration-400'}/>
+						</Button>
+					</Link>
 				</SheetFooter>
 			</SheetContent>
 		</Sheet>

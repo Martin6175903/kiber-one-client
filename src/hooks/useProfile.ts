@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { userService } from '@/src/services/user.service'
 
-export function getProfile() {
+export function useProfile() {
 	const { data: user, isLoading } = useQuery({
 		queryKey: ['profile'],
 		queryFn: () => userService.getProfile()
 	})
+
+	if (!user) throw new Error('Профайл не получен!')
 
 	return {user, isLoading}
 }

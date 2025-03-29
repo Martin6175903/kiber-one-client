@@ -1,5 +1,5 @@
 import Logo from '@/src/components/layouts/main-layout/header/logo/Logo'
-import { PhoneCall, ShoppingCart } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import HeaderCart from '@/src/components/layouts/main-layout/header/header-cart/HeaderCart'
 
