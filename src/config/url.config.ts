@@ -5,11 +5,5 @@ export const PUBLIC_URL = {
 
 	home: () => PUBLIC_URL.root(`/`),
 	auth: () => PUBLIC_URL.root(`/auth`),
-	product: (id = '') => PUBLIC_URL.root(`/products/${id}`),
-}
-
-export const DASHBOARD_URL = {
-	root: (url = '') => `/dashboard${url ? url : ''}`,
-
-	home: () => DASHBOARD_URL.root(`/`)
+	product: (id = '') => PUBLIC_URL.root(`/products/${id}`)
 }

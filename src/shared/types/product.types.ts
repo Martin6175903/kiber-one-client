@@ -1,8 +1,10 @@
 export interface IProduct {
-	id: string
+	id?: string
 	title: string
 	description: string
-	price: number
+	price: string | number
 	images: string[]
-	size?: string[]
+	size?: string[] | undefined
 }
+
+export interface IProductInput extends Omit<IProduct, 'id'> {}

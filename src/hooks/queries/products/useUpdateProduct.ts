@@ -6,7 +6,7 @@ import { API_URL } from '@/src/config/api.config'
 import { useMemo } from 'react'
 import { useParams } from 'next/navigation'
 
-export const useCreateProduct = () => {
+export const useUpdateProduct = () => {
 	const params = useParams<{ productId: string }>()
 	const queryClient = useQueryClient()
 

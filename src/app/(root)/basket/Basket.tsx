@@ -5,7 +5,7 @@ const Basket = () => {
   return (
     <div>
       Basket Page!
-      <UserInfo/>
+
     </div>
   )
 }
