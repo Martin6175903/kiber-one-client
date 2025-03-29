@@ -10,6 +10,7 @@ import { Button } from '@/src/components/ui/Button'
 import { Trash } from 'lucide-react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/src/components/ui/form-elements/Form'
 import { Input } from '@/src/components/ui/form-elements/Input'
+import { Textarea } from '@/src/components/ui/Textarea'
 
 interface ProductFormProps {
   product: IProduct | null
@@ -95,7 +96,7 @@ const ProductForm = ({ product } :ProductFormProps ) => {
             <FormItem>
               <FormLabel>Описание</FormLabel>
               <FormControl>
-                <Input placeholder={'Цена товара'} disabled={isLoadingCreate || isLoadingUpdate} {...field}/>
+                <Textarea placeholder={'Описание товара'} disabled={isLoadingCreate || isLoadingUpdate} {...field}/>
               </FormControl>
               <FormMessage/>
             </FormItem>
@@ -117,6 +118,20 @@ const ProductForm = ({ product } :ProductFormProps ) => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name={'size'}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Размер</FormLabel>
+              <FormControl>
+                <Input placeholder={'Размер товара'} disabled={isLoadingCreate || isLoadingUpdate} {...field}/>
+              </FormControl>
+              <FormMessage/>
+            </FormItem>
+          )}
+        />
+        <Button variant={'default'} disabled={isLoadingUpdate || isLoadingCreate}>{action}</Button>
       </form>
     </Form>
   </div>
