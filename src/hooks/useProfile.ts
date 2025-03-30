@@ -3,11 +3,11 @@ import { userService } from '@/src/services/user.service'
 
 export function useProfile() {
 	const { data: user, isLoading } = useQuery({
-		queryKey: ['profile'],
+		queryKey: ['get profile'],
 		queryFn: () => userService.getProfile()
 	})
 
-	if (!user) throw new Error('Профайл не получен!')
+	// if (!user) throw new Error('Профайл не получен!')
 
 	return {user, isLoading}
 }

@@ -18,7 +18,7 @@ const ImageUpload = ({ isDisabled, onChange, value }: ImageUploadProps) => {
 			<div className={'grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-5'}>
 				{value.map(url => (
 					<div key={url} className={'relative w-[200px] h-[200px] rounded-md overflow-hidden'}>
-						<Image className={'object-cover'} src={url} alt={'Kiber-shop Image'} fill />
+						<Image loader={() => `/${url}`} src={`/${url}`} className={'object-cover'} alt={'Kiber-shop Image'} fill />
 					</div>
 				))}
 			</div>

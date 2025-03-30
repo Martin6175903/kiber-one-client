@@ -13,6 +13,7 @@ import { Input } from '@/src/components/ui/form-elements/Input'
 import { Textarea } from '@/src/components/ui/Textarea'
 import { useState } from 'react'
 import ImageUpload from '@/src/components/ui/form-elements/image-upload/ImageUpload'
+import { useProfile } from '@/src/hooks/useProfile'
 
 interface ProductFormProps {
   product?: IProduct | null
