@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { Button } from '@/src/components/ui/Button'
 import { Plus } from 'lucide-react'
 import { DataTable } from '@/src/components/ui/data-loading/DataTable'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 const Products = () => {
   const { products, isLoading } = useGetProducts()
@@ -31,7 +32,7 @@ const Products = () => {
               <p className={'text-xl text-gray-600'}>Все товары вашего магазина</p>
             </div>
             <div>
-              <Link href={'#'}>
+              <Link href={PUBLIC_URL.product('/create')}>
                 <Button variant={'default'}>
                   <Plus/>
                   Создать

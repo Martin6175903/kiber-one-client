@@ -22,10 +22,9 @@ export const useUpload = (onChange: (value: string[]) => void) => {
 
 		if (selectedFiles) {
 			const fileArray = Array.from(selectedFiles)
-			const formData = new FormData
+			const formData = new FormData()
 
 			fileArray.forEach(file => formData.append('files', file))
-
 			uploadFiles(formData)
 		}
 	}

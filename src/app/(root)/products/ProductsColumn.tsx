@@ -8,10 +8,10 @@ import { cn } from '@/src/lib/utils'
 import * as React from 'react'
 
 export interface IProductsColumn {
-  id: string
+  id?: string
   title: string
   description: string
-  price: string
+  price: string | number
   size?: string[]
 }
 
