@@ -11,9 +11,8 @@ import { Trash } from 'lucide-react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/src/components/ui/form-elements/Form'
 import { Input } from '@/src/components/ui/form-elements/Input'
 import { Textarea } from '@/src/components/ui/Textarea'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ImageUpload from '@/src/components/ui/form-elements/image-upload/ImageUpload'
-import { useProfile } from '@/src/hooks/useProfile'
 
 interface ProductFormProps {
   product?: IProduct | null
@@ -23,9 +22,14 @@ const ProductForm = ({ product } :ProductFormProps ) => {
 
   const [sizes, setSizes] = useState<any[]>([])
 
+  useEffect(() => {
+    if (product && product.size) setSizes(product.size)
+  }, [product])
+
   const { createProduct, isLoadingCreate } = useCreateProduct()
   const { deleteProduct, isLoadingDelete } = useDeleteProduct()
   const { updateProduct, isLoadingUpdate } = useUpdateProduct()
+  console.log(product)
 
   const title = product ? 'Изменить данные' : 'Создать товар'
   const description = product
@@ -40,7 +44,7 @@ const ProductForm = ({ product } :ProductFormProps ) => {
       description: product.description,
       images: product.images,
       price: product.price,
-      size: product.size
+      size: undefined
     }) : {
       title: '',
       description: '',
@@ -52,6 +56,7 @@ const ProductForm = ({ product } :ProductFormProps ) => {
 
   const onSubmit:SubmitHandler<IProductInput> = data => {
     data.price = Number(data.price)
+    data.size = sizes
     if (product) updateProduct(data)
     else createProduct(data)
   }
@@ -63,15 +68,19 @@ const ProductForm = ({ product } :ProductFormProps ) => {
         <h1 className={'text-2xl font-bold'}>{title}</h1>
         <p className={'text-xl text-gray-600 mb-3'}>{description}</p>
         {product && (
-          <ConfirmModal handleClick={() => deleteProduct()}>
-            <Button
-              size={'icon'}
-              variant={'default'}
-              disabled={isLoadingDelete}
-            >
-              <Trash className={'size-4'}/>
-            </Button>
-          </ConfirmModal>
+          <div className={'mb-5'}>
+            <ConfirmModal handleClick={() => deleteProduct()}>
+              <Button
+                size={'icon'}
+                variant={'default'}
+                disabled={isLoadingDelete}
+                className={'flex gap-5 w-[200px]'}
+              >
+                <span>Удаление товара</span>
+                <Trash className={'size-4'}/>
+              </Button>
+            </ConfirmModal>
+          </div>
         )}
       </div>
       <Form {...form}>
@@ -166,12 +175,18 @@ const ProductForm = ({ product } :ProductFormProps ) => {
                 <Button type={'button'} onClick={() => {
                   const field = form.getValues('size')
                   if (field?.length && !sizes.includes(field)) setSizes([...sizes, form.getValues('size')])
+                  form.setValue('size', [])
                 }}>Добавить размер</Button>
               </div>
             </div>
             <div className={'flex flex-col gap-2'}>
               <p>
-                <span>Текущие размеры: {sizes.length ? sizes.join(', ') : <span className={'text-gray-400'}>Пока что размеры не указаны.</span>}</span>
+                <span>
+                  Текущие размеры:
+                  {sizes.length
+                    ? sizes.join(', ')
+                    : <span className={'text-gray-400'}>Пока что размеры не указаны.</span>}
+                </span>
               </p>
               <p><Button type={'button'} onClick={() => setSizes([])}>Удалить текущие размеры</Button></p>
             </div>

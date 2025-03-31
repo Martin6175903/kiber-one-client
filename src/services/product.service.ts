@@ -14,8 +14,8 @@ class ProductService {
 	}
 
 	async getById(id: string) {
-		const { data } = await axiosClassic<IProduct>({
-			url: API_URL.products(`/by-id/${id}`),
+		const { data } = await axiosWithAuth<IProduct>({
+			url: API_URL.products(`/${id}`),
 			method: 'GET'
 		})
 

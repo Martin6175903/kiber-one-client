@@ -1,35 +1,38 @@
 import { PropsWithChildren } from 'react'
-import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogTrigger } from '@radix-ui/react-alert-dialog'
 import {
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle
-} from './AlertDialog'
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './Dialog'
+import { Button } from './Button'
 
 interface ConfirmModalProps {
-	handleClick: () => void
+  handleClick: () => void
 }
 
-const ConfirmModal = ({children, handleClick}: PropsWithChildren<ConfirmModalProps>) => {
-	return (
-		<AlertDialog>
-			<AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
-			<AlertDialogContent>
-				<AlertDialogHeader>
-					<AlertDialogTitle>Вы уверены?</AlertDialogTitle>
-					<AlertDialogDescription>
-						Это действие нельзя будет отменить.
-					</AlertDialogDescription>
-				</AlertDialogHeader>
-				<AlertDialogFooter>
-					<AlertDialogCancel>Закрыть</AlertDialogCancel>
-					<AlertDialogAction className={'bg-blue-500 hover:bg-blue-500/90'} onClick={() => handleClick()}>Подтвердить</AlertDialogAction>
-				</AlertDialogFooter>
-			</AlertDialogContent>
-		</AlertDialog>
-	)
+const ConfirmModal = ({ children, handleClick }: PropsWithChildren<ConfirmModalProps>) => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        {children}
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Вы уверены?</DialogTitle>
+          <DialogDescription>
+            Это действие нельзя будет отменить.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button type="submit" onClick={() => handleClick()} className={'cursor-pointer'}>Подтвердить</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
 }
 
 export default ConfirmModal

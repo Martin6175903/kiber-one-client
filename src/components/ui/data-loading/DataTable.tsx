@@ -52,7 +52,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div>
+    <div className={'mb-5'}>
       {filterKey && (
         <div className="flex items-center py-4">
           <Input
@@ -101,7 +101,7 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell colSpan={columns.length} className="h-15 flex items-center font-bold text-center">
                   Ничего не найдено.
                 </TableCell>
               </TableRow>

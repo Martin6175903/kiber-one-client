@@ -15,7 +15,7 @@ const ProductsItem = ({product} :ProductsItemProps ) => {
  return (
   <div className={'flex flex-col gap-5 text-center'}>
     <Link href={'#'}>
-      <img src={`/uploads/products/${images[0]}`} alt={title} className={'w-[385px] h-[400px]'}/>
+      <img src={images[0]} alt={title} className={'w-[385px] h-[400px]'}/>
     </Link>
     <div className={'flex flex-col gap-4 items-center'}>
       <h4 className={'text-base font-extrabold capitalize'}>{title}</h4>

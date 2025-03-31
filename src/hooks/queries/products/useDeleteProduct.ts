@@ -4,11 +4,13 @@ import { productService } from '@/src/services/product.service'
 import toast from 'react-hot-toast'
 import { API_URL } from '@/src/config/api.config'
 import { useMemo } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 export const useDeleteProduct = () => {
 	const params = useParams<{ productId: string }>()
 	const queryClient = useQueryClient()
+	const {push} = useRouter()
 
 	const { mutate: deleteProduct, isPending: isLoadingDelete } = useMutation({
 		mutationKey: ['delete product'],
@@ -18,6 +20,7 @@ export const useDeleteProduct = () => {
 				queryKey: ['delete product']
 			})
 			toast.success('Товар удалён')
+			push(PUBLIC_URL.product())
 		},
 		onError() {
 			toast.error('Ошибка при удалении товара')

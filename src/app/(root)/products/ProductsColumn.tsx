@@ -1,11 +1,13 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/src/components/ui/Button'
-import { ArrowUpDown, ExternalLink, MoreHorizontal, Pencil } from 'lucide-react'
+import { ArrowUpDown, ExternalLink, MoreHorizontal, Pencil, Trash } from 'lucide-react'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from '@/src/components/ui/DropdownMenu'
 import Link from 'next/link'
 import { PUBLIC_URL } from '@/src/config/url.config'
 import { cn } from '@/src/lib/utils'
 import * as React from 'react'
+import ConfirmModal from '@/src/components/ui/ConfirmModal'
+import { useDeleteProduct } from '@/src/hooks/queries/products/useDeleteProduct'
 
 export interface IProductsColumn {
   id?: string
@@ -36,7 +38,7 @@ export const productsColumn: ColumnDef<IProductsColumn>[] = [
       )
     },
     cell: ({row}) => (
-      <div dangerouslySetInnerHTML={{ __html: row.original.description }}/>
+      <blockquote>{row.original.description}</blockquote>
     )
   },
   {
@@ -47,7 +49,10 @@ export const productsColumn: ColumnDef<IProductsColumn>[] = [
           Цена <ArrowUpDown className={'ml-2 size-4'}/>
         </Button>
       )
-    }
+    },
+    cell: ({row}) => (
+      <span>{row.original.price} K</span>
+    )
   },
   {
     accessorKey: 'size',
@@ -61,7 +66,13 @@ export const productsColumn: ColumnDef<IProductsColumn>[] = [
   },
   {
     accessorKey: 'actions',
-    header: 'Действия',
+    header: () => {
+      return (
+        <Button variant={'ghost'}>
+          Действия
+        </Button>
+      )
+    },
     cell: ({ row }) => (
      <DropdownMenu>
        <DropdownMenuTrigger asChild>
@@ -71,19 +82,18 @@ export const productsColumn: ColumnDef<IProductsColumn>[] = [
        </DropdownMenuTrigger>
        <DropdownMenuContent align={'end'}>
          <DropdownMenuLabel>Действия</DropdownMenuLabel>
-         <Link href={PUBLIC_URL.product(row.original.id)} target={'_blank'}>
+         <Link href={PUBLIC_URL.product(row.original.id)}>
            <DropdownMenuItem>
              <ExternalLink className={'size-4 mr-2'} />
              Страница с продуктом
            </DropdownMenuItem>
          </Link>
-         <Link href={PUBLIC_URL.product(row.original.id)} target={'_blank'}>
+         <Link href={PUBLIC_URL.product(row.original.id)}>
            <DropdownMenuItem>
              <Pencil className={'size-4 mr-2'} />
              Изменить
            </DropdownMenuItem>
          </Link>
-         <DropdownMenuSeparator />
        </DropdownMenuContent>
      </DropdownMenu>
     )
