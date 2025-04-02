@@ -5,16 +5,17 @@ import * as React from 'react'
 import { Button } from '@/src/components/ui/Button'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 interface ProductsItemProps {
   product: IProduct
 }
 
 const ProductsItem = ({product} :ProductsItemProps ) => {
-	const {title, description, price, images, size } = product
+	const {title, description, price, images, size, id } = product
  return (
   <div className={'flex flex-col gap-5 text-center'}>
-    <Link href={'#'}>
+    <Link href={PUBLIC_URL.product(`/${id}`)}>
       <img src={images[0]} alt={title} className={'w-[385px] h-[400px]'}/>
     </Link>
     <div className={'flex flex-col gap-4 items-center'}>
