@@ -16,18 +16,18 @@ const Product = ({ initialProduct, id = '' }: ProductProps) => {
     queryKey: ['product', initialProduct.id],
     queryFn: () => productService.getById(id),
     initialData: initialProduct,
-    enabled: !!id,
+    enabled: !!id
   })
 
   return (
-    <div>
-      <div>
-        <div>
-          <ProductGallery product={product}/>
-          <ProductInfo product={product}/>
+      <div className={'mx-auto max-w-7xl'}>
+        <div className={'space-y-7 px-4 py-10 sm:px-6 lg:px-8'}>
+          <div className={'lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8'}>
+            <ProductGallery product={product}/>
+            <ProductInfo product={product}/>
+          </div>
         </div>
       </div>
-    </div>
   )
 }
 

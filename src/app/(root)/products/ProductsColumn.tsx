@@ -4,10 +4,7 @@ import { ArrowUpDown, ExternalLink, MoreHorizontal, Pencil, Trash } from 'lucide
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from '@/src/components/ui/DropdownMenu'
 import Link from 'next/link'
 import { PUBLIC_URL } from '@/src/config/url.config'
-import { cn } from '@/src/lib/utils'
 import * as React from 'react'
-import ConfirmModal from '@/src/components/ui/ConfirmModal'
-import { useDeleteProduct } from '@/src/hooks/queries/products/useDeleteProduct'
 
 export interface IProductsColumn {
   id?: string

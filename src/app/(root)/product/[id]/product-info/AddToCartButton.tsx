@@ -5,12 +5,12 @@ interface AddToCartButtonProps {
   product: IProduct
 }
 
-const AddToCartButton = ({ product } :AddToCartButtonProps ) => {
- return (
-  <Button variant={'secondary'} size={'lg'} className={'w-full'}>
-   Добавить в корзину
-  </Button>
- );
-};
+const AddToCartButton = ({ product }: AddToCartButtonProps) => {
+  return (
+    <Button size={'lg'} className={'w-full'}>
+      Добавить в корзину
+    </Button>
+  )
+}
 
-export default AddToCartButton;
+export default AddToCartButton

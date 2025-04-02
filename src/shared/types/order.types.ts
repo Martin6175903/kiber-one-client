@@ -3,7 +3,8 @@ import { ICardItem } from '@/src/shared/types/card.types'
 
 export enum EnumOrderStatus {
 	PENDING = 'PENDING',
-	FRAMED = 'FRAMED'
+	FRAMED = 'FRAMED',
+	SUCCESS = 'SUCCESS'
 }
 
 export interface IOrder {

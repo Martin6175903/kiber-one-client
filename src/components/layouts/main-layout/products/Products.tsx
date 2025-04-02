@@ -5,7 +5,7 @@ import ProductsItems from '@/src/components/layouts/main-layout/products/product
 const Products = () => {
 
 	return (
-		<div className={'container'}>
+		<div id={'products'} className={'container'}>
 			<ProductsItems/>
 		</div>
 	)
