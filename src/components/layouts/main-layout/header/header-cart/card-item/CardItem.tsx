@@ -11,16 +11,14 @@ interface CardItemProps {
 
 const CardItem = ({ item }: CardItemProps) => {
   return (
-    <div>
-      <div className="flex items-center mb-5">
-        <Link href={PUBLIC_URL.product(item.product.id)} className={'image'}>
-          <Image className={'relative size-7 rounded-md overflow-hidden [&>img]:object-cover'} src={`/${item.product.images[0]}`} alt={item.product.title} fill/>
-        </Link>
-        <div className="ml-6">
-          <h2 className={'font-medium line-clamp-1'}>{item.product.price}</h2>
-          <p className={'text-sm text-muted-foreground mt-1'}>{formatPrice(item.product.price)}</p>
-          <CardActions item={item}/>
-        </div>
+    <div className="flex items-center mb-5">
+      <Link href={PUBLIC_URL.product(item.product.id)} className={'relative size-30 rounded-md overflow-hidden'}>
+        <Image className={'object-cover'} src={`/${item.product.images[0]}`} alt={item.product.title} fill/>
+      </Link>
+      <div className="ml-6">
+        <h2 className={'font-medium line-clamp-1'}>{item.product.title}</h2>
+        <p className={'text-sm text-muted-foreground mt-1'}>{item.product.price} K</p>
+        <CardActions item={item}/>
       </div>
     </div>
   )
