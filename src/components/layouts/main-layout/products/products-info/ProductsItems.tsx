@@ -5,7 +5,7 @@ const ProductsItems = () => {
 	const {products, isLoading} = useGetProducts()
 
 	return (
-		<div className={'grid grid-cols-3 gap-8 text-white'}>
+		<div className={'grid grid-cols-1 min-[500px]:grid-cols-2 min-[1200px]:grid-cols-3 gap-8 text-white'}>
 			{isLoading
 				? 'Loading...'
 				: products?.sort((prev, current) => prev.id!.localeCompare(current.id!))?.map(product => (

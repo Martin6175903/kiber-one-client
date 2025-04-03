@@ -37,7 +37,7 @@ const HeaderCart = ({ children }: PropsWithChildren) => {
   return (
     <Sheet>
       <SheetTrigger className={'cursor-pointer'}>{children}</SheetTrigger>
-      <SheetContent className={'px-4 bg-black text-white border-l-gray-700 h-full flex flex-col'}>
+      <SheetContent className={'px-4 bg-black text-white max-sm:border-none sm:border-l-gray-700 h-full flex flex-col max-sm:w-full'}>
         <SheetHeader>
           <SheetTitle
             className={'uppercase font-bold text-4xl text-center text-white bg-clip-text text-transparent bg-linear-[-86deg,#282828_0%,#E5CBCB_37%,#FCE24E_47%,#E4DEDE_54%,#FCE24E_66%,#282828_100%]'}>Корзина</SheetTitle>
@@ -55,7 +55,7 @@ const HeaderCart = ({ children }: PropsWithChildren) => {
         {items.length ? (
           <>
             <div className="text-lg font-medium">
-              Итого к оплате: {formatPrice(total)} K
+              Итого к оплате: {total} K
             </div>
             <Button className={'w-full'} onClick={handleClick} disabled={isLoadingCreate}>
               Перейти к оплате

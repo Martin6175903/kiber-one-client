@@ -15,11 +15,11 @@ const ProductsItem = ({product} :ProductsItemProps ) => {
 	const {title, description, price, images, size, id } = product
  return (
   <div className={'flex flex-col gap-5 text-center'}>
-    <Link href={PUBLIC_URL.product(`/${id}`)}>
-      <img src={images[0]} alt={title} className={'w-[385px] h-[400px]'}/>
+    <Link href={`product/${id}`} className={'max-[1200px]:flex max-[1200px]:justify-center'}>
+      <img src={images[0]} alt={title} className={'size-[215px] md:w-[385px] md:h-[400px]'}/>
     </Link>
     <div className={'flex flex-col gap-4 items-center'}>
-      <h4 className={'text-base font-extrabold capitalize'}>{title}</h4>
+      <h4 className={'text-base font-medium capitalize'}>{title}</h4>
       <p className={'text-[32px] font-extrabold uppercase'}>{price} к</p>
       <div className={'*:cursor-pointer *:hover:bg-amber-50/5 *:duration-500'}>
         {size?.length === 1 ? <span>{size[0]}</span> : (
@@ -39,7 +39,7 @@ const ProductsItem = ({product} :ProductsItemProps ) => {
         )}
       </div>
       <Button className={'bg-darkyellow border border-solid border-transparent hover:bg-black duration-300 *:cursor-pointer cursor-pointer'}>
-        <Link href={'product'} className={'flex gap-4 items-center'}>
+        <Link href={`product/${id}`} className={'flex gap-4 items-center'}>
           <span>Подбробнее</span>
           <ArrowRight className={'size-4'}/>
         </Link>

@@ -16,7 +16,7 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
   )
 
   return (
-    <Button size={'lg'} className={'w-full'} onClick={() =>
+    <Button size={'lg'} className={'w-full cursor-pointer'} onClick={() =>
       currentElement
         ? removeFromCard({ id: currentElement.id })
         : addToCard({ product, quantity: 1, price: Number(product.price) })
