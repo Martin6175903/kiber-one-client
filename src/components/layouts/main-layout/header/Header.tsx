@@ -1,5 +1,4 @@
 'use client'
-
 import Logo from '@/src/components/layouts/main-layout/header/logo/Logo'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
@@ -8,11 +7,14 @@ import { useProfile } from '@/src/hooks/useProfile'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@/src/app/(root)/layout'
 import { IUser } from '@/src/shared/types/user.types'
+import { useCard } from '@/src/hooks/useCard'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 const Header = () => {
 
 	const [isLoadingUser, setIsLoadingUser] = useState(false)
 	const userContext = useContext(UserContext)
+	const {items} = useCard()
 
 	useEffect(() => {
 		if (Object.values(userContext).length > 0) setIsLoadingUser(true);
@@ -25,15 +27,15 @@ const Header = () => {
 					<Logo/>
 					<h1 className={'uppercase text-4xl font-bold text-white absolute top-1/2 left-1/2 md:-translate-[50%] max-md:static'}>Kibershop</h1>
 					<div className={'text-white flex items-center gap-5 justify-end'}>
-						<Link href={isLoadingUser ? ('moderator' in userContext && userContext.moderator ? 'products' : '#products') : '#'} className={'text-lg text-black py-3.5 px-6 bg-white rounded-full uppercase font-medium border-2 border-solid border-transparent hover:bg-transparent hover:text-white hover:border-white hover:scale-105 duration-300'}>
+						<Link href={isLoadingUser ? ('moderator' in userContext && userContext.moderator ? PUBLIC_URL.products() : '#products') : '#'} className={'text-lg text-black py-3.5 px-6 bg-white rounded-full uppercase font-medium border-2 border-solid border-transparent hover:bg-transparent hover:text-white hover:border-white hover:scale-105 duration-300'}>
 							Кибертовары
 						</Link>
 						<Link href={'#'} className={'relative hover:scale-110 duration-300'}>
 							<HeaderCart>
 								<ShoppingCart size={40}/>
 								<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-darkblue rounded-full font-bold'}>
-								{'orders' in userContext ? userContext.orders.length : '0'}
-							</span>
+									{items.length}
+								</span>
 							</HeaderCart>
 						</Link>
 					</div>

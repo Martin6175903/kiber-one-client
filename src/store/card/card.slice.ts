@@ -13,7 +13,9 @@ export const cardSlice = createSlice({
       // @ts-ignore
       const isExist = state.items.some(item => item.product?.id === action.payload.product?.id)
 
-      if (!isExist) state.items.push({...action.payload, id: state.items.length})
+      if (!isExist) {
+        state.items.push({...action.payload, id: state.items.length})
+      }
     },
     removeFromCard: (state, action: PayloadAction<{id: number}>) => {
       state.items = state.items.filter(

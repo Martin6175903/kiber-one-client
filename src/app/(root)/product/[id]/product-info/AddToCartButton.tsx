@@ -5,9 +5,11 @@ import { useCard } from '@/src/hooks/useCard'
 
 interface AddToCartButtonProps {
   product: IProduct
+  quantity?: number
+  size?: string
 }
 
-const AddToCartButton = ({ product }: AddToCartButtonProps) => {
+const AddToCartButton = ({ product, quantity = 1, size = undefined }: AddToCartButtonProps) => {
   const { addToCard, removeFromCard } = useActions()
   const { items } = useCard()
 
@@ -19,7 +21,7 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
     <Button size={'lg'} className={'w-full cursor-pointer'} onClick={() =>
       currentElement
         ? removeFromCard({ id: currentElement.id })
-        : addToCard({ product, quantity: 1, price: Number(product.price) })
+        : addToCard({ product, quantity, price: Number(product.price), size })
     }>
       {currentElement ? 'Удалить из корзины' : 'Добавить в корзину'}
     </Button>

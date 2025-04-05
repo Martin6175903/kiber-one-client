@@ -17,7 +17,10 @@ const CardItem = ({ item }: CardItemProps) => {
       </Link>
       <div className="ml-6">
         <h2 className={'font-medium line-clamp-1'}>{item.product.title}</h2>
-        <p className={'text-sm text-muted-foreground mt-1'}>{item.product.price} K</p>
+        <div>
+          <p className={'text-sm text-muted-foreground mt-1'}>{item.product.price} K</p>
+          <p className={'text-sm text-muted-foreground mt-1'}>{item.size}</p>
+        </div>
         <CardActions item={item}/>
       </div>
     </div>

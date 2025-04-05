@@ -45,3 +45,4 @@ export const store = configureStore({
 export const persistor = persistStore(store)
 
 export type TypeRootState = ReturnType<typeof mainReducer>
+export type AppDispatch = typeof store.dispatch

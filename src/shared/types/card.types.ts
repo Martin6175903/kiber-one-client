@@ -5,4 +5,5 @@ export interface ICardItem {
 	product: IProduct[]
 	quantity: number
 	price: number
+	size: string | undefined
 }

@@ -14,15 +14,15 @@ interface ProductsItemProps {
 const ProductsItem = ({product} :ProductsItemProps ) => {
 	const {title, description, price, images, size, id } = product
  return (
-  <div className={'flex flex-col gap-5 text-center'}>
+  <div className={'flex flex-col gap-5 text-center bg-gray-800 rounded-b-lg rounded-t-xl duration-400 hover:scale-[1.03]'}>
     <Link href={`product/${id}`} className={'max-[1200px]:flex max-[1200px]:justify-center'}>
-      <img src={images[0]} alt={title} className={'size-[215px] md:w-[385px] md:h-[400px]'}/>
+      <img src={images[0]} alt={title} className={'size-[215px] md:w-[385px] md:h-[400px] rounded-t-xl'}/>
     </Link>
-    <div className={'flex flex-col gap-4 items-center'}>
-      <h4 className={'text-base font-medium capitalize'}>{title}</h4>
+    <div className={'flex flex-col gap-4 items-center p-5'}>
+      <h4 className={'text-lg font-medium capitalize'}>{title}</h4>
       <p className={'text-[32px] font-extrabold uppercase'}>{price} к</p>
       <div className={'*:cursor-pointer *:hover:bg-amber-50/5 *:duration-500'}>
-        {size?.length === 1 ? <span>{size[0]}</span> : (
+        {size?.length === 1 ? <span>Размер: {size[0]}</span> : (
           <Select>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Размер" />

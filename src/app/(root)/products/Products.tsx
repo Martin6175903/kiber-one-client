@@ -32,7 +32,7 @@ const Products = () => {
               <p className={'text-xl text-gray-600'}>Все товары вашего магазина</p>
             </div>
             <div>
-              <Link href={PUBLIC_URL.product('/create')}>
+              <Link href={PUBLIC_URL.products('/create')}>
                 <Button variant={'default'}>
                   <Plus/>
                   Создать

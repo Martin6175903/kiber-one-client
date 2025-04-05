@@ -29,7 +29,6 @@ const ProductForm = ({ product } :ProductFormProps ) => {
   const { createProduct, isLoadingCreate } = useCreateProduct()
   const { deleteProduct, isLoadingDelete } = useDeleteProduct()
   const { updateProduct, isLoadingUpdate } = useUpdateProduct()
-  console.log(product)
 
   const title = product ? 'Изменить данные' : 'Создать товар'
   const description = product

@@ -85,7 +85,7 @@ export const productsColumn: ColumnDef<IProductsColumn>[] = [
              Страница с продуктом
            </DropdownMenuItem>
          </Link>
-         <Link href={PUBLIC_URL.product(row.original.id)}>
+         <Link href={PUBLIC_URL.products(row.original.id)}>
            <DropdownMenuItem>
              <Pencil className={'size-4 mr-2'} />
              Изменить

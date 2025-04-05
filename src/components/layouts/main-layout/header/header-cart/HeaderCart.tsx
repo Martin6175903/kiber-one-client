@@ -1,5 +1,4 @@
 'use client'
-
 import {
   Sheet,
   SheetContent,
@@ -55,7 +54,7 @@ const HeaderCart = ({ children }: PropsWithChildren) => {
         {items.length ? (
           <>
             <div className="text-lg font-medium">
-              Итого к оплате: {total} K
+              Итоговая стоимость: {total} K
             </div>
             <Button className={'w-full'} onClick={handleClick} disabled={isLoadingCreate}>
               Перейти к оплате
