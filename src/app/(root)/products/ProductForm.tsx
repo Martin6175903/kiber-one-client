@@ -1,5 +1,4 @@
 'use client'
-
 import { IProduct, IProductInput } from '@/src/shared/types/product.types'
 import { useCreateProduct } from '@/src/hooks/queries/products/useCreateProduct'
 import { useDeleteProduct } from '@/src/hooks/queries/products/useDeleteProduct'
@@ -13,6 +12,7 @@ import { Input } from '@/src/components/ui/form-elements/Input'
 import { Textarea } from '@/src/components/ui/Textarea'
 import { useEffect, useState } from 'react'
 import ImageUpload from '@/src/components/ui/form-elements/image-upload/ImageUpload'
+import { Checkbox } from '@/src/components/ui/Checkbox'
 
 interface ProductFormProps {
   product?: IProduct | null
@@ -43,23 +43,29 @@ const ProductForm = ({ product } :ProductFormProps ) => {
       description: product.description,
       images: product.images,
       price: product.price,
+      isStock: product.isStock,
       size: undefined
     }) : {
       title: '',
       description: '',
       images: [],
       price: 0,
+      isStock: true,
       size: undefined
     }
   })
 
+  const termsCheked = form.watch('isStock')
+
   const onSubmit:SubmitHandler<IProductInput> = data => {
     data.price = Number(data.price)
     data.size = sizes
+    console.log(data)
     if (product) updateProduct(data)
     else createProduct(data)
   }
 
+  // @ts-ignore
   return (
   <div className={'container'}>
     <div className={'py-5'}>
@@ -139,6 +145,26 @@ const ProductForm = ({ product } :ProductFormProps ) => {
               />
             </div>
           </div>
+          <FormField
+            control={form.control}
+            name={'isStock'}
+            render={() => (
+              <FormItem>
+                <FormControl>
+                  <div className={'w-1/5'}>
+                    <label
+                      htmlFor="terms"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-3 cursor-pointer"
+                    >
+                      <Checkbox className={'size-6 duration-500'} id="terms" checked={termsCheked} onCheckedChange={(checked) => form.setValue('isStock', !!checked)}/>
+                      Товар в наличии
+                    </label>
+                  </div>
+                </FormControl>
+                <FormMessage/>
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name={'description'}

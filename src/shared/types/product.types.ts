@@ -3,6 +3,7 @@ export interface IProduct {
 	title: string
 	description: string
 	price: string | number
+	isStock: boolean
 	images: string[]
 	size?: string[] | undefined
 }

@@ -11,6 +11,7 @@ export interface IProductsColumn {
   title: string
   description: string
   price: string | number
+  isStock: boolean
   size?: string[]
 }
 
@@ -49,6 +50,19 @@ export const productsColumn: ColumnDef<IProductsColumn>[] = [
     },
     cell: ({row}) => (
       <span>{row.original.price} K</span>
+    )
+  },
+  {
+    accessorKey: 'isStock',
+    header: ({column}) => {
+      return (
+        <Button variant={'ghost'} onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          В наличии <ArrowUpDown className={'ml-2 size-4'}/>
+        </Button>
+      )
+    },
+    cell: ({row}) => (
+      <span>{row.original.isStock ? 'Да' : 'Нет'}</span>
     )
   },
   {

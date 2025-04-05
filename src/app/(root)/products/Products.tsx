@@ -17,7 +17,8 @@ const Products = () => {
     title: product.title,
     description: product.description,
     price: product.price,
-    size: product.size
+    size: product.size,
+    isStock: product.isStock
   })) : []
 
   return (
