@@ -64,28 +64,25 @@ const AuthFields = ({ form, isReg = false, isPending }: AuthFieldsProps) => {
 			</>
 		)}
 			<FormField
+				name={'userPhoneNumber'}
+				control={form.control}
+				rules={{
+					required: 'Номер телефона обязателен'
+				}}
 				render={({ field }) => (
 					<FormItem>
 						<FormControl>
-							<Input placeholder={'ivan@example.com'} type={'email'} disabled={isPending} {...field} />
+							<Input placeholder={'+375(__)___-__-__'} type={'tel'} disabled={isPending} {...field} />
 						</FormControl>
 						<FormMessage />
 					</FormItem>
 				)}
-				name={'email'}
-				control={form.control}
-				rules={{
-					required: 'Почта обязательна',
-					pattern: {
-						value: validEmail,
-						message: 'Введите валидную почту'
-					}
-				}} />
+			/>
 			<FormField
 				render={({ field }) => (
 					<FormItem>
 						<FormControl>
-							<Input placeholder={'******'} type={'password'} disabled={isPending} {...field} />
+							<Input autoComplete={'tel'} placeholder={'******'} type={'password'} disabled={isPending} {...field} />
 						</FormControl>
 						<FormMessage />
 					</FormItem>

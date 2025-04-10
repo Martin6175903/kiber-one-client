@@ -30,7 +30,7 @@ const Auth = () => {
 				<Card className={'border-none p-6 flex flex-col items-center justify-center w-full sm:w-[380px] shadow-[10px_10px_15px_rgba(0,0,0,0.3),-10px_10px_15px_rgba(0,0,0,0.4)]'}>
 					<CardHeader className={'text-center pb-5 w-full'}>
 						<CardTitle className={'pb-1 text-2xl sm:text-3xl font-bold'}>{isReg ? 'Создать аккаунт' : 'Войти в аккаунт'}</CardTitle>
-						<CardDescription className={'text-xs sm:text-sm'}>Войдите или создайте учётную запись, чтобы оформлять КиберТовары!</CardDescription>
+						<CardDescription className={'text-xs sm:text-sm'}>{isReg? 'Войдите в' : 'Создайте'} учётную запись, чтобы получить КиберТовары!</CardDescription>
 					</CardHeader>
 					<CardContent className={'p-0 w-full'}>
 						<Form {...form}>

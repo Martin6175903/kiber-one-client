@@ -46,8 +46,9 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       <hr/>
       <blockquote className="text-muted-foreground text-sm">{product.description}</blockquote>
       {product.size?.length ? (
-        <div className={'*:cursor-pointer *:hover:bg-amber-50/5 *:duration-500 mb-5'}>
-          {product.size?.length === 1 ? <span>Доступные размеры: {choiceSize}</span> : (
+        <div className={'*:cursor-pointer *:hover:bg-amber-50/5 *:duration-500 mb-5 flex gap-5 items-center'}>
+          <span>Доступные размеры: </span>
+          {product.size?.length === 1 ? <span>{choiceSize}</span> : (
             <Select defaultValue={product.size[0]} onValueChange={(value) => setChoiceSize(value)}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Размер" />

@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { EnumTokens } from '@/src/services/auth/auth-token.service'
 import { PUBLIC_URL } from '@/src/config/url.config'
+import { useProfile } from '@/src/hooks/useProfile'
 
 export async function middleware(request: NextRequest) {
 	const refreshToken = request.cookies.get(EnumTokens.REFRESH_TOKEN)?.value
+	const {user} = useProfile()
+	console.log(user)
 
 	const isAuthPage = request.url.includes(PUBLIC_URL.auth())
 

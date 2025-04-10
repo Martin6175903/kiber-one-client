@@ -5,8 +5,9 @@ import { useMutation } from '@tanstack/react-query'
 import { orderService } from '@/src/services/order.service'
 import toast from 'react-hot-toast'
 import { useMemo } from 'react'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
-export const useCheckOut = () => {
+export const useCreateOrder = () => {
   const { items } = useCard()
 
   const { reset } = useActions()
@@ -23,8 +24,9 @@ export const useCheckOut = () => {
           productId: item.product.id
         }))
       }),
-    onSuccess({data}){
-      // router.push(data.confirmation.confirmation_url)
+    onSuccess(){
+      toast.success('Заказ успешно оформлен!')
+      router.push(PUBLIC_URL.thanks())
       reset()
     },
     onError() {

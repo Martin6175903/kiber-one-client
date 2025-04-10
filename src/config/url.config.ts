@@ -6,5 +6,7 @@ export const PUBLIC_URL = {
 	home: () => PUBLIC_URL.root(`/`),
 	auth: () => PUBLIC_URL.root(`/auth`),
 	products: (id = '') => PUBLIC_URL.root(`/products/${id}`),
-	product: (id = '') => PUBLIC_URL.root(`/product/${id}`)
+	product: (id = '') => PUBLIC_URL.root(`/product/${id}`),
+	thanks: () => PUBLIC_URL.root('/thanks'),
+	order: () => PUBLIC_URL.root('/order')
 }

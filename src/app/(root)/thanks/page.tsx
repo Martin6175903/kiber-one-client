@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const ThanksPage = () => {
 	return (
-		<div className={'h-full bg-[#131312] text-white flex items-center'}>
+		<div className={'h-full mt-30 text-black flex items-center'}>
 			<div className={'container'}>
 				<div className={'text-center flex flex-col gap-7'}>
 					<h1 className={'text-5xl font-semibold'}>Спасибо за ваш заказ!</h1>
@@ -21,7 +21,7 @@ const ThanksPage = () => {
 					</p>
 					<div>
 						<Link className={'*:cursor-pointer'} href={PUBLIC_URL.home()}>
-							<Button variant={'secondary'}>
+							<Button>
 								На главную
 								<ArrowRight/>
 							</Button>

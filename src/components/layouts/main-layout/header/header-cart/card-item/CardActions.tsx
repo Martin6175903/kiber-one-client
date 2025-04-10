@@ -21,18 +21,18 @@ const CardActions = ({ item }: CardActionsProps) => {
         variant={'ghost'}
         size={'icon'}
         disabled={quantity === 1}
-        className={'size-7'}
+        className={'size-7 cursor-pointer'}
       >
         <Minus className={'size-4'}/>
       </Button>
 
-      <input className={'w-10 text-center text-sm'} type="text" disabled readOnly value={quantity} />
+      <input className={'w-10 text-center font-bold'} type="text" disabled readOnly value={quantity} />
 
       <Button
         onClick={() => changeQuantity({ id: item.id, type: 'plus' })}
         variant={'ghost'}
         size={'icon'}
-        className={'size-7'}
+        className={'size-7 cursor-pointer'}
       >
         <Plus className={'size-4'}/>
       </Button>

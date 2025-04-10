@@ -5,12 +5,24 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 
 export interface IOrderColumn {
+  fullName?: string
+  userNumber?: string
   createdAt: string
   status: string
   total: string
 }
 
 const OrderColumns: ColumnDef<IOrderColumn>[] = [
+  {
+    accessorKey: 'fullName',
+    header: ({column}) => {
+      return (
+        <Button variant={'ghost'} onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Имя и Фамилия <ArrowUpDown className={'ml-2 size-4'}/>
+        </Button>
+      )
+    }
+  },
   {
     accessorKey: 'createdAt',
     header: ({column}) => {

@@ -21,10 +21,11 @@ class OrderService {
 	}
 
 	async getOrders() {
-		return axiosWithAuth<IOrder[]>({
+		const { data } = await axiosWithAuth<IOrder[]>({
 			url: API_URL.orders(),
 			method: "GET"
 		})
+		return data
 	}
 	
 	async updateOrderStatus(id: string, data: IOrderStatus) {

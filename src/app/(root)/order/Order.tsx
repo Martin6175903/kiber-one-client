@@ -1,30 +1,34 @@
 'use client'
-import { DataTable } from '@/src/components/ui/data-loading/DataTable'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { saveTokenStorage } from '@/src/services/auth/auth-token.service'
 import { useMutation } from '@tanstack/react-query'
 import { authService } from '@/src/services/auth/auth.service'
 import { useProfile } from '@/src/hooks/useProfile'
-import OrderColumns, { IOrderColumn } from '@/src/app/(root)/order/OrderColumns'
-import { EnumOrderStatus } from '@/src/shared/types/order.types'
-import { formatPrice } from '@/src/utils/string/format-price'
-import { formatDate } from '@/src/utils/date/format-date'
 import { Button } from '@/src/components/ui/Button'
 import { LogOut } from 'lucide-react'
 import { useGetOrders } from '@/src/hooks/queries/order/useGetOrders'
+import { useCard } from '@/src/hooks/useCard'
+import Link from 'next/link'
+import { PUBLIC_URL } from '@/src/config/url.config'
+import CardActions from '@/src/components/layouts/main-layout/header/header-cart/card-item/CardActions'
+import { useCreateOrder } from '@/src/hooks/queries/order/useCreateOrder'
 
 const Order = () => {
 
   const searchParams = useSearchParams()
   const router = useRouter()
-  useEffect(() => {
-    const accessToken = searchParams.get('accessToken')
-
-    if(accessToken) saveTokenStorage(accessToken)
-  }, [searchParams])
 
   const {user} = useProfile()
+  const { orders, isLoading } = useGetOrders()
+  const { items, total } = useCard()
+
+  const {createOrder, isLoadingCreate} = useCreateOrder()
+
+  useEffect(() => {
+    const accessToken = searchParams.get('accessToken')
+    if(accessToken) saveTokenStorage(accessToken)
+  }, [searchParams, orders])
 
   const { mutate: logout } = useMutation({
     mutationKey: ['logout'],
@@ -32,11 +36,16 @@ const Order = () => {
     onSuccess: () => router.push('/auth')
   })
 
-  const formattedOrders: IOrderColumn[] = user ? user.orders.map(order => ({
-    createdAt: formatDate(order.createdAt),
-    status: order.status === EnumOrderStatus.PENDING ? 'В ожидании' : (order.status === EnumOrderStatus.FRAMED ? 'Оформлен' : 'Выполнен'),
-    total: formatPrice(order.total)
-  })) : []
+  // const formattedOrders: IOrderColumn[] = (user?.moderator
+  //   ? (orders ? orders.map(order => ({
+  //     fullName: `${order.user.firstName} ${order.user.lastName}`,
+  //
+  //   })) : [])
+  //   : (user ? user.orders.map(order => ({
+  //   createdAt: formatDate(order.createdAt),
+  //   status: order.status === EnumOrderStatus.PENDING ? 'В ожидании' : (order.status === EnumOrderStatus.FRAMED ? 'Оформлен' : 'Выполнен'),
+  //   total: formatPrice(order.total)
+  // })) : []))
 
   return (
     <div className={'h-full text-black bg-white my-6'}>
@@ -50,7 +59,30 @@ const Order = () => {
             Выйти
           </Button>
         </div>
-        <DataTable columns={OrderColumns} data={formattedOrders}/>
+        {/*<DataTable columns={OrderColumns} data={formattedOrders}/>*/}
+        <div className={'grid grid-cols-3 gap-10'}>
+          {items.map((item) => (
+            <div key={item.id} className={'bg-gray-500/15 flex flex-col gap-5 items-center text-center px-1 pb-2 rounded-lg'}>
+              <Link href={PUBLIC_URL.product(item.product.id)}>
+                <img src={item.product.images[0]} alt={item.product.title} className={'size-40 rounded-md duration-300 hover:scale-105'}/>
+              </Link>
+              <h4>{item.product.title}</h4>
+              <p>Выбранный размер: <span className={'font-bold'}>{item.size}</span></p>
+              <div>
+                <span>Количество:</span>
+                <CardActions item={item}/>
+              </div>
+              <p className={'flex flex-col gap-1'}>
+                <span>Итоговая стоимость товара:</span>
+                <span className={'font-bold'}>{item.product.price * item.quantity} K</span>
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className={'text-center my-5 font-bold'}>Итоговая стоимость заказа: {total} K</p>
+        <div className={'flex justify-center mt-5'}>
+          <Button disabled={isLoadingCreate} onClick={() => createOrder()} size={'lg'} className={'cursor-pointer'}>Заказать товары</Button>
+        </div>
       </div>
     </div>
   )
