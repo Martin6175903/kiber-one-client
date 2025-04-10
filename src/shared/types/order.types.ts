@@ -10,7 +10,7 @@ export enum EnumOrderStatus {
 export interface IOrder {
 	id: string
 	createdAt: string
-	items: ICardItem[]
+	orderItems: ICardItem[]
 	status: EnumOrderStatus
 	user: IUser
 	total: number

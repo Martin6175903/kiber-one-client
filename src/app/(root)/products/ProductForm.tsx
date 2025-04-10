@@ -60,7 +60,7 @@ const ProductForm = ({ product } :ProductFormProps ) => {
   const onSubmit:SubmitHandler<IProductInput> = data => {
     data.price = Number(data.price)
     data.size = sizes
-    console.log(data)
+
     if (product) updateProduct(data)
     else createProduct(data)
   }
@@ -74,17 +74,7 @@ const ProductForm = ({ product } :ProductFormProps ) => {
         <p className={'text-xl text-gray-600 mb-3'}>{description}</p>
         {product && (
           <div className={'mb-5'}>
-            <ConfirmModal handleClick={() => deleteProduct()}>
-              <Button
-                size={'icon'}
-                variant={'default'}
-                disabled={isLoadingDelete}
-                className={'flex gap-5 w-[200px]'}
-              >
-                <span>Удаление товара</span>
-                <Trash className={'size-4'}/>
-              </Button>
-            </ConfirmModal>
+            <ConfirmModal handleClick={() => deleteProduct()} title={'Удаление товара'} confirmBtnText={'Удалить'}/>
           </div>
         )}
       </div>

@@ -8,6 +8,7 @@ type TypeData = {
 		quantity: number
 		price: number
 		productId: string
+		size: string | undefined
 	}[]
 }
 

@@ -21,7 +21,8 @@ export const useCreateOrder = () => {
         items: items.map(item => ({
           price: item.price,
           quantity: item.quantity,
-          productId: item.product.id
+          productId: item.product.id,
+          size: item.size
         }))
       }),
     onSuccess(){

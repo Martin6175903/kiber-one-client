@@ -3,7 +3,7 @@ export const APP_URL = process.env.APP_URL as string
 export const PUBLIC_URL = {
 	root: (url = '') => `${url ? url : ''}`,
 
-	home: () => PUBLIC_URL.root(`/`),
+	home: (url = '') => PUBLIC_URL.root(`/${url ? url : ''}`),
 	auth: () => PUBLIC_URL.root(`/auth`),
 	products: (id = '') => PUBLIC_URL.root(`/products/${id}`),
 	product: (id = '') => PUBLIC_URL.root(`/product/${id}`),

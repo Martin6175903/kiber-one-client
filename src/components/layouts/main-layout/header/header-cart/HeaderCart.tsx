@@ -23,7 +23,7 @@ const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 const HeaderCart = ({ children }: PropsWithChildren) => {
 
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   const { items, total } = useCard()
 
