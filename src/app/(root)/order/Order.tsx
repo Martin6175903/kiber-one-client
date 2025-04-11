@@ -1,23 +1,14 @@
 'use client'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useMutation } from '@tanstack/react-query'
-import { authService } from '@/src/services/auth/auth.service'
 import { useProfile } from '@/src/hooks/useProfile'
 import { Button } from '@/src/components/ui/Button'
 import { LogOut } from 'lucide-react'
 import OrderUser from '@/src/app/(root)/order/OrderUser'
 import OrderModerator from '@/src/app/(root)/order/OrderModerator'
+import { useLogout } from '@/src/hooks/queries/auth/useLogout'
 
 const Order = () => {
-  const router = useRouter()
-
   const {user} = useProfile()
-
-  const { mutate: logout } = useMutation({
-    mutationKey: ['logout'],
-    mutationFn: () => authService.logout(),
-    onSuccess: () => router.push('/auth')
-  })
+  const {logout} = useLogout()
 
   return (
     <div className={'h-full text-black bg-white my-6'}>

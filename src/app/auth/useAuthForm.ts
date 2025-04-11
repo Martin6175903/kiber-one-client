@@ -14,7 +14,7 @@ export const useAuthForm = (isReg: boolean) => {
 	})
 
 	const {mutate, isPending} = useMutation({
-		mutationKey: ['auth user'],
+		mutationKey: ['auth auth'],
 		mutationFn: (data: IAuthForm) => authService.main(isReg ? 'register' : 'login', data),
 		onSuccess() {
 			form.reset()

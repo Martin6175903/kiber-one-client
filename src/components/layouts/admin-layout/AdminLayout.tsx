@@ -5,7 +5,7 @@ import Main from './main/Main'
 const AdminLayout = ({children}: PropsWithChildren) => {
   return (
     <div>
-      <div className={'wrapper min-h-screen bg-linear-[90deg,#287FAD,#287FAD_30%,white_60%,white]'}>
+      <div className={'wrapper min-h-screen bg-linear-[90deg,#131313,#131313_30%,white_60%,white]'}>
         <div className={'container'}>
           <div className={'flex items-start justify-between'}>
             <Aside/>

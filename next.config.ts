@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -8,23 +9,20 @@ const nextConfig: NextConfig = {
 		APP_DOMAIN: process.env.APP_DOMAIN,
 		SERVER_URL: process.env.SERVER_URL
 	},
-	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'avatars.yandex.net'
-			},
-			{
-				protocol: 'https',
-				hostname: 'lh3.googleusercontent.com'
-			}
-		]
-	},
 	async rewrites() {
 		return [
 			{
 				source: '/uploads/:path*',
 				destination: `${process.env.SERVER_URL}/uploads/:path*`
+			}
+		]
+	},
+	async redirects() {
+		return [
+			{
+				source: PUBLIC_URL.admin(''),
+				destination: PUBLIC_URL.admin('/settings-city'),
+				permanent: true
 			}
 		]
 	}

@@ -126,6 +126,10 @@
   margin: 0 auto;
 }
 
+.title {
+  @apply text-4xl font-bold text-[#131313];
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

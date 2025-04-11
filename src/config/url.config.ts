@@ -8,5 +8,7 @@ export const PUBLIC_URL = {
 	products: (id = '') => PUBLIC_URL.root(`/products/${id}`),
 	product: (id = '') => PUBLIC_URL.root(`/product/${id}`),
 	thanks: () => PUBLIC_URL.root('/thanks'),
-	order: () => PUBLIC_URL.root('/order')
+	order: () => PUBLIC_URL.root('/order'),
+
+	admin: (url = '') => PUBLIC_URL.root(`/admin${url ? url : ''}`)
 }
