@@ -65,7 +65,6 @@ const ProductForm = ({ product } :ProductFormProps ) => {
     else createProduct(data)
   }
 
-  // @ts-ignore
   return (
   <div className={'container'}>
     <div className={'py-5'}>

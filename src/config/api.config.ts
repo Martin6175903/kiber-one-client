@@ -7,5 +7,6 @@ export const API_URL = {
 	users: (url = '') => API_URL.root(`/users${url}`),
 	products: (url = '') => API_URL.root(`/products${url}`),
 	orders: (url = '') => API_URL.root(`/orders${url}`),
-	files: (url = '') => API_URL.root(`/files${url}`)
+	files: (url = '') => API_URL.root(`/files${url}`),
+	city: (url = '') => API_URL.root(`/city${url}`)
 }
