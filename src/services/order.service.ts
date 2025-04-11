@@ -29,11 +29,20 @@ class OrderService {
 		return data
 	}
 	
-	async updateOrderStatus(id: string, data: IOrderStatus) {
-		return axiosWithAuth<IOrder>({
-			url: API_URL.orders(`status/${id}`),
+	async updateOrderStatus(data: IOrderStatus) {
+		const {data: updatedOrderStatus} = await  axiosWithAuth<IOrderStatus>({
+			url: API_URL.orders(`/status/${data.id}`),
 			method: 'POST',
-			data
+			data: { status: data.status }
+		})
+
+		return updatedOrderStatus
+	}
+
+	async deleteOrder(id: string) {
+		return axiosWithAuth<IOrder>({
+			url: API_URL.orders(`/${id}`),
+			method: 'DELETE'
 		})
 	}
 }

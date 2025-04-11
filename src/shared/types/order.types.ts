@@ -16,7 +16,7 @@ export interface IOrder {
 	total: number
 }
 
-export interface IOrderStatus extends Pick<IOrder, 'status'> {}
+export interface IOrderStatus extends Pick<IOrder, 'status' | 'id'> {}
 
 export interface IPaymentResponse {
 	id: string,

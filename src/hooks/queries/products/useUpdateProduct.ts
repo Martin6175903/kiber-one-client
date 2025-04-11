@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { IProduct } from '@/src/shared/types/product.types'
+import { IProduct, IProductInput } from '@/src/shared/types/product.types'
 import { productService } from '@/src/services/product.service'
 import toast from 'react-hot-toast'
 import { useMemo } from 'react'
@@ -13,7 +13,7 @@ export const useUpdateProduct = () => {
 
 	const { mutate: updateProduct, isPending: isLoadingUpdate } = useMutation({
 		mutationKey: ['update product'],
-		mutationFn: (data: IProduct) => productService.update(params.productId, data),
+		mutationFn: (data: IProductInput) => productService.update(params.productId, data),
 		onSuccess() {
 			queryClient.invalidateQueries({
 				queryKey: ['update product']

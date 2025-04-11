@@ -6,12 +6,11 @@ import toast from 'react-hot-toast'
 import { useMemo } from 'react'
 
 export const useUpdateOrderStatus = () => {
-  const params = useParams<{ orderId: string }>()
   const queryClient = useQueryClient()
 
-  const {data: updateOrderStatus, isPending} = useMutation({
+  const {mutate: updateOrderStatus, isPending: isPendingStatus} = useMutation({
     mutationKey: ['update status order'],
-    mutationFn: (data: IOrderStatus) => orderService.updateOrderStatus(params.orderId, data),
+    mutationFn: (data: IOrderStatus) => orderService.updateOrderStatus(data),
     onSuccess() {
       queryClient.invalidateQueries({
         queryKey: ['update status order']
@@ -24,6 +23,6 @@ export const useUpdateOrderStatus = () => {
   })
 
   return useMemo(() => ({
-    updateOrderStatus, isPending
-  }), [updateOrderStatus, isPending])
+    updateOrderStatus, isPendingStatus
+  }), [updateOrderStatus, isPendingStatus])
 }

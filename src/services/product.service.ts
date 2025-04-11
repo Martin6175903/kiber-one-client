@@ -1,5 +1,5 @@
 import { axiosClassic, axiosWithAuth } from '@/src/api/api.interceptors'
-import { IProduct } from '@/src/shared/types/product.types'
+import { IProduct, IProductInput } from '@/src/shared/types/product.types'
 import { API_URL } from '@/src/config/api.config'
 
 class ProductService {
@@ -22,8 +22,8 @@ class ProductService {
 		return data || []
 	}
 
-	async create(data: IProduct) {
-		const { data: createdProduct } = await axiosWithAuth<IProduct[]>({
+	async create(data: IProductInput) {
+		const { data: createdProduct } = await axiosWithAuth<IProductInput[]>({
 			url: API_URL.products(`/`),
 			method: 'POST',
 			data
@@ -32,8 +32,8 @@ class ProductService {
 		return createdProduct
 	}
 
-	async update(id: string, data: IProduct) {
-		const { data: updatedProduct } = await axiosWithAuth<IProduct>({
+	async update(id: string, data: IProductInput) {
+		const { data: updatedProduct } = await axiosWithAuth<IProductInput>({
 			url: API_URL.products(`/${id}`),
 			method: 'PUT',
 			data
