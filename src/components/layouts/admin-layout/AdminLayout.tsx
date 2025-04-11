@@ -1,0 +1,22 @@
+import { PropsWithChildren } from 'react'
+import Aside from '@/src/components/layouts/admin-layout/aside/Aside'
+import Main from './main/Main'
+
+const AdminLayout = ({children}: PropsWithChildren) => {
+  return (
+    <div>
+      <div className={'wrapper min-h-screen bg-linear-[90deg,#287FAD,#287FAD_30%,white_60%,white]'}>
+        <div className={'container'}>
+          <div className={'flex items-start justify-between'}>
+            <Aside/>
+            <Main>
+              {children}
+            </Main>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default AdminLayout

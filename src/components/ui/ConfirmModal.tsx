@@ -24,12 +24,13 @@ interface ConfirmModalProps {
   handleClick: () => void
   title: string
   confirmBtnText: string
+  disabled?: boolean
 }
 
-const ConfirmModal = ({ handleClick, title, confirmBtnText }: ConfirmModalProps) => {
+const ConfirmModal = ({ handleClick, title, confirmBtnText, disabled }: ConfirmModalProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={'bg-black text-white py-2 px-4 rounded-full duration-300 hover:bg-black/80 cursor-pointer hover:scale-105'}>{title}</AlertDialogTrigger>
+      <AlertDialogTrigger disabled={disabled ? disabled : false} className={'bg-black text-white py-2 px-4 rounded-full duration-300 hover:bg-black/80 cursor-pointer hover:scale-105'}>{title}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Вы уверены?</AlertDialogTitle>
