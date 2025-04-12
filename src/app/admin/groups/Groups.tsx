@@ -1,7 +1,8 @@
 const Groups = () => {
   return (
     <div>
-      Groups
+      <h2 className="title">Группы</h2>
+            
     </div>
   )
 }
