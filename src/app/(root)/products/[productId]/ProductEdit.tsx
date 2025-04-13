@@ -5,11 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { productService } from '@/src/services/product.service'
 import ProductForm from '@/src/app/(root)/products/ProductForm'
 
-interface ProductEditProps {
-  
-}
-
-const ProductEdit = ({} :ProductEditProps ) => {
+const ProductEdit = () => {
   const params = useParams<{ productId: string }>()
 
   const { data } = useQuery({

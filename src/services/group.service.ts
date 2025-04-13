@@ -27,9 +27,9 @@ class GroupService {
 		return data
 	}
 	
-	async updateGroup(data: IGroup) {
+	async updateGroup(data: IGroup, id: string) {
 		const {data: updatedOrderStatus} = await  axiosWithAuth<IGroup>({
-			url: API_URL.group(`/status/${data.id}`),
+			url: API_URL.group(`/${id}`),
 			method: 'PUT',
 			data
 		})

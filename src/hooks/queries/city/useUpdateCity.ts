@@ -11,7 +11,7 @@ export const useUpdateCity = () => {
     mutationFn: (data: ICity) => cityService.updateCite(data),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['update city']
+        queryKey: ['get cities']
       })
       toast.success('Раздел кабинета "Город" обновлён')
     },

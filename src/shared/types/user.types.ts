@@ -7,4 +7,5 @@ export interface IUser {
 	userPhoneNumber: string
 	orders: IOrder[]
 	moderator: boolean
+	quantity_money?: number
 }

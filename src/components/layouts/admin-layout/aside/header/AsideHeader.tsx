@@ -10,7 +10,7 @@ const AsideHeader = () => {
       <div className={'flex gap-3 items-center text-sm justify-center'}>
         <Logo link={PUBLIC_URL.home()} className={'w-[100px]'}/>
         <div>
-          <p className={'font-bold text-base'}>г. {isCitiesLoading ? 'Неизвестен' : cities && cities[0].city}</p>
+          <p className={'font-bold text-base'}>г. {isCitiesLoading ? 'Неизвестен' : isCitiesLoading ? 'Неизвестно' : (cities?.length ? cities[0].city : 'Неизвестно')}</p>
         </div>
       </div>
       <div className={'my-3 h-1.5 bg-[#131313]'}/>

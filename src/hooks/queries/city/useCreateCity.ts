@@ -11,7 +11,7 @@ export const useCreateCity = () => {
     mutationFn: (data: ICity) => cityService.createCity(data),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['create city']
+        queryKey: ['get cities']
       })
       toast.success('Раздел кабинета "Город" создан')
     },

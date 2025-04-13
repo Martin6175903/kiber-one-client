@@ -1,14 +1,14 @@
-import SettingsCity from '@/src/app/admin/settings-city/SettingsCity'
 import { Metadata } from 'next'
 import { NO_INDEX_PAGE } from '@/src/constants/seo.constants'
+import GroupEdit from '@/src/app/admin/groups/[groupId]/GroupEdit'
 
 export const metadata: Metadata = {
-  title: "Настройка города",
+  title: 'Редактирование группы',
   ...NO_INDEX_PAGE
 }
 
 const Page = () => {
-  return <SettingsCity/>
+  return <GroupEdit/>
 }
 
 export default Page

@@ -7,12 +7,12 @@ import { groupService } from '@/src/services/group.service'
 export const useDeleteGroup = () => {
   const queryClient = useQueryClient()
 
-  const {mutate: deleteGroup, isPending: isLoadingDeleteGroup} = useMutation({
+  const {mutate: deleteGroup, isPending: isLoadingDeleteGroup, isSuccess: isSuccessDeleted} = useMutation({
     mutationKey: ['delete group'],
     mutationFn: (id: string) => groupService.deleteGroup(id),
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: ['delete group']
+        queryKey: ['get groups']
       })
       toast.success('Группа успешно удалена')
     },
@@ -22,6 +22,6 @@ export const useDeleteGroup = () => {
   })
 
   return useMemo(() => ({
-    deleteGroup, isLoadingDeleteGroup
-  }), [deleteGroup, isLoadingDeleteGroup])
+    deleteGroup, isLoadingDeleteGroup, isSuccessDeleted
+  }), [deleteGroup, isLoadingDeleteGroup, isSuccessDeleted])
 }
