@@ -14,14 +14,15 @@ const Users = () => {
     id: { generateId: index + 1, id: user.id },
     fullName: (user.lastName + ' ' + user.firstName),
     groupTitle: '',
-    balance: user.quantityMoney
+    balance: user.quantityMoney,
+		groupId: user.groupId
   })) : []
 
   return (
     <div>
       <h2 className="title">Пользователи</h2>
 			<Button onClick={() => router.push(PUBLIC_URL.admin('/users/create'))} className={'my-5'}>Создать пользователя</Button>
-      <AdminDataTable columns={AdminUsersColumns} data={isLoadingUsers ? [] : formattedUsers!} filterKey={'fullName'}/>
+      <AdminDataTable columns={AdminUsersColumns} data={isLoadingUsers ? [] : formattedUsers} filterKey={'fullName'}/>
     </div>
   )
 }

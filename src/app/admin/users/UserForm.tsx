@@ -15,12 +15,18 @@ import { EnumUserRole, IUser, IUserInput } from '@/src/shared/types/user.types'
 import { useCreateUser } from '@/src/hooks/queries/user/useCreateUser'
 import { useUpdateUser } from '@/src/hooks/queries/user/useUpdateUser'
 import { ToggleGroup, ToggleGroupItem } from '@/src/components/ui/ToggleGroup'
-import { CalendarIcon, Shield, User } from 'lucide-react'
-import { Popover, PopoverContent, PopoverTrigger } from '@/src/components/ui/Popover'
-import { cn } from '@/src/lib/utils'
-import { Calendar } from '@/src/components/ui/Calendar'
-import { format } from "date-fns"
-import { useEffect, useState } from 'react'
+import { Shield, User } from 'lucide-react'
+import InputDate from '@/src/components/ui/form-elements/InputDate'
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue
+} from '@/src/components/ui/Select'
+import { useGetGroups } from '@/src/hooks/queries/group/useGetGroups'
 
 interface UserFormProps {
   user: IUser | null
@@ -30,6 +36,8 @@ const UserForm = ({ user }: UserFormProps) => {
 
   const { createUser, isPendingUser } = useCreateUser()
   const { updateUser, isUpdateUser } = useUpdateUser(user?.id!)
+
+	const {groups, isLoading} = useGetGroups()
 
   const title = user ? 'Изменение данных пользователя' : 'Создание пользователя'
   const description = user
@@ -46,8 +54,9 @@ const UserForm = ({ user }: UserFormProps) => {
       phoneNumber: user.phoneNumber,
       password: '',
       quantityMoney: user.quantityMoney,
-      yearOfBirth: new Date(user.yearOfBirth),
+      yearOfBirth: user.yearOfBirth,
       startLearning: user.startLearning,
+			groupId: user.groupId
     }) : {
       firstName: '',
       lastName: '',
@@ -57,25 +66,9 @@ const UserForm = ({ user }: UserFormProps) => {
       quantityMoney: undefined,
       yearOfBirth: undefined,
       startLearning: undefined,
-    },
+			groupId: undefined
+    }
   })
-
-	const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
-	const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
-
-	// Инициализация значений при загрузке
-	useEffect(() => {
-		if (form.getValues('yearOfBirth')) {
-			const birthDate = form.getValues('yearOfBirth')
-			if(birthDate) {
-				setSelectedYear(birthDate.getFullYear())
-				setCurrentMonth(birthDate)
-			}
-		}
-	}, [form])
-
-	// Генерируем список годов (например, ±20 лет от текущего)
-	const years = Array.from({ length: 25 }, (_, i) => new Date().getFullYear() - 24 + i);
 
   const role = form.watch("role")
 
@@ -243,6 +236,7 @@ const UserForm = ({ user }: UserFormProps) => {
 									name={'quantityMoney'}
 									control={form.control}
 									rules={{
+										required: 'Начальная сумма обязательна',
 										min: {
 											value: 0,
 											message: 'Число не может быть меньше 0.'
@@ -252,77 +246,46 @@ const UserForm = ({ user }: UserFormProps) => {
 								<FormField
 									control={form.control}
 									name="yearOfBirth"
-									render={({ field }) => {
-										const selectedDate = field.value
-										const displayDate = selectedDate ? format(selectedDate, "PPP") : "Выберите дату рождения..."
-
-										return (
-											<FormItem className="flex flex-col">
-												<FormLabel>Дата рождения:</FormLabel>
-												<Popover>
-													<PopoverTrigger asChild>
-														<FormControl>
-															<Button
-																variant={"outline"}
-																className={cn(
-																	"w-[300px] pl-3 text-left font-normal cursor-pointer",
-																	!field.value && "text-muted-foreground"
-																)}
-															>
-																{displayDate}
-																<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-															</Button>
-														</FormControl>
-													</PopoverTrigger>
-													<PopoverContent className="w-auto p-0" align="start">
-														<div className={'flex gap-3'}>
-															<Calendar
-																mode="single"
-																selected={selectedDate}
-																onSelect={(date) => {
-																	field.onChange(date)
-																	if (date) {
-																		setSelectedYear(date.getFullYear())
-																		setCurrentMonth(date)
-																	}
-																}}
-																disabled={(date) =>
-																	date > new Date() || date < new Date("1999-01-01")
-																}
-																month={currentMonth}
-																onMonthChange={setCurrentMonth}
-																defaultMonth={currentMonth}
-																initialFocus
-															/>
-															<div className="p-2 border-r overflow-y-auto max-h-[300px]">
-																{years.map((y) => (
-																	<div
-																		key={y}
-																		className={`p-2 text-center cursor-pointer rounded hover:bg-gray-100 ${
-																			y === selectedYear ? "bg-blue-100 font-bold" : ""
-																		}`}
-																		onClick={() => {
-																			const newDate = new Date(selectedDate || new Date())
-																			newDate.setFullYear(y)
-																			field.onChange(newDate)
-																			setSelectedYear(y)
-																			setCurrentMonth(new Date(y, newDate.getMonth()))
-																		}}
-																	>
-																		{y}
-																	</div>
-																))}
-															</div>
-														</div>
-													</PopoverContent>
-												</Popover>
-												<FormDescription>
-													Дата рождения используется для расчета возраста
-												</FormDescription>
-												<FormMessage />
-											</FormItem>
-										)
+									rules={{
+										required: "Дата рождения обязательно"
 									}}
+									render={({ field }) => <InputDate field={field} label={'Дата рождения:'}/>}
+								/>
+								<FormField
+									control={form.control}
+									name="startLearning"
+									rules={{
+										required: "Начало обучения ученика обязательно"
+									}}
+									render={({ field }) => <InputDate field={field} label={'Дата начала обучения:'}/>}
+								/>
+								<FormField
+									control={form.control}
+									name="groupId"
+									rules={{
+										required: "Выбор группы обязателен"
+									}}
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Выбор группы:</FormLabel>
+											<FormControl>
+												<Select disabled={isPendingUser || isUpdateUser} value={field.value} onValueChange={field.onChange}>
+													<SelectTrigger className="w-[250px]">
+														<SelectValue placeholder="Выберите группу..." />
+													</SelectTrigger>
+													<SelectContent>
+														<SelectGroup>
+															<SelectLabel>Категория</SelectLabel>
+															{groups ? groups.map(group => (
+																<SelectItem key={group.id} value={group.id}>{group.title}</SelectItem>
+															)) : <></>}
+														</SelectGroup>
+													</SelectContent>
+												</Select>
+											</FormControl>
+											<FormMessage/>
+										</FormItem>
+									)}
 								/>
 							</>
             )}

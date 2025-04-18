@@ -16,6 +16,17 @@ export interface IUser {
 	yearOfBirth?: Date
 	startLearning?: Date
 	orders: IOrder[]
+	groupId?: string
 }
 
-export interface IUserInput extends Omit<IUser, 'id' | 'orders'>{}
+export interface IUserInput extends Omit<IUser, 'id' | 'orders'>{
+	firstName: string
+	lastName: string
+	role: EnumUserRole
+	phoneNumber: string
+	password: string
+	quantityMoney?: number
+	yearOfBirth?: Date
+	startLearning?: Date
+	groupId?: string
+}

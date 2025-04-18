@@ -53,7 +53,10 @@ export const adminUsersColumns: ColumnDef<IAdminUsersColumn>[] = [
           Название группы <ArrowUpDown className={'ml-2 size-4'}/>
         </Button>
       )
-    }
+    },
+		cell: ({row}) => (
+			<span></span>
+		)
   },
   {
     accessorKey: 'balance',

@@ -4,7 +4,7 @@ import { useGetUserById } from '@/src/hooks/queries/user/useGetUserById'
 
 const EditUser = () => {
   const { user, isLoadingUser } = useGetUserById()
-  return <UserForm user={!isLoadingUser ? user : null}/>
+  return <UserForm user={isLoadingUser ? null : user}/>
 }
 
 export default EditUser
