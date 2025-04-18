@@ -1,8 +1,6 @@
 'use client'
 import { GroupsTable } from '@/src/app/admin/groups/GroupsTable'
 import { useGetGroups } from '@/src/hooks/queries/group/useGetGroups'
-import { useEffect } from 'react'
-import { useDeleteGroup } from '@/src/hooks/queries/group/useDeleteGroup'
 import { Button } from '@/src/components/ui/Button'
 import { useRouter } from 'next/navigation'
 import { PUBLIC_URL } from '@/src/config/url.config'

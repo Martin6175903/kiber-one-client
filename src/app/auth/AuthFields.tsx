@@ -13,58 +13,58 @@ interface AuthFieldsProps {
 const AuthFields = ({ form, isReg = false, isPending }: AuthFieldsProps) => {
 	return (
 		<>
-		{isReg && (
-			<>
-				<FormField
-					render={({ field }) => (
-						<FormItem>
-							<FormControl>
-								<Input placeholder={'Иван'} type={'text'} disabled={isPending} {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-					name={'firstName'}
-					control={form.control}
-					rules={{
-						required: 'Имя обязательно',
-						pattern: /[А-Я][а-яА-Я]+/,
-						maxLength: {
-							value: 15,
-							message: 'Максимум 15 символов'
-						},
-						minLength: {
-							value: 2,
-							message: 'Минимум 2 символа'
-						}
-					}} />
-				<FormField
-					render={({ field }) => (
-						<FormItem>
-							<FormControl>
-								<Input placeholder={'Иванов'} type={'text'} disabled={isPending} {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-					name={'lastName'}
-					control={form.control}
-					rules={{
-						required: 'Фамилия обязательна',
-						pattern: /[А-Я][а-яА-Я]+/,
-						maxLength: {
-							value: 15,
-							message: 'Максимум 15 символов'
-						},
-						minLength: {
-							value: 2,
-							message: 'Минимум 2 символа'
-						}
-					}} />
-			</>
-		)}
+		{/*{isReg && (*/}
+		{/*	<>*/}
+		{/*		<FormField*/}
+		{/*			render={({ field }) => (*/}
+		{/*				<FormItem>*/}
+		{/*					<FormControl>*/}
+		{/*						<Input placeholder={'Иван'} type={'text'} disabled={isPending} {...field} />*/}
+		{/*					</FormControl>*/}
+		{/*					<FormMessage />*/}
+		{/*				</FormItem>*/}
+		{/*			)}*/}
+		{/*			name={'firstName'}*/}
+		{/*			control={form.control}*/}
+		{/*			rules={{*/}
+		{/*				required: 'Имя обязательно',*/}
+		{/*				pattern: /[А-Я][а-яА-Я]+/,*/}
+		{/*				maxLength: {*/}
+		{/*					value: 15,*/}
+		{/*					message: 'Максимум 15 символов'*/}
+		{/*				},*/}
+		{/*				minLength: {*/}
+		{/*					value: 2,*/}
+		{/*					message: 'Минимум 2 символа'*/}
+		{/*				}*/}
+		{/*			}} />*/}
+		{/*		<FormField*/}
+		{/*			render={({ field }) => (*/}
+		{/*				<FormItem>*/}
+		{/*					<FormControl>*/}
+		{/*						<Input placeholder={'Иванов'} type={'text'} disabled={isPending} {...field} />*/}
+		{/*					</FormControl>*/}
+		{/*					<FormMessage />*/}
+		{/*				</FormItem>*/}
+		{/*			)}*/}
+		{/*			name={'lastName'}*/}
+		{/*			control={form.control}*/}
+		{/*			rules={{*/}
+		{/*				required: 'Фамилия обязательна',*/}
+		{/*				pattern: /[А-Я][а-яА-Я]+/,*/}
+		{/*				maxLength: {*/}
+		{/*					value: 15,*/}
+		{/*					message: 'Максимум 15 символов'*/}
+		{/*				},*/}
+		{/*				minLength: {*/}
+		{/*					value: 2,*/}
+		{/*					message: 'Минимум 2 символа'*/}
+		{/*				}*/}
+		{/*			}} />*/}
+		{/*	</>*/}
+		{/*)}*/}
 			<FormField
-				name={'userPhoneNumber'}
+				name={'phoneNumber'}
 				control={form.control}
 				rules={{
 					required: 'Номер телефона обязателен'

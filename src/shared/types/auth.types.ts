@@ -1,10 +1,8 @@
 import { IUser } from '@/src/shared/types/user.types'
 
 export interface IAuthForm  {
-	userPhoneNumber: string
+	phoneNumber: string
 	password: string
-	firstName?: string
-	lastName?: string
 }
 
 export interface IAuthResponse {

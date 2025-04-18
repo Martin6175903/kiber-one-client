@@ -236,8 +236,8 @@ const ProductForm = ({ group } :GroupFormProps ) => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>День</SelectLabel>
-                        {!isLoadingUsers && users!.filter(user => user.moderator).map(user => (
+                        <SelectLabel>Преподаватели</SelectLabel>
+                        {!isLoadingUsers && users!.filter(user => user.role === 1).map(user => (
                           <SelectItem value={user.firstName + ' ' + user.lastName}>{user.firstName} {user.lastName}</SelectItem>
                         ))}
                       </SelectGroup>

@@ -12,7 +12,7 @@ import { PUBLIC_URL } from '@/src/config/url.config'
 import * as React from 'react'
 
 export interface IAdminUsersColumn {
-  id: number
+  id: { generateId: number, id: string }
   fullName: string
   groupTitle: string
   balance: number
@@ -29,7 +29,7 @@ export const adminUsersColumns: ColumnDef<IAdminUsersColumn>[] = [
       )
     },
     cell: ({row}) => (
-      <span className={'ml-5 text-left inline-block w-full font-bold'}>{row.original.id}</span>
+      <span className={'ml-5 text-left inline-block w-full font-bold'}>{row.original.id.generateId}</span>
     )
   },
   {
@@ -87,18 +87,18 @@ export const adminUsersColumns: ColumnDef<IAdminUsersColumn>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align={'end'}>
             <DropdownMenuLabel>Действия</DropdownMenuLabel>
-            <Link href={PUBLIC_URL.product(String(row.original.id))}>
+            <Link href={PUBLIC_URL.admin(`/users/${row.original.id.id}`)}>
               <DropdownMenuItem>
                 <Pencil className={'size-4 mr-2'} />
                 Редактировать
               </DropdownMenuItem>
             </Link>
-            <Link href={PUBLIC_URL.products(String(row.original.id))}>
+            <Button>
               <DropdownMenuItem>
                 <Trash className={'size-4 mr-2'}/>
                 Удалить
               </DropdownMenuItem>
-            </Link>
+            </Button>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
