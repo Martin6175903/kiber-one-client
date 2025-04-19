@@ -15,6 +15,7 @@ import { switchAgeCategory } from '@/src/utils/group/switchAgeCategory'
 import { useRouter } from 'next/navigation'
 import { PUBLIC_URL } from '@/src/config/url.config'
 import { dayLesson } from '@/src/utils/group/dayLesson'
+import Link from 'next/link'
 
 export function GroupsTable({ groups }: { groups: IGroup[] | undefined }) {
   const { deleteGroup, isLoadingDeleteGroup } = useDeleteGroup()
@@ -54,9 +55,9 @@ export function GroupsTable({ groups }: { groups: IGroup[] | undefined }) {
               <TableCell className="font-medium">
                 <div className="flex flex-col">
                   <span className="font-medium">{group.title}</span>
-                  <div className="flex items-center gap-2 mt-3 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2 mt-3 text-sm text-muted-foreground hover:text-black duration-300 hover:scale-105">
                     <Users className="h-4 w-4" />
-                    <span>Состав ({group.membersCount})</span>
+                    <Link href={PUBLIC_URL.admin(`/users/group/${group.id}`)}>Состав ({group.membersCount})</Link>
                   </div>
                 </div>
               </TableCell>

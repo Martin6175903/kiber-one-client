@@ -42,6 +42,13 @@ class UserService {
 			data
 		})
 	}
+
+	async deleteUser(id: string) {
+		return axiosClassic<IUserInput>({
+			url: API_URL.users(`/${id}`),
+			method: 'DELETE'
+		})
+	}
 }
 
 export const userService = new UserService()

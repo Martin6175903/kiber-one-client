@@ -37,7 +37,7 @@ const UserForm = ({ user }: UserFormProps) => {
   const { createUser, isPendingUser } = useCreateUser()
   const { updateUser, isUpdateUser } = useUpdateUser(user?.id!)
 
-	const {groups, isLoading} = useGetGroups()
+	const {groups} = useGetGroups()
 
   const title = user ? 'Изменение данных пользователя' : 'Создание пользователя'
   const description = user

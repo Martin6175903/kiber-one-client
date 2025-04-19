@@ -1,3 +1,4 @@
+'use client'
 import { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/src/components/ui/Button'
 import { ArrowUpDown, ExternalLink, MoreHorizontal, Pencil, Trash } from 'lucide-react'
@@ -10,6 +11,7 @@ import {
 import Link from 'next/link'
 import { PUBLIC_URL } from '@/src/config/url.config'
 import * as React from 'react'
+import { useDeleteUser } from '@/src/hooks/queries/user/useDeleteUser'
 
 export interface IAdminUsersColumn {
   id: { generateId: number, id: string }
@@ -55,7 +57,7 @@ export const adminUsersColumns: ColumnDef<IAdminUsersColumn>[] = [
       )
     },
 		cell: ({row}) => (
-			<span></span>
+			<span>{row.original.groupTitle}</span>
 		)
   },
   {
@@ -80,32 +82,33 @@ export const adminUsersColumns: ColumnDef<IAdminUsersColumn>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => (
-      <div className={'text-center'}>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant={'ghost'} className={'size-8 p-0'}>
-              <MoreHorizontal className={'size-4'}/>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align={'end'}>
-            <DropdownMenuLabel>Действия</DropdownMenuLabel>
-            <Link href={PUBLIC_URL.admin(`/users/${row.original.id.id}`)}>
-              <DropdownMenuItem>
-                <Pencil className={'size-4 mr-2'} />
-                Редактировать
-              </DropdownMenuItem>
-            </Link>
-            <Button>
-              <DropdownMenuItem>
-                <Trash className={'size-4 mr-2'}/>
-                Удалить
-              </DropdownMenuItem>
-            </Button>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    )
+    cell: ({ row }) => {
+			const {deleteUser, isLoadingDelete} = useDeleteUser()
+			return (
+				<div className={'text-center'}>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant={'ghost'} className={'size-8 p-0'}>
+								<MoreHorizontal className={'size-4'}/>
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align={'end'}>
+							<DropdownMenuLabel>Действия</DropdownMenuLabel>
+							<Link href={PUBLIC_URL.admin(`/users/${row.original.id.id}`)}>
+								<DropdownMenuItem>
+									<Pencil className={'size-4 mr-2'} />
+									Редактировать
+								</DropdownMenuItem>
+							</Link>
+							<DropdownMenuItem onClick={() => deleteUser(row.original.id.id)}>
+								<Trash className={'size-4 mr-2'}/>
+								Удалить
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</div>
+			)
+		}
   }
 ]
 
