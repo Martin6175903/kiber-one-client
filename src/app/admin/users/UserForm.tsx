@@ -56,6 +56,7 @@ const UserForm = ({ user }: UserFormProps) => {
       quantityMoney: user.quantityMoney,
       yearOfBirth: user.yearOfBirth,
       startLearning: user.startLearning,
+			numberCard: user.numberCard,
 			groupId: user.groupId
     }) : {
       firstName: '',
@@ -66,6 +67,7 @@ const UserForm = ({ user }: UserFormProps) => {
       quantityMoney: undefined,
       yearOfBirth: undefined,
       startLearning: undefined,
+			numberCard: null,
 			groupId: undefined
     }
   })
@@ -76,6 +78,7 @@ const UserForm = ({ user }: UserFormProps) => {
 
 		data.role = data.role === '1' ? 'MODERATOR' : 'USER'
 		data.quantityMoney = Number(data.quantityMoney)
+		data.numberCard = Number(data.numberCard)
 
     if (user) updateUser(data)
     else createUser(data)
@@ -131,7 +134,8 @@ const UserForm = ({ user }: UserFormProps) => {
                   value: 6,
                   message: 'Минимум 6 символов',
                 },
-              }} />
+              }}
+						/>
             <FormField
               render={({ field }) => (
                 <FormItem>
@@ -249,7 +253,7 @@ const UserForm = ({ user }: UserFormProps) => {
 									rules={{
 										required: "Дата рождения обязательно"
 									}}
-									render={({ field }) => <InputDate field={field} label={'Дата рождения:'}/>}
+									render={({ field }) => <InputDate field={field} label={'Дата рождения:'} placeholder={'Выберите дату рождения...'}/>}
 								/>
 								<FormField
 									control={form.control}
@@ -257,7 +261,7 @@ const UserForm = ({ user }: UserFormProps) => {
 									rules={{
 										required: "Начало обучения ученика обязательно"
 									}}
-									render={({ field }) => <InputDate field={field} label={'Дата начала обучения:'}/>}
+									render={({ field }) => <InputDate field={field} label={'Дата начала обучения:'} placeholder={'Начало обучения с...'}/>}
 								/>
 								<FormField
 									control={form.control}
@@ -286,6 +290,30 @@ const UserForm = ({ user }: UserFormProps) => {
 											<FormMessage/>
 										</FormItem>
 									)}
+								/>
+								<FormField
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Номер карточки ученика:</FormLabel>
+											<FormControl>
+												<Input placeholder={'Номер карточки...'} type={'number'} disabled={isUpdateUser || isPendingUser} {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+									name={'numberCard'}
+									control={form.control}
+									rules={{
+										required: 'Номер карточки обязателен для ввода',
+										maxLength: {
+											value: 12,
+											message: 'Максимум 12 цифр',
+										},
+										minLength: {
+											value: 8,
+											message: 'Минимум 8 цифр',
+										},
+									}}
 								/>
 							</>
             )}

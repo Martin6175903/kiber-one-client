@@ -12,14 +12,15 @@ import { useState } from 'react'
 interface InputDateProps<TFieldName extends Path<IUserInput>> {
 	field: ControllerRenderProps<IUserInput, TFieldName>
 	label: string
+	placeholder: string
 }
 
-function InputDate<TFieldName extends Path<IUserInput>>({field, label}: InputDateProps<TFieldName>) {
+function InputDate<TFieldName extends Path<IUserInput>>({field, label, placeholder}: InputDateProps<TFieldName>) {
 	const [currentMonth, setCurrentMonth] = useState<Date>(new Date())
 	const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
 
 	const selectedDate = field.value
-	const displayDate = selectedDate ? format(selectedDate, "PPP") : "Выберите дату рождения..."
+	const displayDate = selectedDate ? format(selectedDate, "PPP") : placeholder
 
 	// Генерируем список годов (например, ±20 лет от текущего)
 	const years = Array.from({ length: 25 }, (_, i) => new Date().getFullYear() - 24 + i);
