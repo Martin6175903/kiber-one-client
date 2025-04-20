@@ -44,7 +44,9 @@ export const adminUsersColumns: ColumnDef<IAdminUsersColumn>[] = [
       )
     },
     cell: ({row}) => (
-      <span className={'ml-2 text-left inline-block w-full font-bold'}>{row.original.fullName}</span>
+      <span className={'ml-2 text-left inline-block w-full font-bold duration-300 hover:scale-105 border-b border-b-solid border-b-transparent hover:border-b-black'}>{
+				<Link href={PUBLIC_URL.admin(`/users/history/${row.original.id.id}`)}>{row.original.fullName}</Link>
+			}</span>
     )
   },
   {

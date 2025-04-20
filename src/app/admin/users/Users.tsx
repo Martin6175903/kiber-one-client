@@ -24,7 +24,7 @@ const Users = () => {
     <div>
       <h2 className="title">Пользователи</h2>
 			<Button onClick={() => router.push(PUBLIC_URL.admin('/users/create'))} className={'my-5'}>Создать пользователя</Button>
-      <AdminDataTable columns={AdminUsersColumns} data={isLoadingUsers ? [] : formattedUsers} filterKey={'fullName'}/>
+      <AdminDataTable columns={AdminUsersColumns} data={isLoadingUsers ? [] : formattedUsers} filterKey={'fullName'} className={'grid grid-cols-[0.5fr_1.5fr_2fr_1fr_0.7fr] justify-center items-center'}/>
     </div>
   )
 }

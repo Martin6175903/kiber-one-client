@@ -21,7 +21,7 @@ const GroupUsers = () => {
 		<div>
 			<h2 className="title">Ученики</h2>
 			<h4 className={'font-medium'}>{isLoadingGroup ? '' : group!.title}</h4>
-			<AdminDataTable columns={AdminUsersColumns} data={formattedUsers} filterKey={'fullName'}/>
+			<AdminDataTable columns={AdminUsersColumns} data={formattedUsers} filterKey={'fullName'} className={'grid grid-cols-[0.5fr_1.5fr_2fr_1fr_0.7fr] justify-center items-center'}/>
 		</div>
 	)
 }

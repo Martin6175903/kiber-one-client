@@ -9,5 +9,6 @@ export const API_URL = {
 	orders: (url = '') => API_URL.root(`/orders${url}`),
 	files: (url = '') => API_URL.root(`/files${url}`),
 	city: (url = '') => API_URL.root(`/city${url}`),
-	group: (url = '') => API_URL.root(`/group${url}`)
+	group: (url = '') => API_URL.root(`/group${url}`),
+	transaction: (url = '') => API_URL.root(`/transaction${url}`)
 }

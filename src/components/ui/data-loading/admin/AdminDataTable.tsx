@@ -25,10 +25,11 @@ import { Input } from "@/src/components/ui/form-elements/Input"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  filterKey?: string
+  filterKey?: string,
+	className: string
 }
 
-export function AdminDataTable<TData, TValue>({ columns, data, filterKey }: DataTableProps<TData, TValue>) {
+export function AdminDataTable<TData, TValue>({ columns, data, filterKey, className }: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -65,7 +66,7 @@ export function AdminDataTable<TData, TValue>({ columns, data, filterKey }: Data
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow className={'grid grid-cols-[0.5fr_1.5fr_2fr_1fr_0.7fr] justify-center items-center'} key={headerGroup.id}>
+              <TableRow className={className} key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead className={'text-center'} key={header.id}>
@@ -85,12 +86,12 @@ export function AdminDataTable<TData, TValue>({ columns, data, filterKey }: Data
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  className={'grid grid-cols-[0.5fr_1.5fr_2fr_1fr_0.7fr] justify-center items-center'}
+                  className={className}
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell className={'text-center'} key={cell.id}>
+                    <TableCell className={'flex justify-center items-center'} key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
