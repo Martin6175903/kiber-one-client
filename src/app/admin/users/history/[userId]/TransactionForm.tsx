@@ -17,7 +17,7 @@ const operations = [
 		type: 'BONUS'
 	},
 	{
-		description: 'Бонус>',
+		description: 'Бонус',
 		type: 'BONUS'
 	},
 	{
@@ -106,7 +106,7 @@ export const TransactionForm = () => {
 	}
 
 	return (
-		<Card className="w-full max-w-2xl">
+		<Card className="w-full">
 			<CardHeader>
 				<CardTitle>Операции с валютой</CardTitle>
 			</CardHeader>
@@ -117,8 +117,9 @@ export const TransactionForm = () => {
 						<Label>Стандартные начисления:</Label>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 							{operations.map((op) => (
-								<div key={op.description} className="flex items-center space-x-2">
+								<div key={op.description} className="flex items-center space-x-2 group cursor-pointer">
 									<Checkbox
+										className={'cursor-pointer duration-300 group-hover:scale-105'}
 										id={op.description}
 										checked={selectedOperations.some(o => o.description === op.description)}
 										onCheckedChange={(checked) => {
@@ -129,7 +130,7 @@ export const TransactionForm = () => {
 											}
 										}}
 									/>
-									<Label htmlFor={op.description} className="font-normal">
+									<Label htmlFor={op.description} className="font-normal duration-300 cursor-pointer group-hover:scale-105">
 										{op.description}
 									</Label>
 								</div>
@@ -155,7 +156,7 @@ export const TransactionForm = () => {
 							id="penalty-reason"
 							value={penaltyReason}
 							onChange={(e) => setPenaltyReason(e.target.value)}
-							placeholder="Например: Порча оборудования"
+							placeholder="Опишите причину списания..."
 						/>
 
 						{penaltyReason && (
@@ -173,9 +174,11 @@ export const TransactionForm = () => {
 						)}
 					</div>
 
-					<Button type="submit" className="w-full">
-						Сохранить операции
-					</Button>
+					<div className={'flex justify-center'}>
+						<Button type="submit" className="px-7 py-5 cursor-pointer">
+							Сохранить операции
+						</Button>
+					</div>
 				</form>
 			</CardContent>
 		</Card>

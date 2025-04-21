@@ -10,8 +10,6 @@ import { adminHistoryColumns, IAdminHistoryColumn } from '@/src/app/admin/users/
 import { useGetTransactionsUser } from '@/src/hooks/queries/transaction/useGetTransactionsUser'
 import { AdminDataTable } from '@/src/components/ui/data-loading/admin/AdminDataTable'
 import { Button } from '@/src/components/ui/Button'
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-	AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/src/components/ui/AlertDialog'
 import {
 	Dialog,
 	DialogContent,
@@ -34,7 +32,7 @@ const HistoryTransaction = () => {
 	const [group, setGroup] = useState<IGroup>()
 
 	useEffect(() => {
-		if (!isLoading && !isLoadingUser) setGroup(groups.find(group => user!.groupId === group.id))
+		if (!isLoading && !isLoadingUser) setGroup(groups!.find(group => user!.groupId === group.id))
 	}, [isLoading, isLoadingUser])
 
 	const formattedHistory: IAdminHistoryColumn[] = transactionsUser && user ? transactionsUser.map((transaction, index) => ({
@@ -52,18 +50,18 @@ const HistoryTransaction = () => {
 			<p className={'mt-3 font-medium text-xl'}>Информация о пользователе:</p>
 			<p className={'text-xl mb-7'}>{isLoadingUser || !group ? 'Пользователь' : <span>{user!.lastName} {user!.firstName}, {group!.title}, {dayLesson(group!.dayOfStudy)}, {group!.startTimeLearning} - {group!.endTimeLearning}</span>}</p>
 			<div className={'flex justify-between items-center mb-4'}>
-				<p className={'text-base font-medium mb-2'}>Текущий баланс ученика: <span className={'font-bold'}>{isLoadingUser ? "0" : user.quantityMoney} K</span></p>
+				<p className={'text-base font-medium mb-2'}>Текущий баланс ученика: <span className={'font-bold'}>{isLoadingUser ? "0" : user!.quantityMoney} K</span></p>
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button className={'cursor-pointer'} variant="outline">Добавить транзакцию</Button>
 					</DialogTrigger>
-					<DialogContent className="sm:max-w-[625px]">
+					<DialogContent className="sm:max-w-[1025px]">
 						<DialogHeader>
 							<DialogTitle>Добавление транзакции</DialogTitle>
 						</DialogHeader>
 						<TransactionForm/>
 						<DialogFooter>
-							<Button type="submit">Save changes</Button>
+							<Button type="submit">Использовать транзакции</Button>
 						</DialogFooter>
 					</DialogContent>
 				</Dialog>
