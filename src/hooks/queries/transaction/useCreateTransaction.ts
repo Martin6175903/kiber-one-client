@@ -1,19 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { useMemo } from 'react'
-import { ITransaction } from '@/src/shared/types/transaction.types'
+import { ITransaction, ITransactionInput } from '@/src/shared/types/transaction.types'
 import { transactionService } from '@/src/services/transaction.service'
+import { useParams } from 'next/navigation'
 
 export const useCreateTransaction = () => {
-  const queryClient = useQueryClient()
+	const params = useParams<{ userId: string }>()
+	const queryClient = useQueryClient()
 
   const { mutate: createTransaction, isPending: isLoadingCreateTransaction } = useMutation({
     mutationKey: ['create transaction'],
-		mutationFn: (data: ITransaction[]) => transactionService.createTransaction(data),
+		mutationFn: (data: ITransactionInput[]) => transactionService.createTransaction(params.userId, data),
 		onSuccess(){
-      queryClient.invalidateQueries({
-        queryKey: ['get transactions user']
-      })
+      Promise.all([
+				queryClient.invalidateQueries({ queryKey: ['get transactions user'] }),
+				queryClient.invalidateQueries({ queryKey: ['get user by id', params.userId] })
+			])
       toast.success('Транзакция успешно создана!')
     },
 		onError() {

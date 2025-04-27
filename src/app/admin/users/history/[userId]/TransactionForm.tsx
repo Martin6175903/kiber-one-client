@@ -1,108 +1,135 @@
-"use client"
-import { useState } from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import { Button } from '@/src/components/ui/Button'
 import { Checkbox } from '@/src/components/ui/Checkbox'
 import { Input } from '@/src/components/ui/form-elements/Input'
 import { Label } from '@/src/components/ui/form-elements/Label'
-import { Card, CardHeader, CardTitle, CardContent } from '@/src/components/ui/Card'
-
-type TransactionOperation = {
-	description: string
-	type: 'BONUS' | 'PURCHASE'
-}
+import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/Card'
+import { DialogClose } from '@/src/components/ui/Dialog'
+import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
+import { ITransactionInput } from '@/src/shared/types/transaction.types'
+import {
+	AlertDialog, AlertDialogAction, AlertDialogContent,
+	AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
+} from '@/src/components/ui/AlertDialog'
+import { ArrowRightLeft, ArrowUpDown, Banknote, ScanBarcode } from 'lucide-react'
 
 const operations = [
 	{
 		description: 'Посещение занятие',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 10
 	},
 	{
 		description: 'Бонус',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 5
 	},
 	{
 		description: 'Быстрее всех завершил(а) задание',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 5
 	},
 	{
 		description: 'Прошёл (прошла) модуль без замечаний по поведению',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 5
 	},
 	{
 		description: 'Придумал(а) полезное правило для КИБЕРшколы',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 10
 	},
 	{
 		description: 'Помог(ла) другу разобраться с заданием',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 5
 	},
 	{
 		description: 'Прошёл (прошла) модуль без пропусков',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 5
 	},
 	{
 		description: 'Помог(ла) ассистенту с уборкой',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 5
 	},
 	{
 		description: 'Победа в конкурсе/олимпиаде',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 15
 	},
 	{
 		description: 'Тщательно выполнил(а) гимнастику для глаз',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 5
 	},
 	{
 		description: 'Написал(а) отзыв в социальных сетях',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 15
 	},
 	{
 		description: 'Создал(а) дома самостоятельно проект и показал(а) тьютору',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 15
 	},
 	{
 		description: 'Сделал(а) пост в социальных сетях о КИБЕРшколе',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 15
 	},
 	{
 		description: 'Написал(а) отзыв о КИБЕРшколе на Google Картах',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 15
 	},
 	{
 		description: 'Написал(а) отзыв о КИБЕРшколе на Яндекс Картах',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 15
 	},
 	{
 		description: 'День рождения',
-		type: 'BONUS'
+		type: 'BONUS',
+		quantityMoney: 30
 	},
 	{
 		description: 'Своевременная оплата',
+		type: 'BONUS',
+		quantityMoney: 15
+	},
+	{
+		description: 'Другая причина начисления',
 		type: 'BONUS'
 	}
-] as const
+]
 
 export const TransactionForm = () => {
-	const [selectedOperations, setSelectedOperations] = useState<TransactionOperation[]>([])
+	const [selectedOperations, setSelectedOperations] = useState<ITransactionInput[]>([])
+
+	// Логика работы кастомный операций
 	const [customBonus, setCustomBonus] = useState('')
-	const [penaltyReason, setPenaltyReason] = useState('')
-	const [penaltyAmount, setPenaltyAmount] = useState('')
+	const [customBonusQuantity, setCustomBonusQuantity] = useState(0)
+	const [purchaseReason, setPurchaseReason] = useState('')
+	const [purchaseReasonQuantity, setPurchaseReasonQuantity] = useState(0)
+	const [isCheckedItemOther, setIsCheckedItemOther] = useState(false)
+
+	const { createTransaction } = useCreateTransaction()
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
 		const transactions = [
-			...selectedOperations,
-			...(customBonus ? [{ description: customBonus, type: 'BONUS' }] : []),
-			...(penaltyReason ? [{
-				description: penaltyReason,
-				type: 'PENALTY',
-				amount: Number(penaltyAmount) || 0
-			}] : [])
-		]
+			...selectedOperations.filter(operation => operation.description !== 'Другая причина начисления'),
+			...(customBonus ? [{ description: customBonus, type: 'BONUS', quantityMoney: +customBonusQuantity }] : []),
+			...(purchaseReason ? [{ description: purchaseReason, type: 'PURCHASE', quantityMoney: +purchaseReasonQuantity }] : [])
+		] as ITransactionInput[]
 
-		console.log('Отправляем на сервер:', { transactions })
-		// Здесь будет вызов API: axios.post('/api/transactions', { transactions })
+		if (transactions.length === 0) return false
+
+		createTransaction(transactions)
 	}
 
 	return (
@@ -115,69 +142,103 @@ export const TransactionForm = () => {
 					{/* Стандартные бонусы */}
 					<div className="space-y-4">
 						<Label>Стандартные начисления:</Label>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-3 ">
 							{operations.map((op) => (
 								<div key={op.description} className="flex items-center space-x-2 group cursor-pointer">
 									<Checkbox
-										className={'cursor-pointer duration-300 group-hover:scale-105'}
+										className={'cursor-pointer duration-300 group-hover:scale-105 '}
 										id={op.description}
 										checked={selectedOperations.some(o => o.description === op.description)}
 										onCheckedChange={(checked) => {
 											if (checked) {
-												setSelectedOperations(prev => [...prev, op])
+												if (op.description === 'Другая причина начисления') setIsCheckedItemOther(true)
+												setSelectedOperations((prev) => [...prev, op] as ITransactionInput[])
 											} else {
 												setSelectedOperations(prev => prev.filter(o => o.description !== op.description))
+												if (op.description === 'Другая причина начисления') {
+													setIsCheckedItemOther(false)
+													setCustomBonus('')
+												}
 											}
 										}}
 									/>
 									<Label htmlFor={op.description} className="font-normal duration-300 cursor-pointer group-hover:scale-105">
-										{op.description}
+										<span>{op.description}<span className={'font-bold text-nowrap'}>({op.quantityMoney} K)</span></span>
 									</Label>
 								</div>
 							))}
 						</div>
 					</div>
 
-					{/* Кастомный бонус */}
-					<div className="space-y-2">
-						<Label htmlFor="custom-bonus">Другая причина начисления:</Label>
-						<Input
-							id="custom-bonus"
-							value={customBonus}
-							onChange={(e) => setCustomBonus(e.target.value)}
-							placeholder="Опишите причину начисления..."
-						/>
-					</div>
-
-					{/* Списание */}
-					<div className="space-y-3">
-						<Label htmlFor="penalty-reason">Причина списания:</Label>
-						<Input
-							id="penalty-reason"
-							value={penaltyReason}
-							onChange={(e) => setPenaltyReason(e.target.value)}
-							placeholder="Опишите причину списания..."
-						/>
-
-						{penaltyReason && (
-							<div className="space-y-2">
-								<Label htmlFor="penalty-amount">Сумма списания:</Label>
-								<Input
-									id="penalty-amount"
-									type="number"
-									min="0"
-									value={penaltyAmount}
-									onChange={(e) => setPenaltyAmount(e.target.value)}
-									placeholder="Введите сумму"
+					{isCheckedItemOther && (
+						<div className="space-y-2 grid grid-cols-2 gap-5">
+							<div>
+								<Label htmlFor="custom-bonus" className={'mb-2'}>Другая причина начисления:</Label>
+								<Input id="custom-bonus" value={customBonus} onChange={(e) => setCustomBonus(e.target.value)}
+											 placeholder="Опишите причину начисления..."
 								/>
 							</div>
-						)}
+							<div>
+								<Label htmlFor="custom-bonus-quantity" className={'mb-2'}>Количество валюты:</Label>
+								<Input id="custom-bonus-quantity" type={'number'} value={customBonusQuantity}
+											 onChange={(e) => setCustomBonusQuantity(+e.target.value)}
+											 placeholder="Количество валюты..."
+								/>
+							</div>
+						</div>
+					)}
+
+					{/* Списание */}
+					<div className="space-y-3 grid grid-cols-2 gap-5">
+						<div>
+							<Label htmlFor="penalty-reason" className={'mb-2'}>Причина списания:</Label>
+							<Input
+								id="penalty-reason"
+								value={purchaseReason}
+								onChange={(e) => setPurchaseReason(e.target.value)}
+								placeholder="Опишите причину списания..."
+							/>
+						</div>
+						<div>
+							<Label htmlFor="custom-bonus-quantity" className={'mb-2'}>Количество валюты:</Label>
+							<Input id="custom-bonus-quantity" type={'number'} value={purchaseReasonQuantity}
+										 onChange={(e) => setPurchaseReasonQuantity(+e.target.value)}
+										 placeholder="Количество валюты..."
+							/>
+						</div>
 					</div>
 
 					<div className={'flex justify-center'}>
-						<Button type="submit" className="px-7 py-5 cursor-pointer">
-							Сохранить операции
-						</Button>
+						<AlertDialog>
+							<AlertDialogTrigger asChild>
+								<Button type={'button'} className={'cursor-pointer'}>Зачислить на карту</Button>
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogHeader>
+									<AlertDialogTitle className={'flex gap-3 items-center justify-between'}>
+										<span>Приложите карту к терминалу</span>
+										<div className={'flex items-center gap-2'}>
+											<Banknote className={'size-6 text-green-600'}/>
+											<ArrowRightLeft className={'size-5 text-zinc-600/75'}/>
+											<ScanBarcode className={'size-6 text-zinc-800'}/>
+										</div>
+									</AlertDialogTitle>
+									<AlertDialogDescription>
+										This action cannot be undone. This will permanently delete your
+										account and remove your data from our servers.
+									</AlertDialogDescription>
+								</AlertDialogHeader>
+								<AlertDialogFooter>
+									<AlertDialogAction asChild>
+										<DialogClose asChild>
+											<Button type="submit">
+												Сохранить транзакции
+											</Button>
+										</DialogClose>
+									</AlertDialogAction>
+								</AlertDialogFooter>
+							</AlertDialogContent>
+						</AlertDialog>
 					</div>
 				</form>
 			</CardContent>

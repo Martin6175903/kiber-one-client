@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 export const useGetUserById = () => {
   const params = useParams<{userId: string}>()
   const {data: user, isLoading: isLoadingUser} = useQuery({
-    queryKey: ['get user by id'],
+    queryKey: ['get user by id', params.userId],
     queryFn: () => userService.getUserById(params.userId)
   })
 

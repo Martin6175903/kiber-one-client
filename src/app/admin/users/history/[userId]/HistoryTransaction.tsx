@@ -12,6 +12,7 @@ import { AdminDataTable } from '@/src/components/ui/data-loading/admin/AdminData
 import { Button } from '@/src/components/ui/Button'
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
@@ -22,6 +23,7 @@ import {
 import { Label } from '@/src/components/ui/form-elements/Label'
 import { Input } from '@/src/components/ui/form-elements/Input'
 import { TransactionForm } from '@/src/app/admin/users/history/[userId]/TransactionForm'
+import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
 
 const HistoryTransaction = () => {
 	const params = useParams<{userId: string}>()
@@ -31,18 +33,20 @@ const HistoryTransaction = () => {
 
 	const [group, setGroup] = useState<IGroup>()
 
+	const { isLoadingCreateTransaction } = useCreateTransaction()
+
 	useEffect(() => {
 		if (!isLoading && !isLoadingUser) setGroup(groups!.find(group => user!.groupId === group.id))
 	}, [isLoading, isLoadingUser])
 
-	const formattedHistory: IAdminHistoryColumn[] = transactionsUser && user ? transactionsUser.map((transaction, index) => ({
+	const formattedHistory: IAdminHistoryColumn[] = transactionsUser && user ? transactionsUser.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((transaction, index) => ({
 		id: transaction.id,
 		dateOperation: transaction.createdAt,
 		description: transaction.description,
 		type: transaction.type,
 		quantityMoney: transaction.quantityMoney,
 		balance: transaction.remains
-	})) : []
+	})) as unknown as Array<IAdminHistoryColumn> : []
 
 	return (
 		<div>
@@ -53,16 +57,13 @@ const HistoryTransaction = () => {
 				<p className={'text-base font-medium mb-2'}>Текущий баланс ученика: <span className={'font-bold'}>{isLoadingUser ? "0" : user!.quantityMoney} K</span></p>
 				<Dialog>
 					<DialogTrigger asChild>
-						<Button className={'cursor-pointer'} variant="outline">Добавить транзакцию</Button>
+						<Button disabled={isLoadingCreateTransaction} className={'cursor-pointer'} variant="outline">Добавить транзакцию</Button>
 					</DialogTrigger>
 					<DialogContent className="sm:max-w-[1025px]">
 						<DialogHeader>
 							<DialogTitle>Добавление транзакции</DialogTitle>
 						</DialogHeader>
 						<TransactionForm/>
-						<DialogFooter>
-							<Button type="submit">Использовать транзакции</Button>
-						</DialogFooter>
 					</DialogContent>
 				</Dialog>
 			</div>

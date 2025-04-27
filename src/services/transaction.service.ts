@@ -1,11 +1,11 @@
-import { ITransaction } from '@/src/shared/types/transaction.types'
+import { ITransaction, ITransactionInput } from '@/src/shared/types/transaction.types'
 import { axiosClassic } from '@/src/api/api.interceptors'
 import { API_URL } from '@/src/config/api.config'
 
 class TransactionService {
-	async createTransaction(data: ITransaction[]) {
+	async createTransaction(userId: string, data: ITransactionInput[]) {
 		return axiosClassic<ITransaction[]>({
-			url: API_URL.transaction('/'),
+			url: API_URL.transaction(`/${userId}`),
 			method: 'POST',
 			data
 		})
