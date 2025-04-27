@@ -3,11 +3,13 @@ import toast from 'react-hot-toast'
 import { useMemo } from 'react'
 import { ITransaction, ITransactionInput } from '@/src/shared/types/transaction.types'
 import { transactionService } from '@/src/services/transaction.service'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 export const useCreateTransaction = () => {
 	const params = useParams<{ userId: string }>()
 	const queryClient = useQueryClient()
+	const router = useRouter()
 
   const { mutate: createTransaction, isPending: isLoadingCreateTransaction } = useMutation({
     mutationKey: ['create transaction'],
@@ -18,6 +20,7 @@ export const useCreateTransaction = () => {
 				queryClient.invalidateQueries({ queryKey: ['get user by id', params.userId] })
 			])
       toast.success('Транзакция успешно создана!')
+			router.push(PUBLIC_URL.admin('/users'))
     },
 		onError() {
       toast.error('Ошибка при создании транзакции!')

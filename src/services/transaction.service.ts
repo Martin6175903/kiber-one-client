@@ -1,4 +1,4 @@
-import { ITransaction, ITransactionInput } from '@/src/shared/types/transaction.types'
+import { ITransaction, ITransactionDelete, ITransactionInput } from '@/src/shared/types/transaction.types'
 import { axiosClassic } from '@/src/api/api.interceptors'
 import { API_URL } from '@/src/config/api.config'
 
@@ -27,10 +27,15 @@ class TransactionService {
 		return data;
 	}
 
-	async deleteTransaction(id: string) {
-		return axiosClassic<ITransaction>({
-			url: API_URL.transaction(`/${id}`),
-			method: 'DELETE'
+	async deleteTransaction(data: ITransactionDelete) {
+		return axiosClassic<ITransactionDelete>({
+			url: API_URL.transaction(`/${data.id}`),
+			method: 'DELETE',
+			data: {
+				type: data.type,
+				quantityMoney: data.quantityMoney,
+				userId: data.userId
+			}
 		})
 	}
 }

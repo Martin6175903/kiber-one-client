@@ -231,6 +231,7 @@ const UserForm = ({ user }: UserFormProps) => {
 								<FormField
 									render={({ field }) => (
 										<FormItem>
+											<FormLabel>Начальное количество киберонов:</FormLabel>
 											<FormControl>
 												<Input placeholder={'Начальное количество киберонов...'} step={5} defaultValue={'0'} type={'number'} disabled={isPendingUser || isUpdateUser} {...field} />
 											</FormControl>

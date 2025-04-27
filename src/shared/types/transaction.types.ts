@@ -14,3 +14,10 @@ export interface ITransaction {
 }
 
 export interface ITransactionInput extends Omit<ITransaction, 'remains' | 'userId' | 'createdAt'> {}
+
+export interface ITransactionDelete {
+	type: EnumTypeTransaction
+	quantityMoney: number
+	id: string
+	userId: string
+}

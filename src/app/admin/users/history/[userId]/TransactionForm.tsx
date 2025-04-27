@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button } from '@/src/components/ui/Button'
 import { Checkbox } from '@/src/components/ui/Checkbox'
 import { Input } from '@/src/components/ui/form-elements/Input'
@@ -9,10 +9,11 @@ import { DialogClose } from '@/src/components/ui/Dialog'
 import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
 import { ITransactionInput } from '@/src/shared/types/transaction.types'
 import {
-	AlertDialog, AlertDialogAction, AlertDialogContent,
+	AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
 	AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
 } from '@/src/components/ui/AlertDialog'
-import { ArrowRightLeft, ArrowUpDown, Banknote, ScanBarcode } from 'lucide-react'
+import { ArrowRightLeft, Banknote, ScanBarcode } from 'lucide-react'
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/src/components/ui/input-otp'
 
 const operations = [
 	{
@@ -118,6 +119,17 @@ export const TransactionForm = () => {
 
 	const { createTransaction } = useCreateTransaction()
 
+	const [isOpenAlertDialog, setIsOpenAlertDialog] = useState(false)
+	const inputOTPRef = useRef<HTMLInputElement>(null)
+
+	useEffect(() => {
+		if (isOpenAlertDialog) {
+			setTimeout(() => {
+				document.querySelector('[aria-label="input-otp"]')?.focus();
+			}, 100);
+		}
+	}, [isOpenAlertDialog, inputOTPRef.current])
+
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
@@ -138,7 +150,7 @@ export const TransactionForm = () => {
 				<CardTitle>Операции с валютой</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form onSubmit={handleSubmit} className="space-y-6">
+				<form id={'transaction__form'} onSubmit={handleSubmit} className="space-y-6">
 					{/* Стандартные бонусы */}
 					<div className="space-y-4">
 						<Label>Стандартные начисления:</Label>
@@ -163,7 +175,7 @@ export const TransactionForm = () => {
 										}}
 									/>
 									<Label htmlFor={op.description} className="font-normal duration-300 cursor-pointer group-hover:scale-105">
-										<span>{op.description}<span className={'font-bold text-nowrap'}>({op.quantityMoney} K)</span></span>
+										<span>{op.description}{op.description !== 'Другая причина начисления' && <span className={'font-bold text-nowrap'}>({op.quantityMoney} K)</span>}</span>
 									</Label>
 								</div>
 							))}
@@ -208,10 +220,12 @@ export const TransactionForm = () => {
 						</div>
 					</div>
 
+					<Button id={'save-transactions-btn'} className={'hidden'} type={'submit'}>Сохранить транзакции</Button>
+
 					<div className={'flex justify-center'}>
-						<AlertDialog>
+						<AlertDialog open={isOpenAlertDialog}>
 							<AlertDialogTrigger asChild>
-								<Button type={'button'} className={'cursor-pointer'}>Зачислить на карту</Button>
+								<Button onClick={() => setIsOpenAlertDialog(true)} type={'button'} className={'cursor-pointer'}>Зачислить на карту</Button>
 							</AlertDialogTrigger>
 							<AlertDialogContent>
 								<AlertDialogHeader>
@@ -223,19 +237,36 @@ export const TransactionForm = () => {
 											<ScanBarcode className={'size-6 text-zinc-800'}/>
 										</div>
 									</AlertDialogTitle>
-									<AlertDialogDescription>
-										This action cannot be undone. This will permanently delete your
-										account and remove your data from our servers.
+									<AlertDialogDescription asChild>
+										<InputOTP aria-label={'input-otp'} autoFocus={isOpenAlertDialog} maxLength={10} onKeyDown={(e) => {
+											if (e.key === 'Enter') {
+												setIsOpenAlertDialog(false);
+												document.getElementById('save-transactions-btn')?.click()
+											}
+										}}>
+											<InputOTPGroup>
+												<InputOTPSlot index={0} />
+												<InputOTPSlot index={1} />
+												<InputOTPSlot index={2} />
+												<InputOTPSlot index={3} />
+											</InputOTPGroup>
+											<InputOTPSeparator />
+											<InputOTPGroup>
+												<InputOTPSlot index={4} />
+												<InputOTPSlot index={5} />
+												<InputOTPSlot index={6} />
+												<InputOTPSlot index={7} />
+											</InputOTPGroup>
+											<InputOTPSeparator />
+											<InputOTPGroup>
+												<InputOTPSlot index={8} />
+												<InputOTPSlot index={9} />
+											</InputOTPGroup>
+										</InputOTP>
 									</AlertDialogDescription>
 								</AlertDialogHeader>
 								<AlertDialogFooter>
-									<AlertDialogAction asChild>
-										<DialogClose asChild>
-											<Button type="submit">
-												Сохранить транзакции
-											</Button>
-										</DialogClose>
-									</AlertDialogAction>
+									<AlertDialogCancel onClick={() => setIsOpenAlertDialog(false)} className={'cursor-pointer'}>Отмена операции</AlertDialogCancel>
 								</AlertDialogFooter>
 							</AlertDialogContent>
 						</AlertDialog>

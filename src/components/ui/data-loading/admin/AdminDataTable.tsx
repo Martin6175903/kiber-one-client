@@ -25,11 +25,12 @@ import { Input } from "@/src/components/ui/form-elements/Input"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  filterKey?: string,
+  filterKey?: string
 	className: string
+	keySort?: string
 }
 
-export function AdminDataTable<TData, TValue>({ columns, data, filterKey, className }: DataTableProps<TData, TValue>) {
+export function AdminDataTable<TData, TValue>({ columns, data, filterKey, className, keySort }: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -44,7 +45,7 @@ export function AdminDataTable<TData, TValue>({ columns, data, filterKey, classN
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
-      columnFilters,
+      columnFilters
     }
   })
 

@@ -7,7 +7,7 @@ const AdminLayout = ({children}: PropsWithChildren) => {
     <div>
       <div className={'wrapper min-h-screen bg-linear-[90deg,#131313,#131313_30%,white_60%,white]'}>
         <div className={'container'}>
-          <div className={'flex items-start justify-between'}>
+          <div className={'flex items-stretch justify-between'}>
             <Aside/>
             <Main>
               {children}

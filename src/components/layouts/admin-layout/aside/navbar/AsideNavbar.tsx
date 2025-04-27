@@ -15,24 +15,9 @@ const navbarInfo = [
     icon: <GraduationCap className={'size-6'}/>
   },
   {
-    title: 'Расписание',
-    link: PUBLIC_URL.admin('/schedule'),
-    icon: <CalendarCheck className={'size-6'}/>
-  },
-  {
     title: 'Группы',
     link: PUBLIC_URL.admin('/groups'),
     icon: <Users className={'size-6'}/>
-  },
-  {
-    title: 'Редактирование персональных данных',
-    link: PUBLIC_URL.admin('/personal-data'),
-    icon: <UserCog className={'size-6'}/>
-  },
-  {
-    title: 'Изменить пароль',
-    link: PUBLIC_URL.admin('/reset-password'),
-    icon: <KeyRound className={'size-6'}/>
   },
   {
     title: 'Выход из личного кабинета',

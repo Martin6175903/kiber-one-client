@@ -27,7 +27,7 @@ import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateT
 
 const HistoryTransaction = () => {
 	const params = useParams<{userId: string}>()
-	const {transactionsUser, isLoadingTransactionsUser} = useGetTransactionsUser(params.userId)
+	const {transactionsUser} = useGetTransactionsUser(params.userId)
 	const {user, isLoadingUser} = useGetUserById()
 	const { groups, isLoading } = useGetGroups()
 
@@ -39,7 +39,7 @@ const HistoryTransaction = () => {
 		if (!isLoading && !isLoadingUser) setGroup(groups!.find(group => user!.groupId === group.id))
 	}, [isLoading, isLoadingUser])
 
-	const formattedHistory: IAdminHistoryColumn[] = transactionsUser && user ? transactionsUser.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((transaction, index) => ({
+	const formattedHistory: IAdminHistoryColumn[] = transactionsUser && user ? transactionsUser.map((transaction, index) => ({
 		id: transaction.id,
 		dateOperation: transaction.createdAt,
 		description: transaction.description,
@@ -67,7 +67,7 @@ const HistoryTransaction = () => {
 					</DialogContent>
 				</Dialog>
 			</div>
-			<AdminDataTable columns={adminHistoryColumns} data={formattedHistory} className={'grid grid-cols-6'}/>
+			<AdminDataTable columns={adminHistoryColumns} data={formattedHistory} className={'grid grid-cols-6'} keySort={'dateOperation'} />
 		</div>
 	)
 }

@@ -10,7 +10,7 @@ import { useGetCities } from '@/src/hooks/queries/city/useGetCities'
 
 const CityForm = () => {
 
-  const { cities, isCitiesLoading } = useGetCities()
+  const { cities } = useGetCities()
   const { createCity, isCreatedCity } = useCreateCity()
   const { updateCity, isUpdatedCity } = useUpdateCity()
 
