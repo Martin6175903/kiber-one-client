@@ -7,6 +7,7 @@ import { useProfile } from '@/src/hooks/useProfile'
 import { useCard } from '@/src/hooks/useCard'
 import { PUBLIC_URL } from '@/src/config/url.config'
 import { useGetOrders } from '@/src/hooks/queries/order/useGetOrders'
+import { Button } from '@/src/components/ui/Button'
 
 const Header = () => {
 
@@ -19,16 +20,21 @@ const Header = () => {
 			<div className="container">
 				<div className={'relative flex justify-between items-center max-md:flex-col max-md:gap-8'}>
 					<Logo/>
-					<h1 className={'uppercase text-4xl font-bold text-white absolute top-1/2 left-1/2 md:-translate-[50%] max-md:static'}>Kibershop</h1>
+					<div className={'absolute top-1/2 left-1/2 md:-translate-[50%] max-md:static flex flex-col gap-2 items-center'}>
+						<h1 className={'uppercase text-4xl font-bold text-white'}>Kibershop</h1>
+						{user && user.role === 'MODERATOR' && <Link href={PUBLIC_URL.admin()}>
+							<Button className={'text-lg py-5 px-7 flex duration-300 hover:scale-110'} variant={'secondary'}>Админка</Button>
+						</Link>}
+					</div>
 					<div className={'text-white flex items-center gap-5 justify-end'}>
-						<Link href={isLoading ? '#' : (user?.role === 1 ? PUBLIC_URL.products() : PUBLIC_URL.home('#products'))} className={'text-lg text-black py-3.5 px-6 bg-white rounded-full uppercase font-medium border-2 border-solid border-transparent hover:bg-transparent hover:text-white hover:border-white hover:scale-105 duration-300'}>
+						<Link href={isLoading ? '#' : (user?.role === 'MODERATOR' ? PUBLIC_URL.products() : PUBLIC_URL.home('#products'))} className={'text-lg text-black py-3.5 px-6 bg-white rounded-full uppercase font-medium border-2 border-solid border-transparent hover:bg-transparent hover:text-white hover:border-white hover:scale-105 duration-300'}>
 							Кибертовары
 						</Link>
 						<Link href={'#'} className={'relative hover:scale-110 duration-300'}>
 							<HeaderCart>
 								<ShoppingCart size={40}/>
 								<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-darkblue rounded-full font-bold'}>
-									{user && user.role === 1 ? orders && orders.length : items.length}
+									{user && user.role === 'MODERATOR' ? orders && orders.length : items.length}
 								</span>
 							</HeaderCart>
 						</Link>

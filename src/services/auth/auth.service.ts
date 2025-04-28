@@ -4,12 +4,13 @@ import { API_URL } from '@/src/config/api.config'
 import { removeFromStorage, saveTokenStorage } from '@/src/services/auth/auth-token.service'
 
 class AuthService {
-	async main(type: 'login' | 'register', data: IAuthForm) {
+	async main(data: IAuthForm) {
 		const response = await axiosClassic<IAuthResponse>({
-			url: API_URL.auth(`/${type}`),
+			url: API_URL.auth(`/login`),
 			method: 'POST',
 			data
 		})
+
 		if (response.data.accessToken) saveTokenStorage(response.data.accessToken)
 
 		return response

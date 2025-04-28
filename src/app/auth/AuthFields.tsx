@@ -2,7 +2,6 @@ import { UseFormReturn } from 'react-hook-form'
 import { IAuthForm } from '@/src/shared/types/auth.types'
 import { FormControl, FormField, FormItem, FormMessage } from '@/src/components/ui/form-elements/Form'
 import { Input } from '@/src/components/ui/form-elements/Input'
-import { validEmail } from '@/src/shared/regex'
 
 interface AuthFieldsProps {
 	form: UseFormReturn<IAuthForm, any, undefined>
@@ -10,59 +9,9 @@ interface AuthFieldsProps {
 	isReg?: boolean
 }
 
-const AuthFields = ({ form, isReg = false, isPending }: AuthFieldsProps) => {
+const AuthFields = ({ form, isPending }: AuthFieldsProps) => {
 	return (
 		<>
-		{/*{isReg && (*/}
-		{/*	<>*/}
-		{/*		<FormField*/}
-		{/*			render={({ field }) => (*/}
-		{/*				<FormItem>*/}
-		{/*					<FormControl>*/}
-		{/*						<Input placeholder={'Иван'} type={'text'} disabled={isPending} {...field} />*/}
-		{/*					</FormControl>*/}
-		{/*					<FormMessage />*/}
-		{/*				</FormItem>*/}
-		{/*			)}*/}
-		{/*			name={'firstName'}*/}
-		{/*			control={form.control}*/}
-		{/*			rules={{*/}
-		{/*				required: 'Имя обязательно',*/}
-		{/*				pattern: /[А-Я][а-яА-Я]+/,*/}
-		{/*				maxLength: {*/}
-		{/*					value: 15,*/}
-		{/*					message: 'Максимум 15 символов'*/}
-		{/*				},*/}
-		{/*				minLength: {*/}
-		{/*					value: 2,*/}
-		{/*					message: 'Минимум 2 символа'*/}
-		{/*				}*/}
-		{/*			}} />*/}
-		{/*		<FormField*/}
-		{/*			render={({ field }) => (*/}
-		{/*				<FormItem>*/}
-		{/*					<FormControl>*/}
-		{/*						<Input placeholder={'Иванов'} type={'text'} disabled={isPending} {...field} />*/}
-		{/*					</FormControl>*/}
-		{/*					<FormMessage />*/}
-		{/*				</FormItem>*/}
-		{/*			)}*/}
-		{/*			name={'lastName'}*/}
-		{/*			control={form.control}*/}
-		{/*			rules={{*/}
-		{/*				required: 'Фамилия обязательна',*/}
-		{/*				pattern: /[А-Я][а-яА-Я]+/,*/}
-		{/*				maxLength: {*/}
-		{/*					value: 15,*/}
-		{/*					message: 'Максимум 15 символов'*/}
-		{/*				},*/}
-		{/*				minLength: {*/}
-		{/*					value: 2,*/}
-		{/*					message: 'Минимум 2 символа'*/}
-		{/*				}*/}
-		{/*			}} />*/}
-		{/*	</>*/}
-		{/*)}*/}
 			<FormField
 				name={'phoneNumber'}
 				control={form.control}
@@ -72,7 +21,7 @@ const AuthFields = ({ form, isReg = false, isPending }: AuthFieldsProps) => {
 				render={({ field }) => (
 					<FormItem>
 						<FormControl>
-							<Input placeholder={'+375(__)___-__-__'} type={'tel'} disabled={isPending} {...field} />
+							<Input placeholder={'+375(__)___-__-__'} type={'tel'} disabled={isPending} autoComplete={'tel'} {...field} />
 						</FormControl>
 						<FormMessage />
 					</FormItem>

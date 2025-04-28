@@ -14,9 +14,6 @@ import { MoveRight } from 'lucide-react'
 import Link from 'next/link'
 import { useCard } from '@/src/hooks/useCard'
 import CardItem from '@/src/components/layouts/main-layout/header/header-cart/card-item/CardItem'
-import { useRouter } from 'next/navigation'
-import { useCreateOrder } from '@/src/hooks/queries/order/useCreateOrder'
-import { useProfile } from '@/src/hooks/useProfile'
 import { PUBLIC_URL } from '@/src/config/url.config'
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));

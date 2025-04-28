@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from '@/src/components/ui/form-elements/Form'
 import { Input } from '@/src/components/ui/form-elements/Input'
-import { EnumUserRole, IUser, IUserInput } from '@/src/shared/types/user.types'
+import { IUser, IUserInput } from '@/src/shared/types/user.types'
 import { useCreateUser } from '@/src/hooks/queries/user/useCreateUser'
 import { useUpdateUser } from '@/src/hooks/queries/user/useUpdateUser'
 import { ToggleGroup, ToggleGroupItem } from '@/src/components/ui/ToggleGroup'
@@ -50,24 +50,24 @@ const UserForm = ({ user }: UserFormProps) => {
     values: user ? ({
       firstName: user.firstName,
       lastName: user.lastName,
-      role: user.role === 1 ? EnumUserRole.MODERATOR : EnumUserRole.USER,
+      role: user.role === "MODERATOR" ? "MODERATOR" : "USER",
       phoneNumber: user.phoneNumber,
       password: '',
       quantityMoney: user.quantityMoney,
       yearOfBirth: user.yearOfBirth,
       startLearning: user.startLearning,
-			numberCard: user.numberCard,
+			numberCard: `${user.numberCard}`,
 			groupId: user.groupId
     }) : {
       firstName: '',
       lastName: '',
-      role: EnumUserRole.USER,
+      role: "USER",
       phoneNumber: '',
       password: '',
       quantityMoney: undefined,
       yearOfBirth: undefined,
       startLearning: undefined,
-			numberCard: null,
+			numberCard: '',
 			groupId: undefined
     }
   })
@@ -76,8 +76,9 @@ const UserForm = ({ user }: UserFormProps) => {
 
   const onSubmit: SubmitHandler<IUserInput> = data => {
 
-		data.role = data.role === '1' ? 'MODERATOR' : 'USER'
+		data.role = data.role === 'MODERATOR' ? 'MODERATOR' : 'USER'
 		data.quantityMoney = Number(data.quantityMoney)
+		// @ts-ignore
 		data.numberCard = Number(data.numberCard)
 
     if (user) updateUser(data)
@@ -204,14 +205,14 @@ const UserForm = ({ user }: UserFormProps) => {
                       className="grid grid-cols-2"
                     >
                       <ToggleGroupItem
-                        value={String(EnumUserRole.USER)}
+                        value={"USER"}
                         className="data-[state=on]:bg-primary data-[state=on]:text-white cursor-pointer"
                       >
                         <User className="mr-2 h-4 w-4" />
                         Ученик
                       </ToggleGroupItem>
                       <ToggleGroupItem
-                        value={String(EnumUserRole.MODERATOR)}
+                        value={"MODERATOR"}
                         className="data-[state=on]:bg-darkyellow/80 data-[state=on]:text-white cursor-pointer"
                       >
                         <Shield className="mr-2 h-4 w-4" />
@@ -282,7 +283,7 @@ const UserForm = ({ user }: UserFormProps) => {
 														<SelectGroup>
 															<SelectLabel>Категория</SelectLabel>
 															{groups ? groups.map(group => (
-																<SelectItem key={group.id} value={group.id}>{group.title}</SelectItem>
+																<SelectItem key={group.id} value={group.id as string}>{group.title}</SelectItem>
 															)) : <></>}
 														</SelectGroup>
 													</SelectContent>

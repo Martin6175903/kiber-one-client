@@ -1,21 +1,18 @@
 import { IOrder } from '@/src/shared/types/order.types'
 
-export enum EnumUserRole {
-	USER,
-	MODERATOR
-}
+export type TypeUserRole = "USER" | "MODERATOR"
 
 export interface IUser {
 	id: string
 	firstName: string
 	lastName: string
-	role: EnumUserRole
+	role: TypeUserRole
 	phoneNumber: string
 	password: string
 	quantityMoney?: number
 	yearOfBirth?: Date
 	startLearning?: Date
-	numberCard?: Number
+	numberCard?: string
 	orders: IOrder[]
 	groupId?: string
 }

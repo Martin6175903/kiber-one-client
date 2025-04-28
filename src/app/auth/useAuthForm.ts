@@ -6,7 +6,7 @@ import { authService } from '@/src/services/auth/auth.service'
 import toast from 'react-hot-toast'
 import { PUBLIC_URL } from '@/src/config/url.config'
 
-export const useAuthForm = (isReg: boolean) => {
+export const useAuthForm = () => {
 	const router = useRouter()
 
 	const form = useForm<IAuthForm>({
@@ -14,12 +14,12 @@ export const useAuthForm = (isReg: boolean) => {
 	})
 
 	const {mutate, isPending} = useMutation({
-		mutationKey: ['auth auth'],
-		mutationFn: (data: IAuthForm) => authService.main(isReg ? 'register' : 'login', data),
-		onSuccess() {
+		mutationKey: ['auth'],
+		mutationFn: (data: IAuthForm) => authService.main(data),
+		onSuccess({ data }) {
 			form.reset()
 			toast.success('Успешная авторизация')
-			router.replace(PUBLIC_URL.home())
+			data.user.role === 'USER' ? router.replace(PUBLIC_URL.home('/')) : router.replace(PUBLIC_URL.admin('/'))
 		},
 		onError(error: any) {
 			if (error.message) toast.error(error.message)

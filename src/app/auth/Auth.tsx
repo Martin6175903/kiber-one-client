@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useAuthForm } from '@/src/app/auth/useAuthForm'
 import Image from 'next/image'
 import {
@@ -16,9 +15,7 @@ import { Button } from '@/src/components/ui/Button'
 import AuthFields from '@/src/app/auth/AuthFields'
 
 const Auth = () => {
-	const [isReg, setIsReg] = useState(false)
-
-	const {onSubmit, form, isPending} = useAuthForm(isReg)
+	const {onSubmit, form, isPending} = useAuthForm()
 
 	return (
 		<div className={'min-h-screen grid grid-cols-1 lg:grid-cols-2'}>
@@ -29,26 +26,20 @@ const Auth = () => {
 				<h1 className={'mb-5 text-5xl font-bold text-transparent bg-linear-to-r from-orange-300 via-30% via-yellow-400 to-orange-300 bg-clip-text'}>KIBER-SHOP</h1>
 				<Card className={'border-none p-6 flex flex-col items-center justify-center w-full sm:w-[380px] shadow-[10px_10px_15px_rgba(0,0,0,0.3),-10px_10px_15px_rgba(0,0,0,0.4)]'}>
 					<CardHeader className={'text-center pb-5 w-full'}>
-						<CardTitle className={'pb-1 text-2xl sm:text-3xl font-bold'}>{isReg ? 'Создать аккаунт' : 'Войти в аккаунт'}</CardTitle>
-						<CardDescription className={'text-xs sm:text-sm'}>{isReg? 'Войдите в' : 'Создайте'} учётную запись, чтобы получить КиберТовары!</CardDescription>
+						<CardTitle className={'pb-1 text-2xl sm:text-3xl font-bold'}>{'Войти в аккаунт'}</CardTitle>
+						<CardDescription className={'text-xs sm:text-sm'}>{'Войдите в'} учётную запись, чтобы получить КиберТовары!</CardDescription>
 					</CardHeader>
 					<CardContent className={'p-0 w-full'}>
 						<Form {...form}>
 							<form className={'space-y-5'} onSubmit={form.handleSubmit(onSubmit)}>
 								{/* Auth Fields */}
 
-								<AuthFields form={form} isPending={isPending} isReg={isReg}/>
+								<AuthFields form={form} isPending={isPending}/>
 
-								<Button className={'w-full'} disabled={isPending}>{isReg ? 'Создать' : 'Авторизоваться'}</Button>
+								<Button className={'w-full'} disabled={isPending}>{'Авторизоваться'}</Button>
 							</form>
 						</Form>
 					</CardContent>
-					<CardFooter className={'p-0 mt-4 text-sm text-muted-foreground'}>
-						{isReg ? 'Уже есть аккаунт?' : 'Ещё нет аккаунта'}
-						<button className={'ml-1 text-sky-500'} onClick={() => setIsReg(!isReg)}>
-							{isReg ? 'Войти' : 'Создать'}
-						</button>
-					</CardFooter>
 				</Card>
 			</div>
 		</div>

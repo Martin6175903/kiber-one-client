@@ -5,7 +5,6 @@ import { AdminDataTable } from '@/src/components/ui/data-loading/admin/AdminData
 import { useRouter } from 'next/navigation'
 import { PUBLIC_URL } from '@/src/config/url.config'
 import { Button } from '@/src/components/ui/Button'
-import { useGetGroup } from '@/src/hooks/queries/group/useGetGroup'
 import { useGetGroups } from '@/src/hooks/queries/group/useGetGroups'
 
 const Users = () => {
@@ -13,12 +12,12 @@ const Users = () => {
 	const router = useRouter()
 	const {groups, isLoading} = useGetGroups()
 
-  const formattedUsers: IAdminUsersColumn[] = users ? users.filter(user => user.role).map((user, index) => ({
+  const formattedUsers: IAdminUsersColumn[] = users ? users.filter(user => user.role === "USER").map((user, index) => ({
     id: { generateId: index + 1, id: user.id },
     fullName: (user.lastName + ' ' + user.firstName),
     groupTitle: groups && groups.filter(group => user.groupId === group.id)[0]?.title,
     balance: user.quantityMoney
-  })) : []
+  })) as IAdminUsersColumn[] : []
 
   return (
     <div>
