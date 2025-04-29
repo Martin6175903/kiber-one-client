@@ -1,5 +1,16 @@
 import { PUBLIC_URL } from '@/src/config/url.config'
-import { CalendarCheck, GraduationCap, KeyRound, LogOut, Settings, Store, UserCog, Users } from 'lucide-react'
+import {
+  CalendarCheck,
+  GraduationCap,
+  KeyRound,
+  ListOrdered,
+  LogOut,
+  Settings,
+  ShoppingBasket,
+  Store,
+  UserCog,
+  Users,
+} from 'lucide-react'
 import AsideNavbarItem from '@/src/components/layouts/admin-layout/aside/navbar/AsideNavbarItem'
 import { Button } from '@/src/components/ui/Button'
 
@@ -18,6 +29,16 @@ const navbarInfo = [
     title: 'Группы',
     link: PUBLIC_URL.admin('/groups'),
     icon: <Users className={'size-6'}/>
+  },
+  {
+    title: 'Продукты магазина',
+    link: PUBLIC_URL.admin('/products'),
+    icon: <ShoppingBasket className={'size-6'}/>
+  },
+  {
+    title: 'Заказы пользователей',
+    link: PUBLIC_URL.admin('/orders'),
+    icon: <ListOrdered className={'size-6'}/>
   },
 	{
 		title: 'В магазин кибер-товаров',
