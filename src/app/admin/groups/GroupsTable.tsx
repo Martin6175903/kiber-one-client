@@ -50,7 +50,7 @@ export function GroupsTable({ groups }: { groups: IGroup[] | undefined }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {groups!.map((group) => (
+          {groups && groups.map((group) => (
             <TableRow key={group.id} className="hover:bg-gray-50/50 grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr_0.6fr]">
               <TableCell className="font-medium">
                 <div className="flex flex-col">
@@ -97,6 +97,7 @@ export function GroupsTable({ groups }: { groups: IGroup[] | undefined }) {
           ))}
         </TableBody>
       </Table>
+      {!groups?.length && (<div className={'py-3 pl-3 font-bold text-xl'}>Ничего не найдено.</div>)}
     </div>
   )
 }

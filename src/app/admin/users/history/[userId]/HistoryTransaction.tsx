@@ -55,7 +55,7 @@ const HistoryTransaction = () => {
 			<p className={'text-xl mb-7'}>{isLoadingUser || !group ? 'Пользователь' : <span>{user!.lastName} {user!.firstName}, {group!.title}, {dayLesson(group!.dayOfStudy)}, {group!.startTimeLearning} - {group!.endTimeLearning}</span>}</p>
 			<div className={'flex justify-between items-center mb-4'}>
 				<p className={'text-base font-medium mb-2'}>Текущий баланс ученика: <span className={'font-bold'}>{isLoadingUser ? "0" : user!.quantityMoney} K</span></p>
-				<Dialog>
+				<Dialog defaultOpen={true}>
 					<DialogTrigger asChild>
 						<Button disabled={isLoadingCreateTransaction} className={'cursor-pointer'} variant="outline">Добавить транзакцию</Button>
 					</DialogTrigger>

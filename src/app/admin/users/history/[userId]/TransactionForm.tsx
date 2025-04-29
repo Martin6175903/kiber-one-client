@@ -7,7 +7,7 @@ import { Label } from '@/src/components/ui/form-elements/Label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/Card'
 import { DialogClose } from '@/src/components/ui/Dialog'
 import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
-import { ITransactionInput } from '@/src/shared/types/transaction.types'
+import { EnumTypeTransaction, ITransactionInput } from '@/src/shared/types/transaction.types'
 import {
 	AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
 	AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
@@ -17,7 +17,7 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/src/
 
 const operations = [
 	{
-		description: 'Посещение занятие',
+		description: 'Посещение занятия',
 		type: 'BONUS',
 		quantityMoney: 10
 	},
@@ -108,8 +108,7 @@ const operations = [
 ]
 
 export const TransactionForm = () => {
-	const [selectedOperations, setSelectedOperations] = useState<ITransactionInput[]>([])
-
+	const [selectedOperations, setSelectedOperations] = useState<ITransactionInput[]>([operations[0]])
 	// Логика работы кастомный операций
 	const [customBonus, setCustomBonus] = useState('')
 	const [customBonusQuantity, setCustomBonusQuantity] = useState(0)
@@ -117,18 +116,9 @@ export const TransactionForm = () => {
 	const [purchaseReasonQuantity, setPurchaseReasonQuantity] = useState(0)
 	const [isCheckedItemOther, setIsCheckedItemOther] = useState(false)
 
-	const { createTransaction } = useCreateTransaction()
-
 	const [isOpenAlertDialog, setIsOpenAlertDialog] = useState(false)
-	const inputOTPRef = useRef<HTMLInputElement>(null)
 
-	useEffect(() => {
-		if (isOpenAlertDialog) {
-			setTimeout(() => {
-				document.querySelector('[aria-label="input-otp"]')?.focus();
-			}, 100);
-		}
-	}, [isOpenAlertDialog, inputOTPRef.current])
+	const { createTransaction } = useCreateTransaction()
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()

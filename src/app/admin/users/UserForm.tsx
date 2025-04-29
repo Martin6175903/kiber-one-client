@@ -227,7 +227,7 @@ const UserForm = ({ user }: UserFormProps) => {
                 </FormItem>
               )}
             />
-            {String(role) === "0" && (
+            {String(role) === "USER" && (
               <>
 								<FormField
 									render={({ field }) => (

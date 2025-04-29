@@ -85,7 +85,7 @@ const ProductForm = ({ group } :GroupFormProps ) => {
               </FormItem>
             )}
           />
-          <div className={'flex gap-5'}>
+          <div className={'grid gap-5 grid-cols-2'}>
             <div className={'w-full'}>
               <FormField
                 control={form.control}
@@ -98,7 +98,7 @@ const ProductForm = ({ group } :GroupFormProps ) => {
                     <FormLabel>Возрастная категория</FormLabel>
                     <FormControl>
                       <Select disabled={isPendingGroup || isLoadingCreateGroup} value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger className="w-[250px]">
+                        <SelectTrigger className={'w-full'}>
                           <SelectValue placeholder="Выберите категорию" />
                         </SelectTrigger>
                         <SelectContent>
@@ -128,7 +128,7 @@ const ProductForm = ({ group } :GroupFormProps ) => {
                     <FormLabel>Год обучения</FormLabel>
                     <FormControl>
                       <Select onValueChange={field.onChange} disabled={isPendingGroup || isLoadingCreateGroup} value={String(field.value)}>
-                        <SelectTrigger className="w-[250px]">
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Выберите год обучения" />
                         </SelectTrigger>
                         <SelectContent>
@@ -152,38 +152,65 @@ const ProductForm = ({ group } :GroupFormProps ) => {
               />
             </div>
           </div>
-          <FormField
-            control={form.control}
-            name={'dayOfStudy'}
-            rules={{
-              required: 'День занятия обязателен'
-            }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>День занятия</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange} disabled={isPendingGroup || isLoadingCreateGroup} value={field.value}>
-                    <SelectTrigger className="w-[250px]">
-                      <SelectValue placeholder="Выберите день занятия" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>День</SelectLabel>
-                        <SelectItem value="1">Понедельник</SelectItem>
-                        <SelectItem value="2">Вторник</SelectItem>
-                        <SelectItem value="3">Среда</SelectItem>
-                        <SelectItem value="4">Четверг</SelectItem>
-                        <SelectItem value="5">Пятница</SelectItem>
-                        <SelectItem value="6">Суббота</SelectItem>
-                        <SelectItem value="7">Воскресенье</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage/>
-              </FormItem>
-            )}
-          />
+          <div className={'grid gap-5 grid-cols-2'}>
+            <FormField
+              control={form.control}
+              name={'dayOfStudy'}
+              rules={{
+                required: 'День занятия обязателен'
+              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>День занятия</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} disabled={isPendingGroup || isLoadingCreateGroup} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Выберите день занятия" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>День</SelectLabel>
+                          <SelectItem value="1">Понедельник</SelectItem>
+                          <SelectItem value="2">Вторник</SelectItem>
+                          <SelectItem value="3">Среда</SelectItem>
+                          <SelectItem value="4">Четверг</SelectItem>
+                          <SelectItem value="5">Пятница</SelectItem>
+                          <SelectItem value="6">Суббота</SelectItem>
+                          <SelectItem value="7">Воскресенье</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage/>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={'assistant'}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Преподаватель занятия</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} disabled={isPendingGroup || isLoadingCreateGroup} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Выберите преподавателя" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Преподаватели</SelectLabel>
+                          {!isLoadingUsers && users!.filter(user => user.role === "MODERATOR").map(user => (
+                            <SelectItem value={user.firstName + ' ' + user.lastName}>{user.firstName} {user.lastName}</SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage/>
+                </FormItem>
+              )}
+            />
+          </div>
           <div className="flex gap-4">
             {/* Поле для времени начала */}
             <FormField
@@ -203,7 +230,6 @@ const ProductForm = ({ group } :GroupFormProps ) => {
                 </FormItem>
               )}
             />
-
             {/* Поле для времени окончания */}
             <FormField
               control={form.control}
@@ -223,31 +249,6 @@ const ProductForm = ({ group } :GroupFormProps ) => {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name={'assistant'}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Преподаватель занятия</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange} disabled={isPendingGroup || isLoadingCreateGroup} value={field.value}>
-                    <SelectTrigger className="w-[250px]">
-                      <SelectValue placeholder="Выберите преподавателя" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Преподаватели</SelectLabel>
-                        {!isLoadingUsers && users!.filter(user => user.role === 1).map(user => (
-                          <SelectItem value={user.firstName + ' ' + user.lastName}>{user.firstName} {user.lastName}</SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage/>
-              </FormItem>
-            )}
-          />
           <div className={'flex justify-center'}>
             <Button className={'max-w-1/2 w-full'} variant={'default'} disabled={isLoadingCreateGroup || isPendingGroup}>{action} группу</Button>
           </div>
