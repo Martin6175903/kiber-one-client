@@ -1,6 +1,6 @@
 'use client'
 
-import ProductForm from '@/src/app/(root)/products/ProductForm'
+import ProductForm from '@/src/app/admin/products/ProductForm'
 
 const CreateProduct = () => {
   

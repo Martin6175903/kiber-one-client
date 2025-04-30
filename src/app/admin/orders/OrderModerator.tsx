@@ -20,19 +20,21 @@ import { useEffect, useState } from 'react'
 const OrderModerator = () => {
   const { orders } = useGetOrders()
 
-  const [updateOrders, setUpdateOrders] = useState<IOrder[] | undefined>(undefined)
+  const [updateOrders, setUpdateOrders] = useState<IOrder[] | []>([])
 
   useEffect(() => {
-    if(updateOrders === undefined) {
-      setUpdateOrders(orders)
+    if(orders) {
+      setUpdateOrders(orders as IOrder[])
+      console.log(orders)
     }
-
   }, [updateOrders, orders])
+
   const { isPendingStatus, updateOrderStatus } = useUpdateOrderStatus()
   const { deleteOrder, isLoadingDelete } = useDeleteOrder()
+
   return (
     <div className={'flex flex-col gap-5'}>
-      {updateOrders && updateOrders.map((order,index) => (
+      {updateOrders.length ? updateOrders.map((order, index) => (
         <div key={order.id}>
           <hr className={'my-2 h-1.5 bg-black/20 rounded-full'}/>
           <div className={'flex justify-between items-center mb-3'}>
@@ -86,7 +88,7 @@ const OrderModerator = () => {
             {order.orderItems.map(item => (
               <div key={item.id} className={'flex items-center gap-3'}>
                 <Link href={PUBLIC_URL.product(item.product.id)}>
-                  <img src={item.product.images[0]} alt={item.product.title} className={'size-20 rounded-lg'}/>
+                  <img src={`/${item.product.images[0]}`} alt={item.product.title} className={'size-20 rounded-lg'}/>
                 </Link>
                 <div>
                   <p className={'text-sm font-bold'}>{item.product.title}</p>
@@ -98,7 +100,12 @@ const OrderModerator = () => {
             ))}
           </div>
         </div>
-      ))}
+      )) : (
+        <div className={'text-2xl font-medium'}>
+          <span className={'inline-block border-b-3 border-b-solid border-b-black/50'}>
+            Пока что в вашем магазине нет заказов...
+          </span>
+        </div>)}
     </div>
   )
 }

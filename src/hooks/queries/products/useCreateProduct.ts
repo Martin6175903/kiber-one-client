@@ -18,7 +18,7 @@ export const useCreateProduct = () => {
 				queryKey: ['get products']
 			})
 			toast.success('Товар создан')
-			push(PUBLIC_URL.products())
+			push(PUBLIC_URL.admin('/products'))
 		},
 		onError() {
 			toast.error('Ошибка при создании товара')

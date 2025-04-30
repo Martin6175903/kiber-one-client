@@ -18,7 +18,7 @@ export const useDeleteProduct = () => {
 				queryKey: ['delete product']
 			})
 			toast.success('Товар удалён')
-			push(PUBLIC_URL.products())
+			push(PUBLIC_URL.admin('/products'))
 		},
 		onError() {
 			toast.error('Ошибка при удалении товара')

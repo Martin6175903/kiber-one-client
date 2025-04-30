@@ -20,12 +20,12 @@ const CardItem = ({ item }: CardItemProps) => {
       </Link>
       <div className="ml-6">
         <h2 className={'font-medium line-clamp-1'}>{item.product.title}</h2>
-        <div>
+        <div className={'mb-2'}>
           <p className={'text-sm text-muted-foreground mt-1'}>{item.product.price} K</p>
           <p className={'text-sm text-muted-foreground mt-1'}>{item.size}</p>
         </div>
         <CardActions item={item}/>
-        <button className={'text-sm border-solid border-white border rounded-full py-1 px-3'} onClick={() => removeFromCard({ id: item.id })}>
+        <button className={'mt-2 text-sm border-solid border-white border rounded-full py-2 px-3 duration-300 hover:text-darkyellow hover:border-darkyellow cursor-pointer'} onClick={() => removeFromCard({ id: item.id })}>
           Удалить из корзины
         </button>
       </div>

@@ -19,7 +19,7 @@ export const useUpdateProduct = () => {
 				queryKey: ['update product']
 			})
 			toast.success('Товар обновлён')
-			push(PUBLIC_URL.products())
+			push(PUBLIC_URL.admin('/products'))
 		},
 		onError() {
 			toast.error('Ошибка при обновлении товара')

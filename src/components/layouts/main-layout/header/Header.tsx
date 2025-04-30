@@ -27,14 +27,14 @@ const Header = () => {
 						</Link>}
 					</div>
 					<div className={'text-white flex items-center gap-5 justify-end'}>
-						<Link href={isLoading ? '#' : (user?.role === 'MODERATOR' ? PUBLIC_URL.products() : PUBLIC_URL.home('#products'))} className={'text-lg text-black py-3.5 px-6 bg-white rounded-full uppercase font-medium border-2 border-solid border-transparent hover:bg-transparent hover:text-white hover:border-white hover:scale-105 duration-300'}>
+						<Link href={PUBLIC_URL.home('#products')} className={'text-lg text-black py-3.5 px-6 bg-white rounded-full uppercase font-medium border-2 border-solid border-transparent hover:bg-transparent hover:text-white hover:border-white hover:scale-105 duration-300'}>
 							Кибертовары
 						</Link>
 						<Link href={'#'} className={'relative hover:scale-110 duration-300'}>
 							<HeaderCart>
 								<ShoppingCart size={40}/>
 								<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-darkblue rounded-full font-bold'}>
-									{user && user.role === 'MODERATOR' ? orders && orders.length : items.length}
+									{items.length}
 								</span>
 							</HeaderCart>
 						</Link>
