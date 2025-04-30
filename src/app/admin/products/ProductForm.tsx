@@ -71,11 +71,6 @@ const ProductForm = ({ product } :ProductFormProps ) => {
       <div className={'flex flex-col gap-3'}>
         <h1 className={'text-2xl font-bold'}>{title}</h1>
         <p className={'text-xl text-gray-600 mb-3'}>{description}</p>
-        {product && (
-          <div className={'mb-5'}>
-            <ConfirmModal handleClick={() => deleteProduct()} title={'Удаление товара'} confirmBtnText={'Удалить'}/>
-          </div>
-        )}
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className={'flex flex-col gap-5'}>

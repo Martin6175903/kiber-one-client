@@ -6,16 +6,15 @@ import { useParams, useRouter } from 'next/navigation'
 import { PUBLIC_URL } from '@/src/config/url.config'
 
 export const useDeleteProduct = () => {
-	const params = useParams<{ productId: string }>()
 	const queryClient = useQueryClient()
 	const {push} = useRouter()
 
 	const { mutate: deleteProduct, isPending: isLoadingDelete } = useMutation({
 		mutationKey: ['delete product'],
-		mutationFn: () => productService.delete(params.productId),
+		mutationFn: (id: string) => productService.delete(id),
 		onSuccess() {
 			queryClient.invalidateQueries({
-				queryKey: ['delete product']
+				queryKey: ['get products']
 			})
 			toast.success('Товар удалён')
 			push(PUBLIC_URL.admin('/products'))
