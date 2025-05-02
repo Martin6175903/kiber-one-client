@@ -74,8 +74,6 @@ const UserForm = ({ user }: UserFormProps) => {
 
 		data.role = data.role === 'MODERATOR' ? 'MODERATOR' : 'USER'
 		data.quantityMoney = Number(data.quantityMoney)
-		// @ts-ignore
-		data.numberCard = Number(data.numberCard)
 
     if (user) updateUser(data)
     else createUser(data)
