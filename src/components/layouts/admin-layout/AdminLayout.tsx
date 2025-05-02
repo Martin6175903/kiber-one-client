@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, Suspense } from 'react'
 import Aside from '@/src/components/layouts/admin-layout/aside/Aside'
 import Main from './main/Main'
 
@@ -10,7 +10,9 @@ const AdminLayout = ({children}: PropsWithChildren) => {
           <div className={'flex items-stretch justify-between'}>
             <Aside/>
             <Main>
-              {children}
+              <Suspense fallback={<div>Загрузка...</div>}>
+                {children}
+              </Suspense>
             </Main>
           </div>
         </div>
