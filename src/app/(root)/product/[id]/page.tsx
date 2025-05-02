@@ -13,9 +13,9 @@ export async function generateStaticParams() {
 		}))
 }
 
-export async function getProduct(params: {id:string}) {
+async function getProductById(id: string) {
 	try {
-		const product = await productService.getById(params.id)
+		const product = await productService.getById(id)
 
 		return { product }
 	} catch (err) {
@@ -23,8 +23,13 @@ export async function getProduct(params: {id:string}) {
 	}
 }
 
-export async function generateMetadata({ params }: {params: {id: string}}): Promise<Metadata> {
-	const { product } = await getProduct(params)
+type Props = {
+	params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { id } = await params;
+	const { product } = await getProductById(id)
 
 	return {
 		title: product.title,
@@ -42,10 +47,11 @@ export async function generateMetadata({ params }: {params: {id: string}}): Prom
 	}
 }
 
-const ProductPage = async ({ params }: {params: {id: string}}) => {
-	const { product } = await getProduct(params)
+const ProductPage = async ({ params }: Props) => {
+	const { id } = await params;
+	const { product } = await getProductById(id)
 
-	return <Product id={params.id} initialProduct={product}/>
+	return <Product id={id} initialProduct={product}/>
 }
 
 export default ProductPage
