@@ -23,16 +23,16 @@ const Review = () => {
 			<Carousel setApi={setApi} plugins={[Autoplay({ delay: 3500 })]}>
 				<CarouselContent>
 					<CarouselItem>
-						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(@/public/images/main/slider/slider-img-1.jpg)] bg-cover bg-center'}></div>
+						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(/images/main/slider/slider-img-1.jpg)] bg-cover bg-center'}></div>
 					</CarouselItem>
 					<CarouselItem>
-						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(@/public/images/main/slider/slider-img-2.jpg)] bg-cover bg-center'}></div>
+						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(/images/main/slider/slider-img-2.jpg)] bg-cover bg-center'}></div>
 					</CarouselItem>
 					<CarouselItem>
-						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(@/public/images/main/slider/slider-img-3.jpg)] bg-cover bg-center'}></div>
+						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(/images/main/slider/slider-img-3.jpg)] bg-cover bg-center'}></div>
 					</CarouselItem>
 					<CarouselItem>
-						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(@/public/images/main/slider/slider-img-4.jpg)] bg-cover bg-center'}></div>
+						<div className={'w-full md:h-[900px] min-[500px]:h-[450px] h-[320px] bg-[url(/images/main/slider/slider-img-4.jpg)] bg-cover bg-center'}></div>
 					</CarouselItem>
 				</CarouselContent>
 				<CarouselPrevious className={'md:left-12 left-6 cursor-pointer'}></CarouselPrevious>
