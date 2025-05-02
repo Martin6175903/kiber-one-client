@@ -20,7 +20,7 @@ class UserService {
 	}
 
 	async getUserById(id: string) {
-		const {data} = await axiosClassic<IUser>({
+		const {data} = await axiosClassic<IUser | null>({
 			url: API_URL.users(`/${id}`),
 			method: 'GET'
 		})
