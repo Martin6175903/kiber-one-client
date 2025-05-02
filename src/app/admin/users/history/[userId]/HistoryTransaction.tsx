@@ -52,7 +52,7 @@ const HistoryTransaction = () => {
 		<div>
 			<h2 className="title">История транзакций валюты</h2>
 			<p className={'mt-3 font-medium text-xl'}>Информация о пользователе:</p>
-			<p className={'text-xl mb-7'}>{isLoadingUser || !group ? 'Пользователь' : <span>{user!.lastName} {user!.firstName}, {group!.title}, {dayLesson(group!.dayOfStudy)}, {group!.startTimeLearning} - {group!.endTimeLearning}</span>}</p>
+			<p className={'text-xl mb-7'}>{isLoadingUser || !group ? 'Пользователь' : <span>{user!.name}, {group!.title}, {dayLesson(group!.dayOfStudy)}, {group!.startTimeLearning} - {group!.endTimeLearning}</span>}</p>
 			<div className={'flex justify-between items-center mb-4'}>
 				<p className={'text-base font-medium mb-2'}>Текущий баланс ученика: <span className={'font-bold'}>{isLoadingUser ? "0" : user!.quantityMoney} K</span></p>
 				<Dialog defaultOpen={true}>

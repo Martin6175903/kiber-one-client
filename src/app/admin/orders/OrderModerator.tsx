@@ -68,8 +68,7 @@ const OrderModerator = () => {
           </div>
           <div className={'mb-3 flex gap-5 items-center justify-between'}>
             <div className={'flex gap-5 items-center'}>
-              <p>Имя пользователя: <span className={'font-bold'}>{order.user.firstName}</span></p>
-              <p>Фамилия пользователя: <span className={'font-bold'}>{order.user.lastName}</span></p>
+              <p>ФИО пользователя: <span className={'font-bold'}>{order.user.name}</span></p>
             </div>
             <div>
               <ConfirmModal

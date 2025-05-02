@@ -14,7 +14,7 @@ const GroupUsers = () => {
 
 	const formattedUsers: IAdminUsersColumn[] = isLoadingUsers ? [] : users!.filter(user => user.role && user.groupId === params.groupUsersId).map((user, index) => ({
 		id: { generateId: index + 1, id: user.id },
-		fullName: (user.lastName + ' ' + user.firstName),
+		fullName: user.name,
 		groupTitle: isLoadingGroup ? '' : group!.title,
 		balance: user.quantityMoney
 	})) as IAdminUsersColumn[]

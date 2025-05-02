@@ -200,7 +200,7 @@ const ProductForm = ({ group } :GroupFormProps ) => {
                         <SelectGroup>
                           <SelectLabel>Преподаватели</SelectLabel>
                           {!isLoadingUsers && users!.filter(user => user.role === "MODERATOR").map(user => (
-                            <SelectItem value={user.firstName + ' ' + user.lastName}>{user.firstName} {user.lastName}</SelectItem>
+                            <SelectItem value={user.name}>{user.name}</SelectItem>
                           ))}
                         </SelectGroup>
                       </SelectContent>

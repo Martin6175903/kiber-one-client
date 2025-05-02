@@ -48,8 +48,7 @@ const UserForm = ({ user }: UserFormProps) => {
   const form = useForm<IUserInput>({
     mode: 'onChange',
     values: user ? ({
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: user.name,
       role: user.role === "MODERATOR" ? "MODERATOR" : "USER",
       phoneNumber: user.phoneNumber,
       password: '',
@@ -57,8 +56,7 @@ const UserForm = ({ user }: UserFormProps) => {
 			numberCard: `${user.numberCard}`,
 			groupId: user.groupId
     }) : {
-      firstName: '',
-      lastName: '',
+      name: '',
       role: "USER",
       phoneNumber: '',
       password: '',
@@ -134,46 +132,20 @@ const UserForm = ({ user }: UserFormProps) => {
             <FormField
               render={({ field }) => (
                 <FormItem>
-									<FormLabel>Имя:</FormLabel>
+									<FormLabel>ФИО:</FormLabel>
                   <FormControl>
-                    <Input placeholder={'Иван'} type={'text'} disabled={isPendingUser || isUpdateUser} {...field} />
+                    <Input placeholder={'Иван Иванов'} type={'text'} disabled={isPendingUser || isUpdateUser} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
-              name={'firstName'}
+              name={'name'}
               control={form.control}
               rules={{
-                required: 'Имя обязательно',
-                pattern: /[А-Я][а-яА-Я]+/,
+                required: 'ФИО обязательно',
                 maxLength: {
-                  value: 15,
-                  message: 'Максимум 15 символов',
-                },
-                minLength: {
-                  value: 2,
-                  message: 'Минимум 2 символа',
-                },
-              }}
-            />
-            <FormField
-              render={({ field }) => (
-                <FormItem>
-									<FormLabel>Фамилия:</FormLabel>
-                  <FormControl>
-                    <Input placeholder={'Иванов'} type={'text'} disabled={isPendingUser || isUpdateUser} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              name={'lastName'}
-              control={form.control}
-              rules={{
-                required: 'Фамилия обязательна',
-                pattern: /[А-Я][а-яА-Я]+/,
-                maxLength: {
-                  value: 15,
-                  message: 'Максимум 15 символов',
+                  value: 32,
+                  message: 'Максимум 32 символа',
                 },
                 minLength: {
                   value: 2,

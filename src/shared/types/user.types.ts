@@ -4,8 +4,7 @@ export type TypeUserRole = "USER" | "MODERATOR"
 
 export interface IUser {
 	id: string
-	firstName: string
-	lastName: string
+	name: string
 	role: TypeUserRole
 	phoneNumber: string
 	password: string
