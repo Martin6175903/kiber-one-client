@@ -16,7 +16,6 @@ import { useCreateUser } from '@/src/hooks/queries/user/useCreateUser'
 import { useUpdateUser } from '@/src/hooks/queries/user/useUpdateUser'
 import { ToggleGroup, ToggleGroupItem } from '@/src/components/ui/ToggleGroup'
 import { Shield, User } from 'lucide-react'
-import InputDate from '@/src/components/ui/form-elements/InputDate'
 import {
 	Select,
 	SelectContent,
