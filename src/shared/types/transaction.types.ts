@@ -1,6 +1,6 @@
-export enum EnumTypeTransaction {
-	"BONUS",
-	"PURCHASE"
+export const enum EnumTypeTransaction {
+	BONUS,
+	PURCHASE
 }
 
 export interface ITransaction {

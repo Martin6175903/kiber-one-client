@@ -13,7 +13,7 @@ export interface IAdminHistoryColumn {
 	id?: string
 	dateOperation: Date
 	description: string
-	type: "BONUS" | "PURCHASE"
+	type: EnumTypeTransaction
 	quantityMoney: number
 	balance: number
 }
@@ -55,7 +55,7 @@ export const adminHistoryColumns: ColumnDef<IAdminHistoryColumn>[] = [
 			)
 		},
 		cell: ({row}) => (
-			<span className={'font-medium'}>{row.original.type === 'BONUS' ? 'Начисление' : 'Списывание'}</span>
+			<span className={'font-medium'}>{row.original.type === EnumTypeTransaction.BONUS ? 'Начисление' : 'Списывание'}</span>
 		)
 	},
 	{

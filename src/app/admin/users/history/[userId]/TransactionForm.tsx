@@ -18,92 +18,93 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/src/
 const operations = [
 	{
 		description: 'Посещение занятия',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 10
 	},
 	{
 		description: 'Бонус',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 5
 	},
 	{
 		description: 'Быстрее всех завершил(а) задание',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 5
 	},
 	{
 		description: 'Прошёл (прошла) модуль без замечаний по поведению',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 5
 	},
 	{
 		description: 'Придумал(а) полезное правило для КИБЕРшколы',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 10
 	},
 	{
 		description: 'Помог(ла) другу разобраться с заданием',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 5
 	},
 	{
 		description: 'Прошёл (прошла) модуль без пропусков',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 5
 	},
 	{
 		description: 'Помог(ла) ассистенту с уборкой',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 5
 	},
 	{
 		description: 'Победа в конкурсе/олимпиаде',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 15
 	},
 	{
 		description: 'Тщательно выполнил(а) гимнастику для глаз',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 5
 	},
 	{
 		description: 'Написал(а) отзыв в социальных сетях',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 15
 	},
 	{
 		description: 'Создал(а) дома самостоятельно проект и показал(а) тьютору',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 15
 	},
 	{
 		description: 'Сделал(а) пост в социальных сетях о КИБЕРшколе',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 15
 	},
 	{
 		description: 'Написал(а) отзыв о КИБЕРшколе на Google Картах',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 15
 	},
 	{
 		description: 'Написал(а) отзыв о КИБЕРшколе на Яндекс Картах',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 15
 	},
 	{
 		description: 'День рождения',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 30
 	},
 	{
 		description: 'Своевременная оплата',
-		type: 'BONUS',
+		type: EnumTypeTransaction.BONUS,
 		quantityMoney: 15
 	},
 	{
 		description: 'Другая причина начисления',
-		type: 'BONUS'
+		type: EnumTypeTransaction.BONUS,
+		quantityMoney: 0
 	}
 ]
 
@@ -125,8 +126,8 @@ export const TransactionForm = () => {
 
 		const transactions = [
 			...selectedOperations.filter(operation => operation.description !== 'Другая причина начисления'),
-			...(customBonus ? [{ description: customBonus, type: 'BONUS', quantityMoney: +customBonusQuantity }] : []),
-			...(purchaseReason ? [{ description: purchaseReason, type: 'PURCHASE', quantityMoney: +purchaseReasonQuantity }] : [])
+			...(customBonus ? [{ description: customBonus, type: EnumTypeTransaction.BONUS, quantityMoney: +customBonusQuantity }] : []),
+			...(purchaseReason ? [{ description: purchaseReason, type: EnumTypeTransaction.PURCHASE, quantityMoney: +purchaseReasonQuantity }] : [])
 		] as ITransactionInput[]
 
 		if (transactions.length === 0) return false
