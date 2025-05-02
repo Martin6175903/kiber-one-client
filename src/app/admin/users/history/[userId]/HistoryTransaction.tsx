@@ -26,18 +26,17 @@ import { TransactionForm } from '@/src/app/admin/users/history/[userId]/Transact
 import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
 
 const HistoryTransaction = () => {
+	const user = useGetUserById()
+	if (!user) {
+		return <div>Пользователь не найден!</div>
+	}
+
 	const params = useParams<{userId: string}>()
 	const {transactionsUser} = useGetTransactionsUser(params.userId)
-	const {user, isLoadingUser} = useGetUserById()
-	const { groups, isLoading } = useGetGroups()
-
-	const [group, setGroup] = useState<IGroup>()
+	
+	const group = user.group
 
 	const { isLoadingCreateTransaction } = useCreateTransaction()
-
-	useEffect(() => {
-		if (!isLoading && !isLoadingUser) setGroup(groups!.find(group => user!.groupId === group.id))
-	}, [isLoading, isLoadingUser])
 
 	const formattedHistory: IAdminHistoryColumn[] = transactionsUser && user ? transactionsUser.map((transaction, index) => ({
 		id: transaction.id,
@@ -52,9 +51,9 @@ const HistoryTransaction = () => {
 		<div>
 			<h2 className="title">История транзакций валюты</h2>
 			<p className={'mt-3 font-medium text-xl'}>Информация о пользователе:</p>
-			<p className={'text-xl mb-7'}>{isLoadingUser || !group ? 'Пользователь' : <span>{user!.name}, {group!.title}, {dayLesson(group!.dayOfStudy)}, {group!.startTimeLearning} - {group!.endTimeLearning}</span>}</p>
+			<p className={'text-xl mb-7'}>{group ? <span>{user.name}, {group.title}, {dayLesson(group.dayOfStudy)}, {group.startTimeLearning} - {group.endTimeLearning}</span> : <span>{ user.name } (Группа не указана)</span>}</p>
 			<div className={'flex justify-between items-center mb-4'}>
-				<p className={'text-base font-medium mb-2'}>Текущий баланс ученика: <span className={'font-bold'}>{isLoadingUser ? "0" : user!.quantityMoney} K</span></p>
+				<p className={'text-base font-medium mb-2'}>Текущий баланс ученика: <span className={'font-bold'}>{user.quantityMoney} K</span></p>
 				<Dialog defaultOpen={true}>
 					<DialogTrigger asChild>
 						<Button disabled={isLoadingCreateTransaction} className={'cursor-pointer'} variant="outline">Добавить транзакцию</Button>
