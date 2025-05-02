@@ -54,8 +54,6 @@ const UserForm = ({ user }: UserFormProps) => {
       phoneNumber: user.phoneNumber,
       password: '',
       quantityMoney: user.quantityMoney,
-      yearOfBirth: user.yearOfBirth,
-      startLearning: user.startLearning,
 			numberCard: `${user.numberCard}`,
 			groupId: user.groupId
     }) : {
@@ -65,8 +63,6 @@ const UserForm = ({ user }: UserFormProps) => {
       phoneNumber: '',
       password: '',
       quantityMoney: undefined,
-      yearOfBirth: undefined,
-      startLearning: undefined,
 			numberCard: '',
 			groupId: undefined
     }
@@ -248,22 +244,6 @@ const UserForm = ({ user }: UserFormProps) => {
 											message: 'Число не может быть меньше 0.'
 										}
 									}}
-								/>
-								<FormField
-									control={form.control}
-									name="yearOfBirth"
-									rules={{
-										required: "Дата рождения обязательно"
-									}}
-									render={({ field }) => <InputDate field={field} label={'Дата рождения:'} placeholder={'Выберите дату рождения...'}/>}
-								/>
-								<FormField
-									control={form.control}
-									name="startLearning"
-									rules={{
-										required: "Начало обучения ученика обязательно"
-									}}
-									render={({ field }) => <InputDate field={field} label={'Дата начала обучения:'} placeholder={'Начало обучения с...'}/>}
 								/>
 								<FormField
 									control={form.control}

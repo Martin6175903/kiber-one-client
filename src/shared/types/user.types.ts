@@ -10,8 +10,6 @@ export interface IUser {
 	phoneNumber: string
 	password: string
 	quantityMoney?: number
-	yearOfBirth?: Date
-	startLearning?: Date
 	numberCard?: string
 	orders: IOrder[]
 	groupId?: string
