@@ -211,56 +211,8 @@ export const TransactionForm = () => {
 						</div>
 					</div>
 
-					<Button id={'save-transactions-btn'} className={'hidden'} type={'submit'}>Сохранить транзакции</Button>
-
-					<div className={'flex justify-center'}>
-						<AlertDialog open={isOpenAlertDialog}>
-							<AlertDialogTrigger asChild>
-								<Button onClick={() => setIsOpenAlertDialog(true)} type={'button'} className={'cursor-pointer'}>Зачислить на карту</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogHeader>
-									<AlertDialogTitle className={'flex gap-3 items-center justify-between'}>
-										<span>Приложите карту к терминалу</span>
-										<div className={'flex items-center gap-2'}>
-											<Banknote className={'size-6 text-green-600'}/>
-											<ArrowRightLeft className={'size-5 text-zinc-600/75'}/>
-											<ScanBarcode className={'size-6 text-zinc-800'}/>
-										</div>
-									</AlertDialogTitle>
-									<AlertDialogDescription asChild>
-										<InputOTP aria-label={'input-otp'} autoFocus={isOpenAlertDialog} maxLength={10} onKeyDown={(e) => {
-											if (e.key === 'Enter') {
-												setIsOpenAlertDialog(false);
-												document.getElementById('save-transactions-btn')?.click()
-											}
-										}}>
-											<InputOTPGroup>
-												<InputOTPSlot index={0} />
-												<InputOTPSlot index={1} />
-												<InputOTPSlot index={2} />
-												<InputOTPSlot index={3} />
-											</InputOTPGroup>
-											<InputOTPSeparator />
-											<InputOTPGroup>
-												<InputOTPSlot index={4} />
-												<InputOTPSlot index={5} />
-												<InputOTPSlot index={6} />
-												<InputOTPSlot index={7} />
-											</InputOTPGroup>
-											<InputOTPSeparator />
-											<InputOTPGroup>
-												<InputOTPSlot index={8} />
-												<InputOTPSlot index={9} />
-											</InputOTPGroup>
-										</InputOTP>
-									</AlertDialogDescription>
-								</AlertDialogHeader>
-								<AlertDialogFooter>
-									<AlertDialogCancel onClick={() => setIsOpenAlertDialog(false)} className={'cursor-pointer'}>Отмена операции</AlertDialogCancel>
-								</AlertDialogFooter>
-							</AlertDialogContent>
-						</AlertDialog>
+					<div className="flex justify-center">
+						<Button type={'submit'}>Сохранить транзакции</Button>
 					</div>
 				</form>
 			</CardContent>
