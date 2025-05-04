@@ -1,13 +1,3 @@
-import { PropsWithChildren, ReactNode } from 'react'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './Dialog'
 import { Button } from './Button'
 import {
   AlertDialog,
