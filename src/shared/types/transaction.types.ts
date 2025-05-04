@@ -1,7 +1,9 @@
-export const enum EnumTypeTransaction {
-	BONUS,
-	PURCHASE
-}
+export const EnumTypeTransaction = {
+	BONUS: 'BONUS',
+	PURCHASE: 'PURCHASE',
+} as const
+
+export type EnumTypeTransaction = typeof EnumTypeTransaction[keyof typeof EnumTypeTransaction]
 
 export interface ITransaction {
 	id?: string
