@@ -19,7 +19,7 @@ export interface IOrder {
 export interface IOrderStatus extends Pick<IOrder, 'status' | 'id'> {}
 
 export interface IPaymentResponse {
-	id: string,
+	id: string
 	status: string
 	created_at: Date
 }

@@ -17,7 +17,7 @@ const iconVariants = cva('animate-spin text-muted-foreground', {
 type TypeIconVariants = VariantProps<typeof iconVariants>
 
 const Loader = ({ size }: TypeIconVariants) => {
-	return <LoaderCircle className={cn(iconVariants({ size }))}/>
+	return <LoaderCircle className={cn(iconVariants({ size }))} />
 }
 
 export default Loader

@@ -6,9 +6,7 @@ export const metadata: Metadata = {
 }
 
 const Page = () => {
-	return (
-		<Auth/>
-	)
+	return <Auth />
 }
 
 export default Page

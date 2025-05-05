@@ -6,16 +6,21 @@ import { useRouter } from 'next/navigation'
 import { PUBLIC_URL } from '@/src/config/url.config'
 
 const Groups = () => {
-  const { groups, isLoading } = useGetGroups()
-  const router = useRouter()
+	const { groups, isLoading } = useGetGroups()
+	const router = useRouter()
 
-  return (
-    <div>
-      <h2 className="title mb-10">Группы</h2>
-      <GroupsTable groups={isLoading ? [] : groups}/>
-      <Button className={'mt-5 cursor-pointer'} onClick={() => router.push(PUBLIC_URL.admin('/groups/create'))}>Создать новую группу</Button>
-    </div>
-  )
+	return (
+		<div>
+			<h2 className='title mb-10'>Группы</h2>
+			<GroupsTable groups={isLoading ? [] : groups} />
+			<Button
+				className={'mt-5 cursor-pointer'}
+				onClick={() => router.push(PUBLIC_URL.admin('/groups/create'))}
+			>
+				Создать новую группу
+			</Button>
+		</div>
+	)
 }
 
 export default Groups

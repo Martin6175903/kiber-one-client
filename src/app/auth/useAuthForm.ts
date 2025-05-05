@@ -13,13 +13,15 @@ export const useAuthForm = () => {
 		mode: 'onChange'
 	})
 
-	const {mutate, isPending} = useMutation({
+	const { mutate, isPending } = useMutation({
 		mutationKey: ['auth'],
 		mutationFn: (data: IAuthForm) => authService.main(data),
 		onSuccess({ data }) {
 			form.reset()
 			toast.success('Успешная авторизация')
-			data.user.role === 'USER' ? router.replace(PUBLIC_URL.home('/')) : router.replace(PUBLIC_URL.admin('/'))
+			data.user.role === 'USER'
+				? router.replace(PUBLIC_URL.home('/'))
+				: router.replace(PUBLIC_URL.admin('/'))
 		},
 		onError(error: any) {
 			if (error.message) toast.error(error.message)
@@ -27,7 +29,7 @@ export const useAuthForm = () => {
 		}
 	})
 
-	const onSubmit:SubmitHandler<IAuthForm> = data => {
+	const onSubmit: SubmitHandler<IAuthForm> = data => {
 		mutate(data)
 	}
 

@@ -8,16 +8,14 @@ export async function middleware(request: NextRequest) {
 	const isAuthPage = request.url.includes(PUBLIC_URL.auth())
 
 	if (isAuthPage) {
-		if(refreshToken) return NextResponse.redirect(
-			new URL(PUBLIC_URL.home(), request.url)
-		)
+		if (refreshToken)
+			return NextResponse.redirect(new URL(PUBLIC_URL.home(), request.url))
 
 		return NextResponse.next()
 	}
 
-	if (refreshToken === undefined) return NextResponse.redirect(
-		new URL(PUBLIC_URL.auth(), request.url)
-	)
+	if (refreshToken === undefined)
+		return NextResponse.redirect(new URL(PUBLIC_URL.auth(), request.url))
 
 	return NextResponse.next()
 }

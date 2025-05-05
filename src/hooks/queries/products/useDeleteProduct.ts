@@ -7,7 +7,7 @@ import { PUBLIC_URL } from '@/src/config/url.config'
 
 export const useDeleteProduct = () => {
 	const queryClient = useQueryClient()
-	const {push} = useRouter()
+	const { push } = useRouter()
 
 	const { mutate: deleteProduct, isPending: isLoadingDelete } = useMutation({
 		mutationKey: ['delete product'],

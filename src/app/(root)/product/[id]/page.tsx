@@ -9,8 +9,8 @@ export async function generateStaticParams() {
 	const products = await productService.getAll()
 
 	return products.map(product => ({
-			params: { id: product.id }
-		}))
+		params: { id: product.id }
+	}))
 }
 
 async function getProductById(id: string) {
@@ -28,7 +28,7 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const { id } = await params;
+	const { id } = await params
 	const { product } = await getProductById(id)
 
 	return {
@@ -48,10 +48,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const ProductPage = async ({ params }: Props) => {
-	const { id } = await params;
+	const { id } = await params
 	const { product } = await getProductById(id)
 
-	return <Product id={id} initialProduct={product}/>
+	return <Product id={id} initialProduct={product} />
 }
 
 export default ProductPage

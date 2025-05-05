@@ -1,7 +1,10 @@
 import { IAuthForm, IAuthResponse } from '@/src/shared/types/auth.types'
 import { axiosClassic } from '@/src/api/api.interceptors'
 import { API_URL } from '@/src/config/api.config'
-import { removeFromStorage, saveTokenStorage } from '@/src/services/auth/auth-token.service'
+import {
+	removeFromStorage,
+	saveTokenStorage
+} from '@/src/services/auth/auth-token.service'
 
 class AuthService {
 	async main(data: IAuthForm) {

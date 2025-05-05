@@ -1,6 +1,11 @@
 import { UseFormReturn } from 'react-hook-form'
 import { IAuthForm } from '@/src/shared/types/auth.types'
-import { FormControl, FormField, FormItem, FormMessage } from '@/src/components/ui/form-elements/Form'
+import {
+	FormControl,
+	FormField,
+	FormItem,
+	FormMessage
+} from '@/src/components/ui/form-elements/Form'
 import { Input } from '@/src/components/ui/form-elements/Input'
 
 interface AuthFieldsProps {
@@ -21,7 +26,13 @@ const AuthFields = ({ form, isPending }: AuthFieldsProps) => {
 				render={({ field }) => (
 					<FormItem>
 						<FormControl>
-							<Input placeholder={'+375(__)___-__-__'} type={'tel'} disabled={isPending} autoComplete={'tel'} {...field} />
+							<Input
+								placeholder={'+375(__)___-__-__'}
+								type={'tel'}
+								disabled={isPending}
+								autoComplete={'tel'}
+								{...field}
+							/>
 						</FormControl>
 						<FormMessage />
 					</FormItem>
@@ -31,7 +42,13 @@ const AuthFields = ({ form, isPending }: AuthFieldsProps) => {
 				render={({ field }) => (
 					<FormItem>
 						<FormControl>
-							<Input autoComplete={'tel'} placeholder={'******'} type={'password'} disabled={isPending} {...field} />
+							<Input
+								autoComplete={'tel'}
+								placeholder={'******'}
+								type={'password'}
+								disabled={isPending}
+								{...field}
+							/>
 						</FormControl>
 						<FormMessage />
 					</FormItem>
@@ -48,7 +65,8 @@ const AuthFields = ({ form, isPending }: AuthFieldsProps) => {
 						value: 6,
 						message: 'Минимум 6 символов'
 					}
-				}} />
+				}}
+			/>
 		</>
 	)
 }

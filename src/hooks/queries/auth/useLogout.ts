@@ -4,15 +4,19 @@ import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 
 export const useLogout = () => {
-  const router = useRouter()
+	const router = useRouter()
 
-  const { mutate: logout, isPending } = useMutation({
-    mutationKey: ['logout'],
-    mutationFn: () => authService.logout(),
-    onSuccess: () => router.push('/auth')
-  })
+	const { mutate: logout, isPending } = useMutation({
+		mutationKey: ['logout'],
+		mutationFn: () => authService.logout(),
+		onSuccess: () => router.push('/auth')
+	})
 
-  return useMemo(() => ({
-    logout, isPending
-  }), [logout, isPending])
+	return useMemo(
+		() => ({
+			logout,
+			isPending
+		}),
+		[logout, isPending]
+	)
 }

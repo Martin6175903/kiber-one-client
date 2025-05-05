@@ -9,5 +9,5 @@ export function useProfile() {
 
 	// if (!auth) throw new Error('Профайл не получен!')
 
-	return {user, isLoading}
+	return { user, isLoading }
 }

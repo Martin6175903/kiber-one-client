@@ -6,24 +6,22 @@ import OrderUser from '@/src/app/(root)/order/OrderUser'
 import { useLogout } from '@/src/hooks/queries/auth/useLogout'
 
 const Order = () => {
-  const {logout} = useLogout()
+	const { logout } = useLogout()
 
-  return (
-    <div className={'h-full text-black bg-white my-6'}>
-      <div className={'container'}>
-        <div className="flex items-center justify-between mb-4">
-          <h1 className={'text-2xl font-bold'}>
-            Ваши заказы
-          </h1>
-          <Button variant={'ghost'} onClick={() => logout()}>
-            <LogOut className={'size-4 mr-2'}/>
-            Выйти
-          </Button>
-        </div>
-        <OrderUser/>
-      </div>
-    </div>
-  )
+	return (
+		<div className={'h-full text-black bg-white my-6'}>
+			<div className={'container'}>
+				<div className='flex items-center justify-between mb-4'>
+					<h1 className={'text-2xl font-bold'}>Ваши заказы</h1>
+					<Button variant={'ghost'} onClick={() => logout()}>
+						<LogOut className={'size-4 mr-2'} />
+						Выйти
+					</Button>
+				</div>
+				<OrderUser />
+			</div>
+		</div>
+	)
 }
 
 export default Order

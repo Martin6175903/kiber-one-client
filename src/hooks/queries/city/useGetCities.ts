@@ -3,12 +3,16 @@ import { cityService } from '@/src/services/city.service'
 import { useMemo } from 'react'
 
 export const useGetCities = () => {
-  const {data: cities, isLoading: isCitiesLoading} = useQuery({
-    queryKey: ['get cities'],
-    queryFn: () => cityService.getCities()
-  })
+	const { data: cities, isLoading: isCitiesLoading } = useQuery({
+		queryKey: ['get cities'],
+		queryFn: () => cityService.getCities()
+	})
 
-  return useMemo(() => ({
-    cities, isCitiesLoading
-  }), [cities, isCitiesLoading])
+	return useMemo(
+		() => ({
+			cities,
+			isCitiesLoading
+		}),
+		[cities, isCitiesLoading]
+	)
 }

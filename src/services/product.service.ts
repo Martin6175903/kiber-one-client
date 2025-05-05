@@ -7,7 +7,7 @@ class ProductService {
 		const { data } = await axiosClassic<IProduct[]>({
 			url: API_URL.products(),
 			method: 'GET',
-			params: searchTerm ? {searchTerm} : {}
+			params: searchTerm ? { searchTerm } : {}
 		})
 
 		return data || []

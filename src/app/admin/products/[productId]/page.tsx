@@ -3,12 +3,12 @@ import { NO_INDEX_PAGE } from '@/src/constants/seo.constants'
 import ProductEdit from '@/src/app/admin/products/[productId]/ProductEdit'
 
 export const metadata: Metadata = {
-  title: 'Редактирование товара',
-  ...NO_INDEX_PAGE
+	title: 'Редактирование товара',
+	...NO_INDEX_PAGE
 }
 
 const ProductEditPage = () => {
-  return <ProductEdit/>
+	return <ProductEdit />
 }
 
 export default ProductEditPage

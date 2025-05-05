@@ -1,7 +1,7 @@
-import Users from "./Users"
+import Users from './Users'
 
 const Page = () => {
-  return <Users/>
+	return <Users />
 }
 
 export default Page

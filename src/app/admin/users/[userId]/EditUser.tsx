@@ -3,13 +3,13 @@ import UserForm from '@/src/app/admin/users/UserForm'
 import { useGetUserById } from '@/src/hooks/queries/user/useGetUserById'
 
 const EditUser = () => {
-  const user = useGetUserById()
+	const user = useGetUserById()
 
-  if (!user) {
-    return <div>Пользователь не найден!</div>
-  }
+	if (!user) {
+		return <div>Пользователь не найден!</div>
+	}
 
-  return <UserForm user={user} />
+	return <UserForm user={user} />
 }
 
 export default EditUser

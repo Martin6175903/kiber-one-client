@@ -3,12 +3,12 @@ import { PropsWithChildren } from 'react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
- title: "Личный кабинет Kiber-one",
- description: "Личный кабинет Kiber-one - Личный кабинет"
+	title: 'Личный кабинет Kiber-one',
+	description: 'Личный кабинет Kiber-one - Личный кабинет'
 }
 
-const Layout = ({children} :PropsWithChildren ) => {
- return <AdminLayout>{children}</AdminLayout>
-};
+const Layout = ({ children }: PropsWithChildren) => {
+	return <AdminLayout>{children}</AdminLayout>
+}
 
-export default Layout;
+export default Layout

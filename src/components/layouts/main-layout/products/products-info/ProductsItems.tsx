@@ -2,16 +2,21 @@ import ProductsItem from '@/src/components/layouts/main-layout/products/products
 import { useGetProducts } from '@/src/hooks/queries/products/useGetProducts'
 
 const ProductsItems = () => {
-	const {products, isLoading} = useGetProducts()
+	const { products, isLoading } = useGetProducts()
 
 	return (
-		<div className={'grid grid-cols-1 min-[500px]:grid-cols-2 min-[1200px]:grid-cols-3 gap-8 text-white'}>
+		<div
+			className={
+				'grid grid-cols-1 min-[500px]:grid-cols-2 min-[1200px]:grid-cols-3 gap-8 text-white'
+			}
+		>
 			{isLoading
 				? 'Loading...'
-				: products?.sort((prev, current) => prev.id!.localeCompare(current.id!))?.map(product => (
-					<ProductsItem key={product.id} product={product}/>
-				))
-			}
+				: products
+						?.sort((prev, current) => prev.id!.localeCompare(current.id!))
+						?.map(product => (
+							<ProductsItem key={product.id} product={product} />
+						))}
 		</div>
 	)
 }

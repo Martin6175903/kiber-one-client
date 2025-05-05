@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { rootActions } from '@/src/store/root-actions'
 
 export const useActions = () => {
-  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-  return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch])
+	return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch])
 }

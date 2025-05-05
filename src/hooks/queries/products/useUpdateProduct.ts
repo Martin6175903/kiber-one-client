@@ -9,11 +9,12 @@ import { PUBLIC_URL } from '@/src/config/url.config'
 export const useUpdateProduct = () => {
 	const params = useParams<{ productId: string }>()
 	const queryClient = useQueryClient()
-	const {push} = useRouter()
+	const { push } = useRouter()
 
 	const { mutate: updateProduct, isPending: isLoadingUpdate } = useMutation({
 		mutationKey: ['update product'],
-		mutationFn: (data: IProductInput) => productService.update(params.productId, data),
+		mutationFn: (data: IProductInput) =>
+			productService.update(params.productId, data),
 		onSuccess() {
 			queryClient.invalidateQueries({
 				queryKey: ['update product']

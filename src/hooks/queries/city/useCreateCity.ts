@@ -4,23 +4,27 @@ import toast from 'react-hot-toast'
 import { useMemo } from 'react'
 
 export const useCreateCity = () => {
-  const queryClient = useQueryClient()
+	const queryClient = useQueryClient()
 
-  const {mutate: createCity, isPending: isCreatedCity} = useMutation({
-    mutationKey: ['create city'],
-    mutationFn: (data: ICity) => cityService.createCity(data),
-    onSuccess() {
-      queryClient.invalidateQueries({
-        queryKey: ['get cities']
-      })
-      toast.success('Раздел кабинета "Город" создан')
-    },
-    onError() {
-      toast.error('Ошибка при создании раздела "Город"')
-    }
-  })
+	const { mutate: createCity, isPending: isCreatedCity } = useMutation({
+		mutationKey: ['create city'],
+		mutationFn: (data: ICity) => cityService.createCity(data),
+		onSuccess() {
+			queryClient.invalidateQueries({
+				queryKey: ['get cities']
+			})
+			toast.success('Раздел кабинета "Город" создан')
+		},
+		onError() {
+			toast.error('Ошибка при создании раздела "Город"')
+		}
+	})
 
-  return useMemo(() => ({
-    createCity, isCreatedCity
-  }), [createCity, isCreatedCity])
+	return useMemo(
+		() => ({
+			createCity,
+			isCreatedCity
+		}),
+		[createCity, isCreatedCity]
+	)
 }

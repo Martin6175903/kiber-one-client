@@ -7,25 +7,29 @@ import { PUBLIC_URL } from '@/src/config/url.config'
 import { useMemo } from 'react'
 
 export const useUpdateUser = (id: string) => {
-  const queryClient = useQueryClient()
-  const router = useRouter()
+	const queryClient = useQueryClient()
+	const router = useRouter()
 
-  const {mutate: updateUser, isPending: isUpdateUser} = useMutation({
-    mutationKey: ['update user'],
-    mutationFn: (data: IUserInput) => userService.updateUser(data, id),
-    onSuccess() {
-      queryClient.invalidateQueries({
-        queryKey: ['get users']
-      })
-      toast.success('Пользователь успешно изменён!')
-      router.push(PUBLIC_URL.admin('/users'))
-    },
-    onError() {
-      toast.error('Ошибка при изменении пользователя!')
-    }
-  })
+	const { mutate: updateUser, isPending: isUpdateUser } = useMutation({
+		mutationKey: ['update user'],
+		mutationFn: (data: IUserInput) => userService.updateUser(data, id),
+		onSuccess() {
+			queryClient.invalidateQueries({
+				queryKey: ['get users']
+			})
+			toast.success('Пользователь успешно изменён!')
+			router.push(PUBLIC_URL.admin('/users'))
+		},
+		onError() {
+			toast.error('Ошибка при изменении пользователя!')
+		}
+	})
 
-  return useMemo(() => ({
-    updateUser, isUpdateUser
-  }), [updateUser, isUpdateUser])
+	return useMemo(
+		() => ({
+			updateUser,
+			isUpdateUser
+		}),
+		[updateUser, isUpdateUser]
+	)
 }

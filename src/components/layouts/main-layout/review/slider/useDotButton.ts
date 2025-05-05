@@ -6,7 +6,7 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined) => {
 	const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
 
 	const onDotButtonClick = useCallback(
-		(index:number) => {
+		(index: number) => {
 			if (!emblaApi) return
 			emblaApi.scrollTo(index)
 		},

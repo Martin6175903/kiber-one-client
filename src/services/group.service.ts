@@ -14,21 +14,21 @@ class GroupService {
 	async getGroups() {
 		const { data } = await axiosWithAuth<IGroup[]>({
 			url: API_URL.group('/'),
-			method: "GET"
+			method: 'GET'
 		})
 		return data
 	}
 
 	async getGroup(id: string) {
-		const {data} = await axiosClassic<IGroup>({
+		const { data } = await axiosClassic<IGroup>({
 			url: API_URL.group(`/${id}`),
 			method: 'GET'
 		})
 		return data
 	}
-	
+
 	async updateGroup(data: IGroup, id: string) {
-		const {data: updatedOrderStatus} = await  axiosWithAuth<IGroup>({
+		const { data: updatedOrderStatus } = await axiosWithAuth<IGroup>({
 			url: API_URL.group(`/${id}`),
 			method: 'PUT',
 			data

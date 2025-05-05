@@ -5,12 +5,16 @@ import { groupService } from '@/src/services/group.service'
 import { useParams } from 'next/navigation'
 
 export const useGetGroup = (id: string) => {
-  const {data: group, isLoading: isLoadingGroup} = useQuery({
-    queryKey: ['get group'],
-    queryFn: () => groupService.getGroup(id)
-  })
+	const { data: group, isLoading: isLoadingGroup } = useQuery({
+		queryKey: ['get group'],
+		queryFn: () => groupService.getGroup(id)
+	})
 
-  return useMemo(() => ({
-    group, isLoadingGroup
-  }), [group, isLoadingGroup])
+	return useMemo(
+		() => ({
+			group,
+			isLoadingGroup
+		}),
+		[group, isLoadingGroup]
+	)
 }

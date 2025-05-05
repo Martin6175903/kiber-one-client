@@ -1,6 +1,6 @@
 import { IUser } from '@/src/shared/types/user.types'
 
-export interface IAuthForm  {
+export interface IAuthForm {
 	phoneNumber: string
 	password: string
 }

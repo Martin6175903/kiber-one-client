@@ -1,9 +1,9 @@
 import { useTypedSelector } from '@/src/hooks/useTypedSelector'
 
 export const useCard = () => {
-  const items = useTypedSelector(state => state.card.items)
+	const items = useTypedSelector(state => state.card.items)
 
-  const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+	const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0)
 
-  return {items, total}
+	return { items, total }
 }

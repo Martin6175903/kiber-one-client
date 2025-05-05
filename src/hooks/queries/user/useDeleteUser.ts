@@ -8,7 +8,7 @@ import { userService } from '@/src/services/user.service'
 
 export const useDeleteUser = () => {
 	const queryClient = useQueryClient()
-	const {push} = useRouter()
+	const { push } = useRouter()
 
 	const { mutate: deleteUser, isPending: isLoadingDelete } = useMutation({
 		mutationKey: ['delete user'],

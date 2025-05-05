@@ -4,16 +4,36 @@ import { Button } from '@/src/components/ui/Button'
 import { Checkbox } from '@/src/components/ui/Checkbox'
 import { Input } from '@/src/components/ui/form-elements/Input'
 import { Label } from '@/src/components/ui/form-elements/Label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/Card'
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle
+} from '@/src/components/ui/Card'
 import { DialogClose } from '@/src/components/ui/Dialog'
 import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
-import { EnumTypeTransaction, ITransactionInput } from '@/src/shared/types/transaction.types'
 import {
-	AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-	AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger
+	EnumTypeTransaction,
+	ITransactionInput
+} from '@/src/shared/types/transaction.types'
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger
 } from '@/src/components/ui/AlertDialog'
 import { ArrowRightLeft, Banknote, ScanBarcode } from 'lucide-react'
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/src/components/ui/input-otp'
+import {
+	InputOTP,
+	InputOTPGroup,
+	InputOTPSeparator,
+	InputOTPSlot
+} from '@/src/components/ui/input-otp'
 
 const operations = [
 	{
@@ -109,7 +129,9 @@ const operations = [
 ]
 
 export const TransactionForm = () => {
-	const [selectedOperations, setSelectedOperations] = useState<ITransactionInput[]>([operations[0]])
+	const [selectedOperations, setSelectedOperations] = useState<
+		ITransactionInput[]
+	>([operations[0]])
 	// Логика работы кастомный операций
 	const [customBonus, setCustomBonus] = useState('')
 	const [customBonusQuantity, setCustomBonusQuantity] = useState(0)
@@ -125,9 +147,27 @@ export const TransactionForm = () => {
 		e.preventDefault()
 
 		const transactions = [
-			...selectedOperations.filter(operation => operation.description !== 'Другая причина начисления'),
-			...(customBonus ? [{ description: customBonus, type: EnumTypeTransaction.BONUS, quantityMoney: +customBonusQuantity }] : []),
-			...(purchaseReason ? [{ description: purchaseReason, type: EnumTypeTransaction.PURCHASE, quantityMoney: +purchaseReasonQuantity }] : [])
+			...selectedOperations.filter(
+				operation => operation.description !== 'Другая причина начисления'
+			),
+			...(customBonus
+				? [
+						{
+							description: customBonus,
+							type: EnumTypeTransaction.BONUS,
+							quantityMoney: +customBonusQuantity
+						}
+					]
+				: []),
+			...(purchaseReason
+				? [
+						{
+							description: purchaseReason,
+							type: EnumTypeTransaction.PURCHASE,
+							quantityMoney: +purchaseReasonQuantity
+						}
+					]
+				: [])
 		] as ITransactionInput[]
 
 		if (transactions.length === 0) return false
@@ -136,28 +176,44 @@ export const TransactionForm = () => {
 	}
 
 	return (
-		<Card className="w-full">
+		<Card className='w-full'>
 			<CardHeader>
 				<CardTitle>Операции с валютой</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form id={'transaction__form'} onSubmit={handleSubmit} className="space-y-6">
+				<form
+					id={'transaction__form'}
+					onSubmit={handleSubmit}
+					className='space-y-6'
+				>
 					{/* Стандартные бонусы */}
-					<div className="space-y-4">
+					<div className='space-y-4'>
 						<Label>Стандартные начисления:</Label>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-3 ">
-							{operations.map((op) => (
-								<div key={op.description} className="flex items-center space-x-2 group cursor-pointer">
+						<div className='grid grid-cols-1 md:grid-cols-2 gap-3 '>
+							{operations.map(op => (
+								<div
+									key={op.description}
+									className='flex items-center space-x-2 group cursor-pointer'
+								>
 									<Checkbox
-										className={'cursor-pointer duration-300 group-hover:scale-105 '}
+										className={
+											'cursor-pointer duration-300 group-hover:scale-105 '
+										}
 										id={op.description}
-										checked={selectedOperations.some(o => o.description === op.description)}
-										onCheckedChange={(checked) => {
+										checked={selectedOperations.some(
+											o => o.description === op.description
+										)}
+										onCheckedChange={checked => {
 											if (checked) {
-												if (op.description === 'Другая причина начисления') setIsCheckedItemOther(true)
-												setSelectedOperations((prev) => [...prev, op] as ITransactionInput[])
+												if (op.description === 'Другая причина начисления')
+													setIsCheckedItemOther(true)
+												setSelectedOperations(
+													prev => [...prev, op] as ITransactionInput[]
+												)
 											} else {
-												setSelectedOperations(prev => prev.filter(o => o.description !== op.description))
+												setSelectedOperations(prev =>
+													prev.filter(o => o.description !== op.description)
+												)
 												if (op.description === 'Другая причина начисления') {
 													setIsCheckedItemOther(false)
 													setCustomBonus('')
@@ -165,8 +221,18 @@ export const TransactionForm = () => {
 											}
 										}}
 									/>
-									<Label htmlFor={op.description} className="font-normal duration-300 cursor-pointer group-hover:scale-105">
-										<span>{op.description}{op.description !== 'Другая причина начисления' && <span className={'font-bold text-nowrap'}>({op.quantityMoney} K)</span>}</span>
+									<Label
+										htmlFor={op.description}
+										className='font-normal duration-300 cursor-pointer group-hover:scale-105'
+									>
+										<span>
+											{op.description}
+											{op.description !== 'Другая причина начисления' && (
+												<span className={'font-bold text-nowrap'}>
+													({op.quantityMoney} K)
+												</span>
+											)}
+										</span>
 									</Label>
 								</div>
 							))}
@@ -174,44 +240,61 @@ export const TransactionForm = () => {
 					</div>
 
 					{isCheckedItemOther && (
-						<div className="space-y-2 grid grid-cols-2 gap-5">
+						<div className='space-y-2 grid grid-cols-2 gap-5'>
 							<div>
-								<Label htmlFor="custom-bonus" className={'mb-2'}>Другая причина начисления:</Label>
-								<Input id="custom-bonus" value={customBonus} onChange={(e) => setCustomBonus(e.target.value)}
-											 placeholder="Опишите причину начисления..."
+								<Label htmlFor='custom-bonus' className={'mb-2'}>
+									Другая причина начисления:
+								</Label>
+								<Input
+									id='custom-bonus'
+									value={customBonus}
+									onChange={e => setCustomBonus(e.target.value)}
+									placeholder='Опишите причину начисления...'
 								/>
 							</div>
 							<div>
-								<Label htmlFor="custom-bonus-quantity" className={'mb-2'}>Количество валюты:</Label>
-								<Input id="custom-bonus-quantity" type={'number'} value={customBonusQuantity}
-											 onChange={(e) => setCustomBonusQuantity(+e.target.value)}
-											 placeholder="Количество валюты..."
+								<Label htmlFor='custom-bonus-quantity' className={'mb-2'}>
+									Количество валюты:
+								</Label>
+								<Input
+									id='custom-bonus-quantity'
+									type={'number'}
+									value={customBonusQuantity}
+									onChange={e => setCustomBonusQuantity(+e.target.value)}
+									placeholder='Количество валюты...'
 								/>
 							</div>
 						</div>
 					)}
 
 					{/* Списание */}
-					<div className="space-y-3 grid grid-cols-2 gap-5">
+					<div className='space-y-3 grid grid-cols-2 gap-5'>
 						<div>
-							<Label htmlFor="penalty-reason" className={'mb-2'}>Причина списания:</Label>
+							<Label htmlFor='penalty-reason' className={'mb-2'}>
+								Причина списания:
+							</Label>
 							<Input
-								id="penalty-reason"
+								id='penalty-reason'
 								value={purchaseReason}
-								onChange={(e) => setPurchaseReason(e.target.value)}
-								placeholder="Опишите причину списания..."
+								onChange={e => setPurchaseReason(e.target.value)}
+								placeholder='Опишите причину списания...'
 							/>
 						</div>
 						<div>
-							<Label htmlFor="custom-bonus-quantity" className={'mb-2'}>Количество валюты:</Label>
-							<Input id="custom-bonus-quantity" type={'number'} value={purchaseReasonQuantity}
-										 onChange={(e) => setPurchaseReasonQuantity(+e.target.value)}
-										 placeholder="Количество валюты..."
+							<Label htmlFor='custom-bonus-quantity' className={'mb-2'}>
+								Количество валюты:
+							</Label>
+							<Input
+								id='custom-bonus-quantity'
+								type={'number'}
+								value={purchaseReasonQuantity}
+								onChange={e => setPurchaseReasonQuantity(+e.target.value)}
+								placeholder='Количество валюты...'
 							/>
 						</div>
 					</div>
 
-					<div className="flex justify-center">
+					<div className='flex justify-center'>
 						<Button type={'submit'}>Сохранить транзакции</Button>
 					</div>
 				</form>

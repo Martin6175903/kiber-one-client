@@ -1,8 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 import { PUBLIC_URL } from '@/src/config/url.config'
 
 const nextConfig: NextConfig = {
-  /* config options here */
+	/* config options here */
 	env: {
 		APP_ENV: process.env.APP_NEV,
 		APP_URL: process.env.APP_URL,
@@ -26,6 +26,6 @@ const nextConfig: NextConfig = {
 			}
 		]
 	}
-};
+}
 
-export default nextConfig;
+export default nextConfig

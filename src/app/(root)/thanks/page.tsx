@@ -17,13 +17,14 @@ const ThanksPage = () => {
 				<div className={'text-center flex flex-col gap-7'}>
 					<h1 className={'text-5xl font-semibold'}>Спасибо за ваш заказ!</h1>
 					<p className={'text-xl'}>
-						Мы ценим ваше доверие и приложим все усилия, чтобы доставить ваш заказ как можно скорее.
+						Мы ценим ваше доверие и приложим все усилия, чтобы доставить ваш
+						заказ как можно скорее.
 					</p>
 					<div>
 						<Link className={'*:cursor-pointer'} href={PUBLIC_URL.home()}>
 							<Button>
 								На главную
-								<ArrowRight/>
+								<ArrowRight />
 							</Button>
 						</Link>
 					</div>

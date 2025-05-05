@@ -2,13 +2,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '@/src/components/ui/Button'
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage
 } from '@/src/components/ui/form-elements/Form'
 import { Input } from '@/src/components/ui/form-elements/Input'
 import { IUser, IUserInput } from '@/src/shared/types/user.types'
@@ -28,180 +28,204 @@ import {
 import { useGetGroups } from '@/src/hooks/queries/group/useGetGroups'
 
 interface UserFormProps {
-  user: IUser | null
+	user: IUser | null
 }
 
 const UserForm = ({ user }: UserFormProps) => {
+	const { createUser, isPendingUser } = useCreateUser()
+	const { updateUser, isUpdateUser } = useUpdateUser(user?.id!)
 
-  const { createUser, isPendingUser } = useCreateUser()
-  const { updateUser, isUpdateUser } = useUpdateUser(user?.id!)
+	const { groups } = useGetGroups()
 
-	const {groups} = useGetGroups()
+	const title = user ? 'Изменение данных пользователя' : 'Создание пользователя'
+	const description = user
+		? 'Изменить данные пользователя'
+		: 'Создать нового пользователя'
+	const action = user ? 'Сохранить' : 'Создать'
 
-  const title = user ? 'Изменение данных пользователя' : 'Создание пользователя'
-  const description = user
-    ? 'Изменить данные пользователя'
-    : 'Создать нового пользователя'
-  const action = user ? 'Сохранить' : 'Создать'
+	const form = useForm<IUserInput>({
+		mode: 'onChange',
+		values: user
+			? {
+					name: user.name,
+					role: user.role === 'MODERATOR' ? 'MODERATOR' : 'USER',
+					phoneNumber: user.phoneNumber,
+					password: '',
+					quantityMoney: user.quantityMoney,
+					numberCard: `${user.numberCard}`,
+					groupId: user.groupId
+				}
+			: {
+					name: '',
+					role: 'USER',
+					phoneNumber: '',
+					password: '',
+					quantityMoney: undefined,
+					numberCard: '',
+					groupId: undefined
+				}
+	})
 
-  const form = useForm<IUserInput>({
-    mode: 'onChange',
-    values: user ? ({
-      name: user.name,
-      role: user.role === "MODERATOR" ? "MODERATOR" : "USER",
-      phoneNumber: user.phoneNumber,
-      password: '',
-      quantityMoney: user.quantityMoney,
-			numberCard: `${user.numberCard}`,
-			groupId: user.groupId
-    }) : {
-      name: '',
-      role: "USER",
-      phoneNumber: '',
-      password: '',
-      quantityMoney: undefined,
-			numberCard: '',
-			groupId: undefined
-    }
-  })
+	const role = form.watch('role')
 
-  const role = form.watch("role")
-
-  const onSubmit: SubmitHandler<IUserInput> = data => {
-
+	const onSubmit: SubmitHandler<IUserInput> = data => {
 		data.role = data.role === 'MODERATOR' ? 'MODERATOR' : 'USER'
 		data.quantityMoney = Number(data.quantityMoney)
 
-    if (user) updateUser(data)
-    else createUser(data)
-  }
+		if (user) updateUser(data)
+		else createUser(data)
+	}
 
-  // @ts-ignore
+	// @ts-ignore
 	return (
-    <div className={'container'}>
-      <div className={'py-5'}>
-        <div className={'flex flex-col gap-3'}>
-          <h1 className={'text-2xl font-bold'}>{title}</h1>
-          <p className={'text-xl text-gray-600 mb-3'}>{description}</p>
-        </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className={'flex flex-col gap-5'}>
-            <FormField
-              name={'phoneNumber'}
-              control={form.control}
-              rules={{
-                required: 'Номер телефона обязателен',
-              }}
-              render={({ field }) => (
-                <FormItem>
+		<div className={'container'}>
+			<div className={'py-5'}>
+				<div className={'flex flex-col gap-3'}>
+					<h1 className={'text-2xl font-bold'}>{title}</h1>
+					<p className={'text-xl text-gray-600 mb-3'}>{description}</p>
+				</div>
+				<Form {...form}>
+					<form
+						onSubmit={form.handleSubmit(onSubmit)}
+						className={'flex flex-col gap-5'}
+					>
+						<FormField
+							name={'phoneNumber'}
+							control={form.control}
+							rules={{
+								required: 'Номер телефона обязателен'
+							}}
+							render={({ field }) => (
+								<FormItem>
 									<FormLabel>Номер телефона:</FormLabel>
-                  <FormControl>
-                    <Input placeholder={'+375(__)___-__-__'} type={'tel'}
-                           disabled={isPendingUser || isUpdateUser} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              render={({ field }) => (
-                <FormItem>
-									<FormLabel>Пароль:</FormLabel>
-                  <FormControl>
-                    <Input autoComplete={'tel'} placeholder={'******'} type={'password'}
-                           disabled={isUpdateUser || isPendingUser} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              name={'password'}
-              control={form.control}
-              rules={{
-                required: 'Пароль обязателен',
-                maxLength: {
-                  value: 50,
-                  message: 'Максимум 50 символов',
-                },
-                minLength: {
-                  value: 6,
-                  message: 'Минимум 6 символов',
-                },
-              }}
+									<FormControl>
+										<Input
+											placeholder={'+375(__)___-__-__'}
+											type={'tel'}
+											disabled={isPendingUser || isUpdateUser}
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
 						/>
-            <FormField
-              render={({ field }) => (
-                <FormItem>
+						<FormField
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Пароль:</FormLabel>
+									<FormControl>
+										<Input
+											autoComplete={'tel'}
+											placeholder={'******'}
+											type={'password'}
+											disabled={isUpdateUser || isPendingUser}
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+							name={'password'}
+							control={form.control}
+							rules={{
+								required: 'Пароль обязателен',
+								maxLength: {
+									value: 50,
+									message: 'Максимум 50 символов'
+								},
+								minLength: {
+									value: 6,
+									message: 'Минимум 6 символов'
+								}
+							}}
+						/>
+						<FormField
+							render={({ field }) => (
+								<FormItem>
 									<FormLabel>ФИО:</FormLabel>
-                  <FormControl>
-                    <Input placeholder={'Иван Иванов'} type={'text'} disabled={isPendingUser || isUpdateUser} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-              name={'name'}
-              control={form.control}
-              rules={{
-                required: 'ФИО обязательно',
-                maxLength: {
-                  value: 32,
-                  message: 'Максимум 32 символа',
-                },
-                minLength: {
-                  value: 2,
-                  message: 'Минимум 2 символа',
-                },
-              }}
-            />
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Тип пользователя:</FormLabel>
-                  <FormControl>
-                    <ToggleGroup
-                      type="single"
-                      value={String(field.value)}
-                      onValueChange={(value) => {
-                        if (value) {
-                          field.onChange(value)
-                        }
-                      }}
-                      className="grid grid-cols-2"
-                    >
-                      <ToggleGroupItem
-                        value={"USER"}
-                        className="data-[state=on]:bg-primary data-[state=on]:text-white cursor-pointer"
-                      >
-                        <User className="mr-2 h-4 w-4" />
-                        Ученик
-                      </ToggleGroupItem>
-                      <ToggleGroupItem
-                        value={"MODERATOR"}
-                        className="data-[state=on]:bg-darkyellow/80 data-[state=on]:text-white cursor-pointer"
-                      >
-                        <Shield className="mr-2 h-4 w-4" />
-                        Преподаватель
-                      </ToggleGroupItem>
-                    </ToggleGroup>
-                  </FormControl>
-                  <FormDescription>
-                    Выберите тип создаваемого пользователя
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {String(role) === "USER" && (
-              <>
+									<FormControl>
+										<Input
+											placeholder={'Иван Иванов'}
+											type={'text'}
+											disabled={isPendingUser || isUpdateUser}
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+							name={'name'}
+							control={form.control}
+							rules={{
+								required: 'ФИО обязательно',
+								maxLength: {
+									value: 32,
+									message: 'Максимум 32 символа'
+								},
+								minLength: {
+									value: 2,
+									message: 'Минимум 2 символа'
+								}
+							}}
+						/>
+						<FormField
+							control={form.control}
+							name='role'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Тип пользователя:</FormLabel>
+									<FormControl>
+										<ToggleGroup
+											type='single'
+											value={String(field.value)}
+											onValueChange={value => {
+												if (value) {
+													field.onChange(value)
+												}
+											}}
+											className='grid grid-cols-2'
+										>
+											<ToggleGroupItem
+												value={'USER'}
+												className='data-[state=on]:bg-primary data-[state=on]:text-white cursor-pointer'
+											>
+												<User className='mr-2 h-4 w-4' />
+												Ученик
+											</ToggleGroupItem>
+											<ToggleGroupItem
+												value={'MODERATOR'}
+												className='data-[state=on]:bg-darkyellow/80 data-[state=on]:text-white cursor-pointer'
+											>
+												<Shield className='mr-2 h-4 w-4' />
+												Преподаватель
+											</ToggleGroupItem>
+										</ToggleGroup>
+									</FormControl>
+									<FormDescription>
+										Выберите тип создаваемого пользователя
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						{String(role) === 'USER' && (
+							<>
 								<FormField
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Начальное количество киберонов:</FormLabel>
 											<FormControl>
-												<Input placeholder={'Начальное количество киберонов...'} step={5} defaultValue={'0'} type={'number'} disabled={isPendingUser || isUpdateUser} {...field} />
+												<Input
+													placeholder={'Начальное количество киберонов...'}
+													step={5}
+													defaultValue={'0'}
+													type={'number'}
+													disabled={isPendingUser || isUpdateUser}
+													{...field}
+												/>
 											</FormControl>
-											<FormMessage/>
+											<FormMessage />
 										</FormItem>
 									)}
 									name={'quantityMoney'}
@@ -216,29 +240,42 @@ const UserForm = ({ user }: UserFormProps) => {
 								/>
 								<FormField
 									control={form.control}
-									name="groupId"
+									name='groupId'
 									rules={{
-										required: "Выбор группы обязателен"
+										required: 'Выбор группы обязателен'
 									}}
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Выбор группы:</FormLabel>
 											<FormControl>
-												<Select disabled={isPendingUser || isUpdateUser} value={field.value} onValueChange={field.onChange}>
-													<SelectTrigger className="w-[250px]">
-														<SelectValue placeholder="Выберите группу..." />
+												<Select
+													disabled={isPendingUser || isUpdateUser}
+													value={field.value}
+													onValueChange={field.onChange}
+												>
+													<SelectTrigger className='w-[250px]'>
+														<SelectValue placeholder='Выберите группу...' />
 													</SelectTrigger>
 													<SelectContent>
 														<SelectGroup>
 															<SelectLabel>Категория</SelectLabel>
-															{groups ? groups.map(group => (
-																<SelectItem key={group.id} value={group.id as string}>{group.title}</SelectItem>
-															)) : <></>}
+															{groups ? (
+																groups.map(group => (
+																	<SelectItem
+																		key={group.id}
+																		value={group.id as string}
+																	>
+																		{group.title}
+																	</SelectItem>
+																))
+															) : (
+																<></>
+															)}
 														</SelectGroup>
 													</SelectContent>
 												</Select>
 											</FormControl>
-											<FormMessage/>
+											<FormMessage />
 										</FormItem>
 									)}
 								/>
@@ -247,7 +284,12 @@ const UserForm = ({ user }: UserFormProps) => {
 										<FormItem>
 											<FormLabel>Номер карточки ученика:</FormLabel>
 											<FormControl>
-												<Input placeholder={'Номер карточки...'} type={'number'} disabled={isUpdateUser || isPendingUser} {...field} />
+												<Input
+													placeholder={'Номер карточки...'}
+													type={'number'}
+													disabled={isUpdateUser || isPendingUser}
+													{...field}
+												/>
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -258,24 +300,30 @@ const UserForm = ({ user }: UserFormProps) => {
 										required: 'Номер карточки обязателен для ввода',
 										maxLength: {
 											value: 12,
-											message: 'Максимум 12 цифр',
+											message: 'Максимум 12 цифр'
 										},
 										minLength: {
 											value: 8,
-											message: 'Минимум 8 цифр',
-										},
+											message: 'Минимум 8 цифр'
+										}
 									}}
 								/>
 							</>
-            )}
-            <div className={'flex justify-center'}>
-              <Button className={'max-w-1/2 w-full'} variant={'default'} disabled={isPendingUser || isUpdateUser}>{action} пользователя</Button>
-            </div>
-          </form>
-        </Form>
-      </div>
-    </div>
-  )
+						)}
+						<div className={'flex justify-center'}>
+							<Button
+								className={'max-w-1/2 w-full'}
+								variant={'default'}
+								disabled={isPendingUser || isUpdateUser}
+							>
+								{action} пользователя
+							</Button>
+						</div>
+					</form>
+				</Form>
+			</div>
+		</div>
+	)
 }
 
 export default UserForm

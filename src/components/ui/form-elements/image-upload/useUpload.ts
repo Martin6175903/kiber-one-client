@@ -34,7 +34,13 @@ export const useUpload = (onChange: (value: string[]) => void) => {
 		fileInputRef.current?.click()
 	}
 
-	return useMemo(() => ({
-		handleButtonClick, isUploading, fileInputRef, handleFileChange
-	}), [handleButtonClick, isUploading, fileInputRef, handleFileChange])
+	return useMemo(
+		() => ({
+			handleButtonClick,
+			isUploading,
+			fileInputRef,
+			handleFileChange
+		}),
+		[handleButtonClick, isUploading, fileInputRef, handleFileChange]
+	)
 }

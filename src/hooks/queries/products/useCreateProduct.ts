@@ -8,7 +8,7 @@ import { PUBLIC_URL } from '@/src/config/url.config'
 
 export const useCreateProduct = () => {
 	const queryClient = useQueryClient()
-	const {push} = useRouter()
+	const { push } = useRouter()
 
 	const { mutate: createProduct, isPending: isLoadingCreate } = useMutation({
 		mutationKey: ['create product'],

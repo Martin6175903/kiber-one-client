@@ -9,22 +9,22 @@ import Products from '@/src/components/layouts/main-layout/products/Products'
 import Delivery from '@/src/components/layouts/main-layout/delivery/Delivery'
 
 const Home = () => {
-  const searchParams = useSearchParams()
+	const searchParams = useSearchParams()
 
-  useEffect(() => {
-    const accessToken = searchParams.get('accessToken')
+	useEffect(() => {
+		const accessToken = searchParams.get('accessToken')
 
-    if (accessToken) saveTokenStorage(accessToken)
-  }, [searchParams])
+		if (accessToken) saveTokenStorage(accessToken)
+	}, [searchParams])
 
-  return (
-    <div className={'bg-[#181818]'}>
-      <Review/>
-      <ProductsInfo/>
-      <Products/>
-      <Delivery/>
-    </div>
-  )
+	return (
+		<div className={'bg-[#181818]'}>
+			<Review />
+			<ProductsInfo />
+			<Products />
+			<Delivery />
+		</div>
+	)
 }
 
 export default Home

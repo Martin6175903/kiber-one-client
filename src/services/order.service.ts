@@ -1,4 +1,9 @@
-import { EnumOrderStatus, IOrder, IOrderStatus, IPaymentResponse } from '@/src/shared/types/order.types'
+import {
+	EnumOrderStatus,
+	IOrder,
+	IOrderStatus,
+	IPaymentResponse
+} from '@/src/shared/types/order.types'
 import { axiosWithAuth } from '@/src/api/api.interceptors'
 import { API_URL } from '@/src/config/api.config'
 
@@ -24,13 +29,13 @@ class OrderService {
 	async getOrders() {
 		const { data } = await axiosWithAuth<IOrder[]>({
 			url: API_URL.orders(),
-			method: "GET"
+			method: 'GET'
 		})
 		return data
 	}
-	
+
 	async updateOrderStatus(data: IOrderStatus) {
-		const {data: updatedOrderStatus} = await  axiosWithAuth<IOrderStatus>({
+		const { data: updatedOrderStatus } = await axiosWithAuth<IOrderStatus>({
 			url: API_URL.orders(`/status/${data.id}`),
 			method: 'POST',
 			data: { status: data.status }

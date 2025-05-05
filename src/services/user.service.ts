@@ -12,15 +12,15 @@ class UserService {
 	}
 
 	async getUsers() {
-		const {data} = await axiosClassic<IUser[]>({
+		const { data } = await axiosClassic<IUser[]>({
 			url: API_URL.users('/'),
-			method: "GET"
+			method: 'GET'
 		})
 		return data
 	}
 
 	async getUserById(id: string) {
-		const {data} = await axiosClassic<IUser | null>({
+		const { data } = await axiosClassic<IUser | null>({
 			url: API_URL.users(`/${id}`),
 			method: 'GET'
 		})

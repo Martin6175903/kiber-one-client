@@ -1,9 +1,10 @@
 export const EnumTypeTransaction = {
 	BONUS: 'BONUS',
-	PURCHASE: 'PURCHASE',
+	PURCHASE: 'PURCHASE'
 } as const
 
-export type EnumTypeTransaction = typeof EnumTypeTransaction[keyof typeof EnumTypeTransaction]
+export type EnumTypeTransaction =
+	(typeof EnumTypeTransaction)[keyof typeof EnumTypeTransaction]
 
 export interface ITransaction {
 	id?: string
@@ -15,7 +16,8 @@ export interface ITransaction {
 	createdAt: Date
 }
 
-export interface ITransactionInput extends Omit<ITransaction, 'remains' | 'userId' | 'createdAt'> {}
+export interface ITransactionInput
+	extends Omit<ITransaction, 'remains' | 'userId' | 'createdAt'> {}
 
 export interface ITransactionDelete {
 	type: EnumTypeTransaction
