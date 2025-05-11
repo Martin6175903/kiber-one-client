@@ -1,12 +1,9 @@
 'use client'
 import { IProduct, IProductInput } from '@/src/shared/types/product.types'
 import { useCreateProduct } from '@/src/hooks/queries/products/useCreateProduct'
-import { useDeleteProduct } from '@/src/hooks/queries/products/useDeleteProduct'
 import { useUpdateProduct } from '@/src/hooks/queries/products/useUpdateProduct'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import ConfirmModal from '@/src/components/ui/ConfirmModal'
 import { Button } from '@/src/components/ui/Button'
-import { Trash } from 'lucide-react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/src/components/ui/form-elements/Form'
 import { Input } from '@/src/components/ui/form-elements/Input'
 import { Textarea } from '@/src/components/ui/Textarea'
@@ -18,7 +15,7 @@ interface ProductFormProps {
   product?: IProduct | null
 }
 
-const ProductForm = ({ product } :ProductFormProps ) => {
+const ProductForm = ({ product }: ProductFormProps ) => {
 
   const [sizes, setSizes] = useState<any[]>([])
 
@@ -27,7 +24,6 @@ const ProductForm = ({ product } :ProductFormProps ) => {
   }, [product])
 
   const { createProduct, isLoadingCreate } = useCreateProduct()
-  const { deleteProduct, isLoadingDelete } = useDeleteProduct()
   const { updateProduct, isLoadingUpdate } = useUpdateProduct()
 
   const title = product ? 'Изменить данные' : 'Создать товар'
@@ -67,7 +63,9 @@ const ProductForm = ({ product } :ProductFormProps ) => {
 
   return (
   <div className={'container'}>
+    <Button product={product}></Button>
     <div className={'py-5'}>
+      <Button className={'text-xl'}></Button>
       <div className={'flex flex-col gap-3'}>
         <h1 className={'text-2xl font-bold'}>{title}</h1>
         <p className={'text-xl text-gray-600 mb-3'}>{description}</p>

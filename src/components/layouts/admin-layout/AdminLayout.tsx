@@ -1,8 +1,20 @@
-import { PropsWithChildren, Suspense } from 'react'
+'use client'
+import { PropsWithChildren, Suspense, useContext, useEffect } from 'react'
 import Aside from '@/src/components/layouts/admin-layout/aside/Aside'
 import Main from './main/Main'
+import { useUserContext } from '@/src/providers/user.context'
+import { useRouter } from 'next/navigation'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 const AdminLayout = ({children}: PropsWithChildren) => {
+
+  const router = useRouter()
+  const {user, isLoadingUser} = useUserContext()
+
+  useEffect(() => {
+    if (!isLoadingUser && user?.role === 'USER') router.replace(PUBLIC_URL.home())
+  }, [isLoadingUser])
+
   return (
     <div>
       <div className={'wrapper min-h-screen bg-linear-[90deg,#131313,#131313_30%,white_60%,white]'}>

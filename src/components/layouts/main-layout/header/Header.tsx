@@ -8,12 +8,11 @@ import { useCard } from '@/src/hooks/useCard'
 import { PUBLIC_URL } from '@/src/config/url.config'
 import { useGetOrders } from '@/src/hooks/queries/order/useGetOrders'
 import { Button } from '@/src/components/ui/Button'
+import { useUserContext } from '@/src/providers/user.context'
 
 const Header = () => {
 
-	const {user, isLoading} = useProfile()
-	const {orders} = useGetOrders()
-	const {items} = useCard()
+	const { user } = useUserContext()
 
 	return (
 		<header className={'pt-6 pb-9 bg-linear-[-85deg,#202020_0%,#0C0C0C_40%,#1B1818_50%,#080808_60%,#202020_100%]'}>
@@ -34,7 +33,7 @@ const Header = () => {
 							<HeaderCart>
 								<ShoppingCart size={40}/>
 								<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-darkblue rounded-full font-bold'}>
-									{items.length}
+									{user ? user?.orders.length : 0}
 								</span>
 							</HeaderCart>
 						</Link>

@@ -1,28 +1,32 @@
-import { IAuthForm, IAuthResponse } from '@/src/shared/types/auth.types'
+import { IAuthForm } from '@/src/shared/types/auth.types'
 import { axiosClassic } from '@/src/api/api.interceptors'
 import { API_URL } from '@/src/config/api.config'
-import { removeFromStorage, saveTokenStorage } from '@/src/services/auth/auth-token.service'
+import { IUser } from '@/src/shared/types/user.types'
 
 class AuthService {
 	async main(data: IAuthForm) {
-		const response = await axiosClassic<IAuthResponse>({
+		const response = await axiosClassic<IUser>({
 			url: API_URL.auth(`/login`),
 			method: 'POST',
 			data
 		})
 
-		if (response.data.accessToken) saveTokenStorage(response.data.accessToken)
-
 		return response
 	}
 
-	async getNewTokens() {
-		const response = await axiosClassic<IAuthResponse>({
-			url: API_URL.auth(`/login/access-token`),
-			method: 'POST'
+	async getCurrentUser() {
+		const response = await axiosClassic({
+			url: API_URL.auth(),
+			method: 'GET'
 		})
-		if (response.data.accessToken) saveTokenStorage(response.data.accessToken)
+		return response.data
+	}
 
+	async validateSession() {
+		const response = await axiosClassic<IAuthForm>({
+			url: API_URL.auth('/validate-user'),
+			method: 'GET'
+		})
 		return response
 	}
 
@@ -31,8 +35,6 @@ class AuthService {
 			url: API_URL.auth(`/logout`),
 			method: 'POST'
 		})
-
-		if (response.data) removeFromStorage()
 
 		return response
 	}

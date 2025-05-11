@@ -85,9 +85,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           >
             <Minus className={'size-4'}/>
           </Button>
-
           <input className={'w-10 text-center text-base'} type="text" disabled readOnly value={storeItem ? storeItem.quantity : quantity} />
-
           <Button
             onClick={() => {
               if (storeItem) {

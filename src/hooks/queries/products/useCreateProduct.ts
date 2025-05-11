@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { IProduct, IProductInput } from '@/src/shared/types/product.types'
+import { IProductInput } from '@/src/shared/types/product.types'
 import { productService } from '@/src/services/product.service'
 import toast from 'react-hot-toast'
 import { useMemo } from 'react'

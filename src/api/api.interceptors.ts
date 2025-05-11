@@ -1,7 +1,6 @@
-import axios, { CreateAxiosDefaults } from 'axios'
+import axios, { AxiosError, CreateAxiosDefaults } from 'axios'
 import { SERVER_URL } from '@/src/config/api.config'
-import { errorCatch, getContentType } from '@/src/api/api.helper'
-import { getAccessToken, removeFromStorage } from '@/src/services/auth/auth-token.service'
+import { getContentType } from '@/src/api/api.helper'
 import { authService } from '@/src/services/auth/auth.service'
 
 const options: CreateAxiosDefaults = {
@@ -14,30 +13,18 @@ const axiosClassic = axios.create(options)
 const axiosWithAuth = axios.create(options)
 
 axiosWithAuth.interceptors.request.use(config => {
-  const accessToken = getAccessToken()
-
-  if (config?.headers && accessToken) config.headers.Authorization = `Bearer ${accessToken}`
-
   return config
+}, (error: AxiosError) => {
+  console.log(error)
 })
 
 axiosWithAuth.interceptors.response.use(config =>
   config,
-  async error => {
-    const originalRequest = error.config
-
-    if ((error?.response?.status === 401 || errorCatch(error) === 'jwt expired' || errorCatch(error) === 'jwt must be provided') && error.config && !error.config._isRetry) {
-      originalRequest._isRetry = true
-      try {
-        await authService.getNewTokens()
-        return axiosWithAuth.request(originalRequest)
-      } catch (err) {
-        if (errorCatch(error) === 'jwt expired') removeFromStorage()
-      }
-    }
-
-    throw error
-  }
+  (async (error: AxiosError) => {
+    // if (error.request.cookies.get('SessionId')?.value) error.request.cookies.delete('SessionId')
+    // new URL(PUBLIC_URL.auth(), error.request.url)
+    console.log(error)
+  })
 )
 
 export { axiosClassic, axiosWithAuth }
