@@ -6,16 +6,16 @@ import Product from '@/src/app/(root)/product/[id]/Product'
 export const revalidate = 60
 
 export async function generateStaticParams() {
-	const products = await productService.getAll()
+	const products = await productService.getProductsFetchRequest()
 
 	return products.map(product => ({
-			params: { id: product.id }
-		}))
+		params: { id: product.id }
+	}))
 }
 
 async function getProductById(id: string) {
 	try {
-		const product = await productService.getById(id)
+		const product = await productService.getByIdFetchRequest(id)
 
 		return { product }
 	} catch (err) {
@@ -48,10 +48,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const ProductPage = async ({ params }: Props) => {
-	const { id } = await params;
-	const { product } = await getProductById(id)
+	// const { id } = await params
+	// const { product } = await getProductById(id)
+	// console.log(product)
 
-	return <Product id={id} initialProduct={product}/>
+	return <Product/>
 }
 
 export default ProductPage

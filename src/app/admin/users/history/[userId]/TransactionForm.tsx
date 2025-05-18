@@ -117,8 +117,6 @@ export const TransactionForm = () => {
 	const [purchaseReasonQuantity, setPurchaseReasonQuantity] = useState(0)
 	const [isCheckedItemOther, setIsCheckedItemOther] = useState(false)
 
-	const [isOpenAlertDialog, setIsOpenAlertDialog] = useState(false)
-
 	const { createTransaction } = useCreateTransaction()
 
 	const handleSubmit = (e: React.FormEvent) => {

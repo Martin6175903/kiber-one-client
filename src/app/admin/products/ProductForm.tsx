@@ -63,9 +63,7 @@ const ProductForm = ({ product }: ProductFormProps ) => {
 
   return (
   <div className={'container'}>
-    <Button product={product}></Button>
     <div className={'py-5'}>
-      <Button className={'text-xl'}></Button>
       <div className={'flex flex-col gap-3'}>
         <h1 className={'text-2xl font-bold'}>{title}</h1>
         <p className={'text-xl text-gray-600 mb-3'}>{description}</p>

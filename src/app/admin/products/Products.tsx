@@ -8,6 +8,9 @@ import { Button } from '@/src/components/ui/Button'
 import { Plus } from 'lucide-react'
 import { DataTable } from '@/src/components/ui/data-loading/DataTable'
 import { PUBLIC_URL } from '@/src/config/url.config'
+import { useEffect, useState } from 'react'
+import { productService } from '@/src/services/product.service'
+import { IProduct } from '@/src/shared/types/product.types'
 
 const Products = () => {
   const { products, isLoading } = useGetProducts()
