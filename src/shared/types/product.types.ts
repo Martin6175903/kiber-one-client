@@ -9,3 +9,9 @@ export interface IProduct {
 }
 
 export interface IProductInput extends Omit<IProduct, 'id'> {}
+
+export interface IProductAggregation {
+	product: IProduct,
+	bufferSize: string,
+	totalQuantity: number
+}

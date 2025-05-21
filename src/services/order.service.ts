@@ -28,6 +28,14 @@ class OrderService {
 		})
 		return data
 	}
+
+	async getProductsAggregation() {
+		const { data } = await axiosWithAuth({
+			url: API_URL.orders('/aggregate-orders'),
+			method: "GET"
+		})
+		return data
+	}
 	
 	async updateOrderStatus(data: IOrderStatus) {
 		const {data: updatedOrderStatus} = await  axiosWithAuth<IOrderStatus>({
