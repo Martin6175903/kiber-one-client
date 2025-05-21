@@ -5,15 +5,17 @@ import { ITransaction, ITransactionInput } from '@/src/shared/types/transaction.
 import { transactionService } from '@/src/services/transaction.service'
 import { useParams, useRouter } from 'next/navigation'
 import { PUBLIC_URL } from '@/src/config/url.config'
+import { useUserContext } from '@/src/providers/user.context'
 
 export const useCreateTransaction = () => {
 	const params = useParams<{ userId: string }>()
 	const queryClient = useQueryClient()
 	const router = useRouter()
+	const {user} = useUserContext()
 
   const { mutate: createTransaction, isPending: isLoadingCreateTransaction } = useMutation({
     mutationKey: ['create transaction'],
-		mutationFn: (data: ITransactionInput[]) => transactionService.createTransaction(params.userId, data),
+		mutationFn: (data: ITransactionInput[]) => transactionService.createTransaction(params.userId || user!.id, data),
 		onSuccess(){
       Promise.all([
 				queryClient.invalidateQueries({ queryKey: ['get transactions user'] }),

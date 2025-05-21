@@ -44,7 +44,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       <h1 className={'text-3xl font-bold'}>{product.title}</h1>
       <div className="text-2xl">{product.price} K</div>
       <hr/>
-      <blockquote className="text-muted-foreground text-sm">{product.description}</blockquote>
+      <blockquote className="text-muted-foreground text-lg">{product.description}</blockquote>
       {product.size?.length ? (
         <div className={'*:cursor-pointer *:hover:bg-amber-50/5 *:duration-500 mb-5 flex gap-5 items-center'}>
           <span>Доступные размеры: </span>
@@ -65,7 +65,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           )}
         </div>
       ) : (
-        <p>Размеры на данный товар отсутсвуют.</p>
+        <p>Размеры на данный товар отсутствуют.</p>
       )}
       <div className={'flex gap-5 items-center'}>
         <p>Количество товара:</p>

@@ -25,7 +25,6 @@ const OrderModerator = () => {
   useEffect(() => {
     if(orders) {
       setUpdateOrders(orders as IOrder[])
-      console.log(orders)
     }
   }, [updateOrders, orders])
 

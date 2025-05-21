@@ -6,11 +6,17 @@ import { useCard } from '@/src/hooks/useCard'
 import { useCreateOrder } from '@/src/hooks/queries/order/useCreateOrder'
 import { MousePointerClick } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
+import { useUserContext } from '@/src/providers/user.context'
+import toast from 'react-hot-toast'
+import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
 
 const OrderUser = () => {
   const router = useRouter()
 
   const { items, total } = useCard()
+  const {user} = useUserContext()
+  const {createTransaction, isLoadingCreateTransaction} = useCreateTransaction()
 
   const {createOrder, isLoadingCreate} = useCreateOrder()
   return (
@@ -54,9 +60,26 @@ const OrderUser = () => {
       <div className={'flex justify-center mt-5'}>
         {items.length > 0 && (
           <ConfirmModal handleClick={() => {
+            if (!user) {
+              toast.error('Данного пользователя не существует!')
+              return false
+            }
+
+            if (user.quantityMoney! < total) {
+              toast.error('Ваш баланс меньше, чем сумма заказа! Надо ещё немного накопить валюты!')
+              return false
+            }
+
+            createTransaction([
+              {
+                type: "PURCHASE",
+                description: "Осуществление заказа",
+                quantityMoney: total
+              }
+            ])
             createOrder()
             router.push('/thanks')
-          }} title={'Заказать Kiber-товары!'} confirmBtnText={'Заказать'}/>
+          }} title={'Заказать Kiber-товары!'} confirmBtnText={'Заказать'} disabled={isLoadingCreateTransaction || isLoadingCreate}/>
         )}
       </div>
     </div>
