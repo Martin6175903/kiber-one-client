@@ -17,6 +17,7 @@ const Products = () => {
 
   const formattedProducts: IProductsColumn[] = products ? products.map(product => ({
     id: product.id,
+    image: product.images[0],
     title: product.title,
     description: product.description,
     price: product.price,

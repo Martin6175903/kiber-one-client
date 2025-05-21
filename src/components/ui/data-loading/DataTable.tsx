@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow className={'grid grid-cols-[1fr_2fr_repeat(2,1fr)_1fr_0.7fr]'} key={headerGroup.id}>
+              <TableRow className={'grid grid-cols-[1fr_1fr_2fr_1fr_1fr_0.7fr_0.7fr]'} key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -89,7 +89,7 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  className={'grid grid-cols-[1fr_2fr_repeat(2,1fr)_1fr_0.7fr]'}
+                  className={'grid grid-cols-[1fr_1fr_2fr_1fr_1fr_0.7fr_0.7fr]'}
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                 >

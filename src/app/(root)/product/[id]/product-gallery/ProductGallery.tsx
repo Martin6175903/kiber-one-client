@@ -13,8 +13,7 @@ const ProductGallery = ({ product }: ProductGalleryProps) => {
 
   return (
     <div>
-      <Image className={'rounded-lg h-[500px] cursor-pointer'} src={`/${product.images[currentIndex]}`} alt={product.title} width={500}
-             height={500} />
+      <Image className={'rounded-lg h-[500px] cursor-pointer'} src={`/${product.images[currentIndex]}`} alt={product.title} width={500} height={500} />
       <div className={'flex mt-6 gap-6'}>
         {product.images.map((image, index) => (
           <button
