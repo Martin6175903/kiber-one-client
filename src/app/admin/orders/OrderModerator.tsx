@@ -9,18 +9,21 @@ import {
   SelectValue,
 } from '@/src/components/ui/Select'
 import { EnumOrderStatus, IOrder } from '@/src/shared/types/order.types'
-import ConfirmModal from '@/src/components/ui/ConfirmModal'
 import Link from 'next/link'
 import { PUBLIC_URL } from '@/src/config/url.config'
 import { useUpdateOrderStatus } from '@/src/hooks/queries/order/useUpdateOrderStatus'
-import { useDeleteOrder } from '@/src/hooks/queries/order/useDeleteOrder'
 import { useGetOrders } from '@/src/hooks/queries/order/useGetOrders'
 import { useEffect, useState } from 'react'
+import { Button } from '@/src/components/ui/Button'
+import { useChangeOrderStatusArchived } from '@/src/hooks/queries/order/useChangeOrderStatusArchived'
+import { useChangeOrderStatusCancelled } from '@/src/hooks/queries/order/useChangeOrderStatusCancelled'
 
 const OrderModerator = () => {
   const { orders } = useGetOrders()
 
   const [updateOrders, setUpdateOrders] = useState<IOrder[] | []>([])
+  const { changeOrderStatusArchived, isPendingStatusArchived } = useChangeOrderStatusArchived()
+  const { changeOrderStatusCancelled, isPendingStatusCancelled } = useChangeOrderStatusCancelled()
 
   useEffect(() => {
     if(orders) {
@@ -29,57 +32,56 @@ const OrderModerator = () => {
   }, [updateOrders, orders])
 
   const { isPendingStatus, updateOrderStatus } = useUpdateOrderStatus()
-  const { deleteOrder, isLoadingDelete } = useDeleteOrder()
 
   return (
     <div className={'flex flex-col gap-5'}>
-      {updateOrders.length ? updateOrders.map((order, index) => (
+      {updateOrders.filter(order => !order.archived).length ? updateOrders.filter(order => !order.archived).map((order, index) => (
         <div key={order.id}>
           <hr className={'my-2 h-1.5 bg-black/20 rounded-full'}/>
           <div className={'flex justify-between items-center mb-3'}>
             <div>
               Сумма за заказ: <span className={'font-bold'}>{order.total} K</span>
             </div>
-            <div className={'flex items-center gap-3'}>
-              <div className={'font-bold'}>
+            <div className={'flex items-center gap-3 font-bold text-lg'}>
+              <div>
                 Статус:
               </div>
-              <Select
-                defaultValue={order.status}
-                disabled={isPendingStatus}
-                onValueChange={(value: EnumOrderStatus) => {
-                  updateOrderStatus({ id: order.id, status: value })
-                }}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Размер"/>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Статус</SelectLabel>
-                    <SelectItem value={"PENDING"}>Ожидание</SelectItem>
-                    <SelectItem value={"FRAMED"}>Оформление</SelectItem>
-                    <SelectItem value={"SUCCESSFUL"}>Успешный</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              {order.cancelled ? <span>Отменён</span> : (
+                <Select
+                  defaultValue={order.status}
+                  disabled={isPendingStatus}
+                  onValueChange={(value: EnumOrderStatus) => {
+                    updateOrderStatus({ id: order.id, status: value })
+                  }}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Размер"/>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Статус</SelectLabel>
+                      <SelectItem value={"PENDING"}>Ожидание</SelectItem>
+                      <SelectItem value={"FRAMED"}>Оформление</SelectItem>
+                      <SelectItem value={"SUCCESSFUL"}>Успешный</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
             </div>
           </div>
           <div className={'mb-3 flex gap-5 items-center justify-between'}>
             <div className={'flex gap-5 items-center'}>
               <p>ФИО пользователя: <span className={'font-bold'}>{order.user.name}</span></p>
             </div>
-            <div>
-              <ConfirmModal
-                handleClick={() => {
-                  deleteOrder({id: order.id})
-                  updateOrders.splice(index, 1)
-                  setUpdateOrders(updateOrders)
-                }}
-                title={'Удалить заказ'}
-                confirmBtnText={'Удалить'}
-                disabled={isLoadingDelete}
-              />
+            <div className={'flex gap-3'}>
+              <Button
+                disabled={isPendingStatusCancelled}
+                onClick={() => changeOrderStatusCancelled(order.id)}
+              >Отменить заказ</Button>
+              <Button
+                disabled={isPendingStatusArchived}
+                onClick={() => changeOrderStatusArchived(order.id)}
+              >Добавить в архив</Button>
             </div>
           </div>
           <div className={'grid grid-cols-3 gap-10 px-1 py-5 border-solid border-2 border-black/30 rounded-lg'}>

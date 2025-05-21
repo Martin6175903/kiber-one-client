@@ -7,7 +7,5 @@ export function useProfile() {
 		queryFn: () => userService.getProfile()
 	})
 
-	// if (!auth) throw new Error('Профайл не получен!')
-
 	return {user, isLoading}
 }

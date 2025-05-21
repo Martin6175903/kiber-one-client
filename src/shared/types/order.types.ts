@@ -12,6 +12,8 @@ export interface IOrder {
 	createdAt: string
 	orderItems: ICardItem[]
 	status: EnumOrderStatus
+	cancelled: boolean
+	archived: boolean
 	user: IUser
 	total: number
 }

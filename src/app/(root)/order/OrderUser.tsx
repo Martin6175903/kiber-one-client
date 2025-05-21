@@ -10,6 +10,7 @@ import { useContext } from 'react'
 import { useUserContext } from '@/src/providers/user.context'
 import toast from 'react-hot-toast'
 import { useCreateTransaction } from '@/src/hooks/queries/transaction/useCreateTransaction'
+import { TypeUserRole } from '@/src/shared/types/user.types'
 
 const OrderUser = () => {
   const router = useRouter()
@@ -62,6 +63,11 @@ const OrderUser = () => {
           <ConfirmModal handleClick={() => {
             if (!user) {
               toast.error('Данного пользователя не существует!')
+              return false
+            }
+
+            if (user.role === "MODERATOR") {
+              toast.error('Администраторам заказывать запрещено!')
               return false
             }
 

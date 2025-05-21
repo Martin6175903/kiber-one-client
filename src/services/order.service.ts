@@ -39,6 +39,20 @@ class OrderService {
 		return updatedOrderStatus
 	}
 
+	async changeStatusCancelled(id: string) {
+		return await  axiosWithAuth({
+			url: API_URL.orders(`/status/cancelled/${id}`),
+			method: 'PATCH'
+		})
+	}
+
+	async changeStatusArchived(id: string) {
+		return await  axiosWithAuth({
+			url: API_URL.orders(`/status/archived/${id}`),
+			method: 'PATCH'
+		})
+	}
+
 	async deleteOrder(id: string) {
 		return axiosWithAuth<IOrder>({
 			url: API_URL.orders(`/${id}`),

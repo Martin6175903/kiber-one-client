@@ -1,6 +1,6 @@
 'use client'
 import Logo from '@/src/components/layouts/main-layout/header/logo/Logo'
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingCart, User, Wallet } from 'lucide-react'
 import Link from 'next/link'
 import HeaderCart from '@/src/components/layouts/main-layout/header/header-cart/HeaderCart'
 import { useProfile } from '@/src/hooks/useProfile'
@@ -12,7 +12,7 @@ import { useUserContext } from '@/src/providers/user.context'
 
 const Header = () => {
 
-	const { user } = useUserContext()
+	const { user, isLoadingUser } = useUserContext()
 	const {items} = useCard()
 
 	return (
@@ -38,6 +38,17 @@ const Header = () => {
 								</span>
 							</HeaderCart>
 						</Link>
+					</div>
+				</div>
+				<div className={'text-white mt-5 flex max-sm:flex-wrap gap-5 justify-center sm:justify-between items-center'}>
+					<div className={'flex items-center gap-1'}>
+						<User/>
+						<span>{isLoadingUser ? "Загрузка пользователя..." : user?.name}</span>
+					</div>
+					<div className={'flex items-center gap-1'}>
+						<Wallet />
+						<span className={'font-bold'}>Текущий баланс:</span>
+						<span className={'font-bold text-darkyellow'}>{isLoadingUser ? "Загрузка пользователя..." : user?.role === 'MODERATOR' ? 0 : user?.quantityMoney}</span>
 					</div>
 				</div>
 			</div>
