@@ -43,10 +43,10 @@ const OrderModerator = () => {
               Сумма за заказ: <span className={'font-bold'}>{order.total} K</span>
             </div>
             <div className={'flex items-center gap-3 font-bold text-lg'}>
-              <div>
+              <div className={`${order.cancelled ? 'text-red-500' : ''}`}>
                 Статус:
               </div>
-              {order.cancelled ? <span>Отменён</span> : (
+              {order.cancelled ? <span className={`text-red-500`}>Отменён</span> : (
                 <Select
                   defaultValue={order.status}
                   disabled={isPendingStatus}
@@ -74,10 +74,14 @@ const OrderModerator = () => {
               <p>ФИО пользователя: <span className={'font-bold'}>{order.user.name}</span></p>
             </div>
             <div className={'flex gap-3'}>
-              <Button
-                disabled={isPendingStatusCancelled}
-                onClick={() => changeOrderStatusCancelled(order.id)}
-              >Отменить заказ</Button>
+              {!order.cancelled && (
+                <Button
+                  disabled={isPendingStatusCancelled}
+                  onClick={() => changeOrderStatusCancelled(order.id)}
+                >
+                  Отменить заказ
+                </Button>
+              )}
               <Button
                 disabled={isPendingStatusArchived}
                 onClick={() => changeOrderStatusArchived(order.id)}
