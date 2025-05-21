@@ -13,9 +13,19 @@ import {
 import { Form } from '@/src/components/ui/form-elements/Form'
 import { Button } from '@/src/components/ui/Button'
 import AuthFields from '@/src/app/auth/AuthFields'
+import { useUserContext } from '@/src/providers/user.context'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { PUBLIC_URL } from '@/src/config/url.config'
 
 const Auth = () => {
 	const {onSubmit, form, isPending} = useAuthForm()
+	const { user, isLoadingUser } = useUserContext()
+	const router = useRouter()
+
+	useEffect(() => {
+		if (!isLoadingUser && user) router.push(PUBLIC_URL.home())
+	}, [isLoadingUser])
 
 	return (
 		<div className={'min-h-screen grid grid-cols-1 lg:grid-cols-2'}>

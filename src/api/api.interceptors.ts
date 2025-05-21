@@ -14,17 +14,19 @@ const axiosWithAuth = axios.create(options)
 
 axiosWithAuth.interceptors.request.use(config => {
   return config
-}, (error: AxiosError) => {
-  console.log(error)
 })
 
-axiosWithAuth.interceptors.response.use(config =>
-  config,
-  (async (error: AxiosError) => {
-    // if (error.request.cookies.get('SessionId')?.value) error.request.cookies.delete('SessionId')
-    // new URL(PUBLIC_URL.auth(), error.request.url)
-    console.log(error)
-  })
+axiosWithAuth.interceptors.response.use(
+  config => config,
+  async error => {
+    const originalRequest = error.config
+
+    if ((error?.response?.status === 401 || error?.response?.status === 403) && error.config && !error.config._isRetry) {
+      originalRequest._isRetry = true
+    }
+
+    throw error
+  }
 )
 
 export { axiosClassic, axiosWithAuth }

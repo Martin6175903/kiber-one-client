@@ -11,6 +11,10 @@ const MainLayout = ({children} :PropsWithChildren ) => {
 	const {user, isLoadingUser} = useUserContext()
 
 	useEffect(() => {
+		if (!isLoadingUser && !user) router.push(PUBLIC_URL.auth())
+	}, [isLoadingUser])
+
+	useEffect(() => {
 		if (!isLoadingUser && user?.role === 'USER') router.replace(PUBLIC_URL.home())
 	}, [isLoadingUser])
 	return (
