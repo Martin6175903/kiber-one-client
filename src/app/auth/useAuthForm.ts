@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { IAuthForm, IAuthResponse } from '@/src/shared/types/auth.types'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { authService } from '@/src/services/auth/auth.service'
 import toast from 'react-hot-toast'
 import { PUBLIC_URL } from '@/src/config/url.config'
@@ -9,6 +9,7 @@ import { IUser } from '@/src/shared/types/user.types'
 
 export const useAuthForm = () => {
 	const router = useRouter()
+	const queryClient = useQueryClient()
 
 	const form = useForm<IAuthForm>({
 		mode: 'onChange'
@@ -19,6 +20,9 @@ export const useAuthForm = () => {
 		mutationFn: (data: IAuthForm) => authService.main(data),
 		onSuccess({ data }) {
 			form.reset()
+			queryClient.invalidateQueries({
+				queryKey: ['get current user']
+			})
 			toast.success('Успешная авторизация')
 			data.role === 'USER' ? router.replace(PUBLIC_URL.home('/')) : router.replace(PUBLIC_URL.admin('/'))
 		},

@@ -18,7 +18,11 @@ import { Button } from '@/src/components/ui/Button'
 import { useChangeOrderStatusArchived } from '@/src/hooks/queries/order/useChangeOrderStatusArchived'
 import { useChangeOrderStatusCancelled } from '@/src/hooks/queries/order/useChangeOrderStatusCancelled'
 
-const OrderModerator = () => {
+interface OrderModeratorProps {
+  selectGroup: string
+}
+
+const OrderModerator = ({ selectGroup }: OrderModeratorProps) => {
   const { orders } = useGetOrders()
 
   const [updateOrders, setUpdateOrders] = useState<IOrder[] | []>([])
@@ -35,7 +39,10 @@ const OrderModerator = () => {
 
   return (
     <div className={'flex flex-col gap-5'}>
-      {updateOrders.filter(order => !order.archived).length ? updateOrders.filter(order => !order.archived).map((order, index) => (
+      {updateOrders.filter(order => !order.archived).length ? updateOrders.filter(order => {
+        if (selectGroup === 'all') return !order.archived
+        return order.user.groupId === selectGroup && !order.archived
+      }).map((order, index) => (
         <div key={order.id}>
           <hr className={'my-2 h-1.5 bg-black/20 rounded-full'}/>
           <div className={'flex justify-between items-center mb-3'}>
@@ -85,7 +92,9 @@ const OrderModerator = () => {
               <Button
                 disabled={isPendingStatusArchived}
                 onClick={() => changeOrderStatusArchived(order.id)}
-              >Добавить в архив</Button>
+              >
+                Добавить в архив
+              </Button>
             </div>
           </div>
           <div className={'grid grid-cols-3 gap-10 px-1 py-5 border-solid border-2 border-black/30 rounded-lg'}>
