@@ -1,6 +1,6 @@
 'use client'
 import Logo from '@/src/components/layouts/main-layout/header/logo/Logo'
-import { ShoppingCart, User, Wallet } from 'lucide-react'
+import { LogOut, ShoppingCart, User, Wallet } from 'lucide-react'
 import Link from 'next/link'
 import HeaderCart from '@/src/components/layouts/main-layout/header/header-cart/HeaderCart'
 import { useProfile } from '@/src/hooks/useProfile'
@@ -9,11 +9,13 @@ import { PUBLIC_URL } from '@/src/config/url.config'
 import { useGetOrders } from '@/src/hooks/queries/order/useGetOrders'
 import { Button } from '@/src/components/ui/Button'
 import { useUserContext } from '@/src/providers/user.context'
+import { useLogout } from '@/src/hooks/queries/auth/useLogout'
 
 const Header = () => {
 
 	const { user, isLoadingUser } = useUserContext()
 	const {items} = useCard()
+	const {logout} = useLogout()
 
 	return (
 		<header className={'pt-6 pb-9 bg-linear-[-85deg,#202020_0%,#0C0C0C_40%,#1B1818_50%,#080808_60%,#202020_100%]'}>
@@ -51,6 +53,14 @@ const Header = () => {
 							<span className={'font-bold'}>Текущий баланс:</span>
 							<span className={'font-bold text-darkyellow'}>{isLoadingUser ? "Загрузка пользователя..." : user?.quantityMoney}</span>
 						</div>
+					</div>
+				)}
+				{user && user.role === 'USER' && (
+					<div className={'flex justify-end mt-3'}>
+						<Button variant={'secondary'} onClick={() => logout()}>
+							<LogOut className={'size-4 mr-2'}/>
+							Выйти
+						</Button>
 					</div>
 				)}
 			</div>

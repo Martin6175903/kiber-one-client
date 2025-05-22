@@ -14,7 +14,7 @@ const AdminLayout = ({children}: PropsWithChildren) => {
   useEffect(() => {
     if (!isLoadingUser && user?.role === 'USER') router.replace(PUBLIC_URL.home())
     if (!isLoadingUser && !user) router.push(PUBLIC_URL.auth())
-  }, [isLoadingUser])
+  }, [isLoadingUser, user])
 
   return (
     <div>

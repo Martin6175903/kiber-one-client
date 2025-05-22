@@ -12,7 +12,7 @@ const MainLayout = ({children} :PropsWithChildren ) => {
 
 	useEffect(() => {
 		if (!isLoadingUser && !user) router.push(PUBLIC_URL.auth())
-	}, [isLoadingUser])
+	}, [isLoadingUser, user])
 
 	useEffect(() => {
 		if (!isLoadingUser && user?.role === 'USER') router.replace(PUBLIC_URL.home())

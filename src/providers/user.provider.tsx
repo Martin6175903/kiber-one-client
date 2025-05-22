@@ -6,6 +6,8 @@ import { UserContext } from './user.context'
 const UserProvider = ({ children }: PropsWithChildren) => {
 	const { currentUser, isPendingUser } = useGetCurrentUser()
 
+
+
 	return (
 		<UserContext.Provider
 			value={{

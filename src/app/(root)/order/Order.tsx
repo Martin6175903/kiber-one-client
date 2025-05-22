@@ -15,10 +15,6 @@ const Order = () => {
           <h1 className={'text-2xl font-bold'}>
             Ваши заказы
           </h1>
-          <Button variant={'ghost'} onClick={() => logout()}>
-            <LogOut className={'size-4 mr-2'}/>
-            Выйти
-          </Button>
         </div>
         <OrderUser/>
       </div>
