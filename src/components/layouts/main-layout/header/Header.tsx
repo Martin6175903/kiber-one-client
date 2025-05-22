@@ -40,17 +40,19 @@ const Header = () => {
 						</Link>
 					</div>
 				</div>
-				<div className={'text-white mt-5 flex max-sm:flex-wrap gap-5 justify-center sm:justify-between items-center'}>
-					<div className={'flex items-center gap-1'}>
-						<User/>
-						<span>{isLoadingUser ? "Загрузка пользователя..." : user?.name}</span>
+				{user && user.role === 'USER' && (
+					<div className={'text-white mt-5 flex max-sm:flex-wrap gap-5 justify-center sm:justify-between items-center'}>
+						<div className={'flex items-center gap-1'}>
+							<User/>
+							<span>{isLoadingUser ? "Загрузка пользователя..." : user?.name}</span>
+						</div>
+						<div className={'flex items-center gap-1'}>
+							<Wallet />
+							<span className={'font-bold'}>Текущий баланс:</span>
+							<span className={'font-bold text-darkyellow'}>{isLoadingUser ? "Загрузка пользователя..." : user?.quantityMoney}</span>
+						</div>
 					</div>
-					<div className={'flex items-center gap-1'}>
-						<Wallet />
-						<span className={'font-bold'}>Текущий баланс:</span>
-						<span className={'font-bold text-darkyellow'}>{isLoadingUser ? "Загрузка пользователя..." : user?.role === 'MODERATOR' ? 0 : user?.quantityMoney}</span>
-					</div>
-				</div>
+				)}
 			</div>
 		</header>
 	)
