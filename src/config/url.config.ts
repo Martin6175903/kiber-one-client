@@ -8,6 +8,6 @@ export const PUBLIC_URL = {
 	thanks: () => PUBLIC_URL.root('/thanks'),
 	order: () => PUBLIC_URL.root('/order'),
 
-	'user-panel': () => PUBLIC_URL.root('/user-panel'),
+	'user-panel': (url = '') => PUBLIC_URL.root(`/user-panel/${url}`),
 	admin: (url = '') => PUBLIC_URL.root(`/admin${url ? url : ''}`)
 }

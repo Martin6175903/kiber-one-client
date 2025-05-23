@@ -18,7 +18,7 @@ const UserPanel = () => {
 				<div className={'flex flex-col gap-7'}>
 					<div className={'flex justify-between items-center'}>
 						<h1 className={'text-4xl font-bold'}>Личный кабинет</h1>
-						<Link className={'duration-300 hover:scale-105'} href={PUBLIC_URL.home()}>
+						<Link className={'duration-300 hover:scale-105'} href={PUBLIC_URL['user-panel']('/history-transaction')}>
 							<Button>История операций</Button>
 						</Link>
 					</div>
