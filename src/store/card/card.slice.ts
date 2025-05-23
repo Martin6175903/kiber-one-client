@@ -12,7 +12,6 @@ export const cardSlice = createSlice({
     addToCard: (state, action: PayloadAction<IAddToPayload>) => {
       // @ts-ignore
       const isExist = state.items.some(item => item.product?.id === action.payload.product?.id)
-      console.log(action.payload)
       if (!isExist) {
         state.items.push({...action.payload, id: state.items.length})
       }

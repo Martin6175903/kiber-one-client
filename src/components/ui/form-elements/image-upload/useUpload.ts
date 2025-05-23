@@ -13,7 +13,6 @@ export const useUpload = (onChange: (value: string[]) => void) => {
 			onChange(data.map(file => file.url))
 		},
 		onError(err) {
-			console.log(err)
 			toast.error('Ошибка при загрузке файлов')
 		}
 	})

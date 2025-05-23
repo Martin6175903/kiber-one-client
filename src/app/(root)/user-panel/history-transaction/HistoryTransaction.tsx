@@ -17,7 +17,6 @@ import UserHistoryColumns from '@/src/app/(root)/user-panel/history-transaction/
 
 const HistoryTransaction = () => {
 	const { user } = useUserContext()
-	console.log(user)
 
 	const {transactionsUser} = useGetTransactionsUser(user ? user.id : '')
 	const {group} = useGetGroup(user ? user.id : '')

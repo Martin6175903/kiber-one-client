@@ -7,7 +7,6 @@ import Image from 'next/image'
 
 const AggregateProducts = () => {
 	const {productsAggregation, isLoadingProductsAggregation} = useGetProductsAggregation()
-	console.log(productsAggregation)
 
 	return (
 		<div className={'h-full text-black bg-white my-6'}>
