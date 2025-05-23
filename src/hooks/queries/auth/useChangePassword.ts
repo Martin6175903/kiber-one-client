@@ -1,11 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useUserContext } from '@/src/providers/user.context'
 import { authService } from '@/src/services/auth.service'
 import toast from 'react-hot-toast'
 import { useMemo } from 'react'
 
 export const useChangePassword = () => {
-	const queryClient = useQueryClient()
 	const {user} = useUserContext()
 
 	const { mutate: changePassword, isPending: isPendingChangePassword } = useMutation({
