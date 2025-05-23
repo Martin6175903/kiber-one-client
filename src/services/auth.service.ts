@@ -1,5 +1,5 @@
 import { IAuthForm } from '@/src/shared/types/auth.types'
-import { axiosClassic } from '@/src/api/api.interceptors'
+import { axiosClassic, axiosWithAuth } from '@/src/api/api.interceptors'
 import { API_URL } from '@/src/config/api.config'
 import { IUser } from '@/src/shared/types/user.types'
 
@@ -28,6 +28,14 @@ class AuthService {
 			method: 'GET'
 		})
 		return response
+	}
+
+	async changePassword(password: string, id: string) {
+		return await axiosWithAuth<string>({
+			url: API_URL.auth(`/change-password/${id}`),
+			method: 'PATCH',
+			data: { password }
+		})
 	}
 
 	async logout() {

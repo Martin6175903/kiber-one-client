@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { authService } from '@/src/services/auth/auth.service'
+import { authService } from '@/src/services/auth.service'
 import { useMemo } from 'react'
 
 export const useGetCurrentUser = () => {

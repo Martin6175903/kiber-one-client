@@ -1,7 +1,7 @@
 import axios, { AxiosError, CreateAxiosDefaults } from 'axios'
 import { SERVER_URL } from '@/src/config/api.config'
 import { getContentType } from '@/src/api/api.helper'
-import { authService } from '@/src/services/auth/auth.service'
+import { authService } from '@/src/services/auth.service'
 
 const options: CreateAxiosDefaults = {
   baseURL: SERVER_URL,

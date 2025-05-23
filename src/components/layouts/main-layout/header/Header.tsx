@@ -24,9 +24,13 @@ const Header = () => {
 					<Logo/>
 					<div className={'absolute top-1/2 left-1/2 md:-translate-[50%] max-md:static flex flex-col gap-2 items-center'}>
 						<h1 className={'uppercase text-4xl font-bold text-white'}>Kibershop</h1>
-						{user && user.role === 'MODERATOR' && <Link href={PUBLIC_URL.admin()}>
-							<Button className={'text-lg py-5 px-7 flex duration-300 hover:scale-110'} variant={'secondary'}>Админка</Button>
-						</Link>}
+						{user && (
+							<Link href={user.role === 'MODERATOR' ? PUBLIC_URL.admin() : PUBLIC_URL['user-panel']()}>
+								<Button className={'text-lg py-5 px-7 flex duration-300 hover:scale-110'} variant={'secondary'}>
+									{user.role === 'MODERATOR' ? 'Админка' : 'Личный кабинет'}
+								</Button>
+							</Link>
+						)}
 					</div>
 					<div className={'text-white flex items-center gap-5 justify-end'}>
 						<Link href={PUBLIC_URL.home('#products')} className={'text-lg text-black py-3.5 px-6 bg-white rounded-full uppercase font-medium border-2 border-solid border-transparent hover:bg-transparent hover:text-white hover:border-white hover:scale-105 duration-300'}>
