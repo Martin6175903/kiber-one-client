@@ -17,7 +17,7 @@ const MainLayout = ({children} :PropsWithChildren ) => {
 
 	useEffect(() => {
 		if (!isLoadingUser && user?.role === 'USER' && pathname.includes(PUBLIC_URL.auth())) router.replace(PUBLIC_URL.home())
-	}, [isLoadingUser])
+	}, [isLoadingUser, user])
 
 	return (
 		<div className="wrapper flex flex-col justify-between min-h-full">
