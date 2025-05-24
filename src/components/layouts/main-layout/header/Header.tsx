@@ -10,6 +10,7 @@ import { useGetOrders } from '@/src/hooks/queries/order/useGetOrders'
 import { Button } from '@/src/components/ui/Button'
 import { useUserContext } from '@/src/providers/user.context'
 import { useLogout } from '@/src/hooks/queries/auth/useLogout'
+import Image from 'next/image'
 
 const Header = () => {
 
@@ -49,7 +50,7 @@ const Header = () => {
 				{user && user.role === 'USER' && (
 					<div className={'text-white mt-5 flex max-sm:flex-wrap gap-5 justify-center sm:justify-between items-center'}>
 						<div className={'flex items-center gap-1'}>
-							<User/>
+							{user.image ? <Image className={'rounded-full'} src={user.image} alt={'User Avatar'} width={25} height={25}/> : <User/> }
 							<span>{isLoadingUser ? "Загрузка пользователя..." : user?.name}</span>
 						</div>
 						<div className={'flex items-center gap-1'}>

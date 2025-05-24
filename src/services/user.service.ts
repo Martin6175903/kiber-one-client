@@ -43,6 +43,14 @@ class UserService {
 		})
 	}
 
+	async updateImage(id: string, image: string) {
+		return axiosWithAuth({
+			url: API_URL.users(`/update-image/${id}`),
+			method: 'PATCH',
+			data: { image }
+		})
+	}
+
 	async deleteUser(id: string) {
 		return axiosClassic<IUserInput>({
 			url: API_URL.users(`/${id}`),

@@ -7,10 +7,11 @@ export interface IUser {
 	id: string
 	name: string
 	role: TypeUserRole
-	phoneNumber: string
+	numberCard: string
 	password: string
 	quantityMoney?: number
-	numberCard?: string
+	phoneNumber?: string
+	image?: string
 	orders: IOrder[]
 	groupId?: string
 	group?: IGroup

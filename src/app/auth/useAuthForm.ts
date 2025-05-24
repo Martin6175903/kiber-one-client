@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { authService } from '@/src/services/auth.service'
 import toast from 'react-hot-toast'
 import { PUBLIC_URL } from '@/src/config/url.config'
-import { IUser } from '@/src/shared/types/user.types'
 
 export const useAuthForm = () => {
 	const router = useRouter()
@@ -23,8 +22,8 @@ export const useAuthForm = () => {
 			queryClient.invalidateQueries({
 				queryKey: ['get current user']
 			})
+			data.role === 'USER' ? router.replace(PUBLIC_URL['user-panel']('/')) : router.replace(PUBLIC_URL.admin('/'))
 			toast.success('Успешная авторизация')
-			data.role === 'USER' ? router.push(PUBLIC_URL['user-panel']('/')) : router.replace(PUBLIC_URL.admin('/'))
 		},
 		onError(error: any) {
 			if (error.message) toast.error(error.message)

@@ -1,7 +1,6 @@
 import axios, { AxiosError, CreateAxiosDefaults } from 'axios'
 import { SERVER_URL } from '@/src/config/api.config'
 import { getContentType } from '@/src/api/api.helper'
-import { authService } from '@/src/services/auth.service'
 
 const options: CreateAxiosDefaults = {
   baseURL: SERVER_URL,
@@ -23,6 +22,7 @@ axiosWithAuth.interceptors.response.use(
 
     if ((error?.response?.status === 401 || error?.response?.status === 403) && error.config && !error.config._isRetry) {
       originalRequest._isRetry = true
+      console.log(originalRequest)
     }
 
     throw error

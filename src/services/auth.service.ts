@@ -5,13 +5,11 @@ import { IUser } from '@/src/shared/types/user.types'
 
 class AuthService {
 	async main(data: IAuthForm) {
-		const response = await axiosClassic<IUser>({
+		return await axiosClassic<IUser>({
 			url: API_URL.auth(`/login`),
 			method: 'POST',
 			data
 		})
-
-		return response
 	}
 
 	async getCurrentUser() {
@@ -23,11 +21,10 @@ class AuthService {
 	}
 
 	async validateSession() {
-		const response = await axiosClassic<IAuthForm>({
+		return await axiosClassic<IAuthForm>({
 			url: API_URL.auth('/validate-user'),
 			method: 'GET'
 		})
-		return response
 	}
 
 	async changePassword(password: string, id: string) {
@@ -39,12 +36,10 @@ class AuthService {
 	}
 
 	async logout() {
-		const response = await axiosClassic<boolean>({
+		return await axiosClassic<boolean>({
 			url: API_URL.auth(`/logout`),
 			method: 'POST'
 		})
-
-		return response
 	}
 }
 
