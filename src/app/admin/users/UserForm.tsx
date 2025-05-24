@@ -27,6 +27,7 @@ import {
 } from '@/src/components/ui/Select'
 import { useGetGroups } from '@/src/hooks/queries/group/useGetGroups'
 import { useState } from 'react'
+import { useGenerateRandomNumberCard } from '@/src/hooks/queries/user/useGenerateRandomNumberCard'
 
 interface UserFormProps {
 	user: IUser | null
@@ -37,6 +38,8 @@ const UserForm = ({ user }: UserFormProps) => {
 	const [isHiddenPassword, setIsHiddenPassword] = useState(true)
 	const { createUser, isPendingUser } = useCreateUser()
 	const { updateUser, isUpdateUser } = useUpdateUser(user?.id!)
+	const { randomNumberCard, isLoadingRandomNumberCard, refetch } = useGenerateRandomNumberCard()
+	const [numberCard, setNumberCard] = useState('')
 
 	const { groups } = useGetGroups()
 
@@ -75,12 +78,11 @@ const UserForm = ({ user }: UserFormProps) => {
 
 		data.role = data.role === 'MODERATOR' ? 'MODERATOR' : 'USER'
 		data.quantityMoney = Number(data.quantityMoney)
-		console.log(data)
+
 		if (user) updateUser(data)
 		else createUser(data)
 	}
 
-	// @ts-ignore
 	return (
 		<div className={'container'}>
 			<div className={'py-5'}>
@@ -92,12 +94,17 @@ const UserForm = ({ user }: UserFormProps) => {
 					<form onSubmit={form.handleSubmit(onSubmit)} className={'flex flex-col gap-5 w-1/2'}>
 						<FormField
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className={'relative'}>
 									<FormLabel>Номер карточки ученика:</FormLabel>
 									<FormControl>
 										<Input placeholder={'Номер карточки...'} type={'number'}
 													 disabled={isUpdateUser || isPendingUser} {...field} />
 									</FormControl>
+									<Button onClick={async () => {
+										await refetch()
+										setNumberCard(randomNumberCard)
+										form.setValue('numberCard', numberCard)
+									}} disabled={isLoadingRandomNumberCard} variant={'outline'} type={'button'} className={'absolute right-0 top-5.5'}>Сгенерировать номер</Button>
 									<FormMessage />
 								</FormItem>
 							)}

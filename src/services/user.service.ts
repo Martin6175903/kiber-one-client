@@ -51,6 +51,14 @@ class UserService {
 		})
 	}
 
+	async generateRandomNumberCard() {
+		const { data } = await axiosWithAuth({
+			url: API_URL.users('/generate/number-card'),
+			method: 'GET'
+		})
+		return data
+	}
+
 	async deleteUser(id: string) {
 		return axiosClassic<IUserInput>({
 			url: API_URL.users(`/${id}`),
