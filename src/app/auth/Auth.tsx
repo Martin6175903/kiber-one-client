@@ -25,7 +25,7 @@ const Auth = () => {
 
 	useEffect(() => {
 		if (!isLoadingUser && user) {
-			user.role === 'USER' ? router.push(PUBLIC_URL.home()) : router.push(PUBLIC_URL.admin())
+			user.role === 'USER' ? router.push(PUBLIC_URL['user-panel']()) : router.push(PUBLIC_URL.admin())
 		}
 	}, [isLoadingUser, user])
 
