@@ -24,7 +24,7 @@ const Header = () => {
 				<div className={'relative flex justify-between items-center max-md:flex-col max-md:gap-8'}>
 					<Logo/>
 					<div className={'absolute top-1/2 left-1/2 md:-translate-[50%] max-md:static flex flex-col gap-2 items-center'}>
-						<h1 className={'uppercase text-4xl font-bold text-white'}>Kibershop</h1>
+						<h1 className={'uppercase text-5xl font-bold text-white font-roboto-mono'}>Kibershop</h1>
 						{user && (
 							<Link href={user.role === 'MODERATOR' ? PUBLIC_URL.admin() : PUBLIC_URL['user-panel']()}>
 								<Button className={'text-lg py-5 px-7 flex duration-300 hover:scale-110'} variant={'secondary'}>
@@ -40,7 +40,7 @@ const Header = () => {
 						<Link href={'#'} className={'relative hover:scale-110 duration-300'}>
 							<HeaderCart>
 								<ShoppingCart size={40}/>
-								<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-darkblue rounded-full font-bold'}>
+								<span className={'absolute -bottom-1 -right-2 text-xs px-1.5 py-0.5 bg-white text-kiber-blue rounded-full font-bold'}>
 									{items.length}
 								</span>
 							</HeaderCart>
@@ -50,18 +50,18 @@ const Header = () => {
 				{user && user.role === 'USER' && (
 					<div className={'text-white mt-5 flex max-sm:flex-wrap gap-5 justify-center sm:justify-between items-center'}>
 						<div className={'flex items-center gap-1'}>
-							{user.image ? <Image className={'rounded-full'} src={user.image} alt={'User Avatar'} width={25} height={25}/> : <User/> }
+							{user.image ? <Image className={'rounded-full'} src={user.image} alt={'User Avatar'} width={35} height={35}/> : <User/> }
 							<span>{isLoadingUser ? "Загрузка пользователя..." : user?.name}</span>
 						</div>
 						<div className={'flex items-center gap-1'}>
 							<Wallet />
 							<span className={'font-bold'}>Текущий баланс:</span>
-							<span className={'font-bold text-darkyellow'}>{isLoadingUser ? "Загрузка пользователя..." : user?.quantityMoney}</span>
+							<span className={'font-bold text-kiber-yellow'}>{isLoadingUser ? "Загрузка пользователя..." : user?.quantityMoney}</span>
 						</div>
 					</div>
 				)}
 				{user && user.role === 'USER' && (
-					<div className={'flex justify-end mt-3'}>
+					<div className={'flex justify-center sm:justify-end mt-3'}>
 						<Button variant={'secondary'} onClick={() => logout()}>
 							<LogOut className={'size-4 mr-2'}/>
 							Выйти

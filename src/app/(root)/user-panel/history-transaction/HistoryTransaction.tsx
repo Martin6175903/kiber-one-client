@@ -34,8 +34,8 @@ const HistoryTransaction = () => {
 		<div className={'container'}>
 			<div className={'mt-5'}>
 				<h2 className="title">История транзакций валюты</h2>
-				<p className={'mt-3 font-medium text-xl'}>Информация о вас:</p>
-				<p className={'text-xl mb-7'}>{user ? <span>{user.name}, {user.group!.title}, {dayLesson(user.group!.dayOfStudy)}, {user.group!.startTimeLearning} - {user.group!.endTimeLearning}</span> : <span>(Группа не указана)</span>}</p>
+				<p className={'mt-3 font-medium text-base md:text-xl'}>Информация о вас:</p>
+				<p className={' text-base md:text-xl mb-7'}>{user ? <span>{user.name}, {user.group!.title}, {dayLesson(user.group!.dayOfStudy)}, {user.group!.startTimeLearning} - {user.group!.endTimeLearning}</span> : <span>(Группа не указана)</span>}</p>
 				<AdminDataTable columns={UserHistoryColumns} data={formattedHistory} className={'grid grid-cols-[0.8fr_2fr_1fr_1fr_1fr]'} keySort={'dateOperation'} />
 			</div>
 		</div>

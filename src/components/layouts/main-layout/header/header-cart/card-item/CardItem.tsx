@@ -25,7 +25,7 @@ const CardItem = ({ item }: CardItemProps) => {
           <p className={'text-sm text-muted-foreground mt-1'}>{item.size}</p>
         </div>
         <CardActions item={item}/>
-        <button className={'mt-2 text-sm border-solid border-white border rounded-full py-2 px-3 duration-300 hover:text-darkyellow hover:border-darkyellow cursor-pointer'} onClick={() => removeFromCard({ id: item.id })}>
+        <button className={'mt-2 text-sm border-solid border-white border rounded-full py-2 px-3 duration-300 hover:text-kiber-yellow hover:border-darkyellow cursor-pointer'} onClick={() => removeFromCard({ id: item.id })}>
           Удалить из корзины
         </button>
       </div>

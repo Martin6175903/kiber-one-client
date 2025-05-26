@@ -41,7 +41,7 @@ const ProductsItem = ({product} :ProductsItemProps ) => {
       {/*    </Select>*/}
       {/*  )}*/}
       {/*</div>*/}
-      <Button className={'bg-darkyellow border border-solid border-transparent hover:bg-black duration-300 *:cursor-pointer cursor-pointer'}>
+      <Button className={'bg-kiber-yellow border border-solid border-transparent hover:bg-black duration-300 *:cursor-pointer cursor-pointer'}>
         <Link href={`product/${id}`} className={'flex gap-4 items-center'}>
           <span>Подбробнее</span>
           <ArrowRight className={'size-4'}/>

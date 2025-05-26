@@ -46,24 +46,24 @@ const UserPanelForm = () => {
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-7 items-center">
 				<FormField
 					control={form.control}
 					name="password"
 					render={({ field }) => (
-						<FormItem className={'flex relative'}>
+						<FormItem className={'flex relative max-sm:flex-wrap max-sm:justify-center'}>
 							<FormLabel className={'text-xl text-nowrap'}>Изменение пароля:</FormLabel>
 							<FormControl>
-								<Input placeholder="Пароль..." {...field} type={isHiddenPassword ? 'password' : 'text'} autoComplete={'new-password'}/>
+								<Input placeholder="Пароль..." {...field} type={isHiddenPassword ? 'password' : 'text'} autoComplete={'new-password'} className={'w-60'}/>
 							</FormControl>
-							<Button onClick={() => setIsHiddenPassword(!isHiddenPassword)} type={'button'} variant={'ghost'} className={'absolute right-0 hover:bg-transparent hover:scale-110 duration-300'}>
+							<Button onClick={() => setIsHiddenPassword(!isHiddenPassword)} type={'button'} variant={'ghost'} className={'absolute right-0 hover:bg-transparent hover:scale-110 duration-300 max-sm:top-9'}>
 								{isHiddenPassword ? <EyeOff className={'size-5'}/> : <Eye className={'size-5'}/>}
 							</Button>
 							<FormMessage className={'absolute top-10'}/>
 						</FormItem>
 					)}
 				/>
-				<Button disabled={isPendingChangePassword} className={'w-80'} type="submit">Изменить пароль</Button>
+				<Button disabled={isPendingChangePassword} className={'w-full min-[500px]:w-80'} type="submit">Изменить пароль</Button>
 			</form>
 		</Form>
 	)

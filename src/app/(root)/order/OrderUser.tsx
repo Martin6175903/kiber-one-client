@@ -28,7 +28,7 @@ const OrderUser = () => {
             <Link href={PUBLIC_URL.product(item.product.id)}>
               <img src={item.product.images[0]} alt={item.product.title} className={'size-50 rounded-md duration-300 hover:scale-105'}/>
             </Link>
-            <div className={'flex flex-col gap-4 items-center bg-darkyellow w-full text-white rounded-md py-2 px-1 text-[17px]'}>
+            <div className={'flex flex-col gap-4 items-center bg-kiber-yellow w-full text-white rounded-md py-2 px-1 text-[17px]'}>
               <h4>{item.product.title}</h4>
               <p>Выбранный размер: <span className={'font-bold'}>{item.size}</span></p>
               <div className={'flex gap-3 items-center'}>

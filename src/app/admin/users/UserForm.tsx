@@ -215,7 +215,7 @@ const UserForm = ({ user }: UserFormProps) => {
 											</ToggleGroupItem>
 											<ToggleGroupItem
 												value={'MODERATOR'}
-												className="data-[state=on]:bg-darkyellow/80 data-[state=on]:text-white cursor-pointer"
+												className="data-[state=on]:bg-kiber-yellow/80 data-[state=on]:text-white cursor-pointer"
 											>
 												<Shield className="mr-2 h-4 w-4" />
 												Преподаватель

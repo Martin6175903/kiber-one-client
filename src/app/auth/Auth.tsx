@@ -35,7 +35,7 @@ const Auth = () => {
 				<Image className={'w-[300]'} src={'/images/Logo.svg'} alt={'Kiber-one Auth'} width={182} height={88}/>
 			</div>
 			<div className={'h-full flex flex-col items-center justify-center px-2 sm:px-0'}>
-				<h1 className={'mb-5 text-5xl font-bold text-transparent bg-linear-to-r from-orange-300 via-30% via-yellow-400 to-orange-300 bg-clip-text'}>KIBER-SHOP</h1>
+				<h1 className={'mb-5 text-5xl font-bold text-transparent bg-linear-to-r from-orange-300 via-30% via-yellow-400 to-orange-300 bg-clip-text'}>KIBERone</h1>
 				<Card className={'border-none p-6 flex flex-col items-center justify-center w-full sm:w-[380px] shadow-[10px_10px_15px_rgba(0,0,0,0.3),-10px_10px_15px_rgba(0,0,0,0.4)]'}>
 					<CardHeader className={'text-center pb-5 w-full'}>
 						<CardTitle className={'pb-1 text-2xl sm:text-3xl font-bold'}>{'Войти в аккаунт'}</CardTitle>
@@ -43,7 +43,7 @@ const Auth = () => {
 					</CardHeader>
 					<CardContent className={'p-0 w-full'}>
 						<Form {...form}>
-							<form className={'space-y-5'} onSubmit={form.handleSubmit(onSubmit)}>
+							<form className={'flex flex-col gap-5'} onSubmit={form.handleSubmit(onSubmit)}>
 								{/* Auth Fields */}
 
 								<AuthFields form={form} isPending={isPending}/>

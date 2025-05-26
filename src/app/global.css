@@ -4,8 +4,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-darkblue: #287FAD;
-  --color-darkyellow: #F6C80E;
+  --color-kiber-red: rgb(146, 36, 31);
+  --color-kiber-yellow: rgb(247, 201, 14);
+  --color-kiber-blue: rgb(28, 85, 110);
+  --color-kiber-gray: rgb(156, 156, 156);
+  --color-kiber-turquoise: rgb(5, 185, 190);
+
+  --font-franklin-gothic-book: "Franklin Gothic Book" sans-serif;
+  --font-franklin-gothic-medium-cond: "Franklin Gothic Medium Cond" sans-serif;
 }
 
 @theme inline {
@@ -133,7 +139,7 @@
 }
 
 .title {
-  @apply text-4xl font-bold text-[#131313];
+  @apply max-sm:text-center text-3xl sm:text-4xl md:text-5xl font-bold font-franklin-gothic-medium-cond text-[#131313];
 }
 
 @layer base {
@@ -144,9 +150,7 @@
     @apply h-full scroll-smooth;
   }
   body {
-    @apply h-full bg-background text-foreground;
-
-    font-family: 'Roboto', sans-serif;
+    @apply h-full bg-background text-foreground font-franklin-gothic-book;
   }
 }
 

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Roboto, Roboto_Mono } from "next/font/google";
 import "./global.css";
 import { SITE_DESCRIPTION, SITE_NAME } from '@/src/constants/seo.constants'
 import React from 'react'
 import Providers from '@/src/app/providers'
+import localFont from 'next/font/local'
 
 export const metadata: Metadata = {
   title: {
@@ -13,10 +14,15 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION
 }
 
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-});
+const franklinGothicBook = localFont({
+  src: '../../public/fonts/franklinGothicBook.woff2',
+  variable: "--font-franklin-gothic-book"
+})
+
+const franklinGothicMediumCond = localFont({
+  src: '../../public/fonts/franklinGothicMediumCond.ttf',
+  variable: "--font-franklin-gothic-medium-cond"
+})
 
 export default function RootLayout({
   children,
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${roboto.variable} antialiased`}
+        className={`${franklinGothicBook.variable} ${franklinGothicMediumCond.variable} antialiased`}
       >
         <Providers>
           {children}
